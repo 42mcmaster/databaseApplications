@@ -8,9 +8,8 @@
 ---
 
 ## 📋 **PHASE 1: Python Foundations for Data Work** 
-*Weeks 1-2 | STATUS: ✅ COMPLETE*
 
-### Lesson 01: JupyterLab & Python Fundamentals ✅
+### Lesson 01: JupyterLab & Python Fundamentals 
 **State Alignment:** 5.1 (Programming Concepts), 5.2 (Computational Operations)
 
 **Completed Content:**
@@ -29,7 +28,7 @@
 
 ---
 
-### Lesson 02: Working with DataFrames ✅
+### Lesson 02: Working with DataFrames 
 **State Alignment:** 8.5 (Queries - conceptual foundation)
 
 **Completed Content:**

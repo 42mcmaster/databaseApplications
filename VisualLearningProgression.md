@@ -6,7 +6,7 @@
 │                 "From Python to Professional Databases"              │
 └─────────────────────────────────────────────────────────────────────┘
 
-PHASE 1: PYTHON FOUNDATIONS (Weeks 1-2) ✅ COMPLETE
+PHASE 1: PYTHON FOUNDATIONS (Weeks 1-2) 
 ═══════════════════════════════════════════════════════════════════════
 
     ┌──────────────┐         ┌──────────────┐
@@ -272,43 +272,3 @@ After this course, students are prepared for:
 
 ═══════════════════════════════════════════════════════════════════════
 ```
-
-## Key Pedagogical Principles
-
-### 1. **Scaffolded Learning**
-Each lesson builds on previous knowledge. Students never face completely new concepts without foundation.
-
-### 2. **Pandas → SQL Bridge**
-By learning data manipulation in pandas first, SQL becomes "just new syntax" rather than new concepts.
-
-### 3. **Hands-On First**
-Theory follows practice. Students DO before deep diving into why.
-
-### 4. **Real Datasets**
-Titanic, school systems, music libraries - data students care about.
-
-### 5. **Career Connected**
-Every lesson answers: "How is this used in the real world?"
-
-### 6. **Differentiated Always**
-Track A/B ensures all students challenged appropriately.
-
----
-
-## The Magic Moment (Week 4)
-
-When students realize:
-> "Wait... this SQL SELECT is just like the DataFrame filtering I already know? 
->  I'm not learning something new - I'm learning a new way to do something familiar!"
-
-**That's when the lightbulb clicks.** 💡
-
-That's when databases go from scary to accessible.
-
-That's when students become confident.
-
----
-
-## Ready to Build Lesson 03?
-
-Just say the word! 🚀
