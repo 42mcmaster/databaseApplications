@@ -2,14 +2,15 @@
 ## Comprehensive Curriculum Plan
 
 **Course:** 145085 - Database Applications Development  
-**Instructor:** Ryan McMaster  
+**Instructor:** Ryan  
 **Approach:** Pandas → SQL bridge using hands-on projects with real datasets
 
 ---
 
-## 📋 **PHASE 1: Python Foundations for Data Work** 
+## **PHASE 1: Python Foundations for Data Work** 
+*Weeks 1-2 
 
-### Lesson 01: JupyterLab & Python Fundamentals 
+### Lesson 01: JupyterLab & Python Fundamentals ✅
 **State Alignment:** 5.1 (Programming Concepts), 5.2 (Computational Operations)
 
 **Completed Content:**
@@ -28,7 +29,7 @@
 
 ---
 
-### Lesson 02: Working with DataFrames 
+### Lesson 02: Working with DataFrames ✅
 **State Alignment:** 8.5 (Queries - conceptual foundation)
 
 **Completed Content:**
@@ -48,7 +49,7 @@
 
 ---
 
-## 📊 **PHASE 2: Database Concepts & Theory**
+## **PHASE 2: Database Concepts & Theory**
 *Weeks 3-4*
 
 ### Lesson 03: Introduction to Databases & SQLite
@@ -65,9 +66,9 @@
 
 **Hands-On Activities:**
 1. Convert Titanic DataFrame to SQLite database
-2. Use DB Browser for SQLite to explore the database visually
-3. First SQL query: `SELECT * FROM passengers`
-4. Compare pandas vs. SQL for the same operation
+2. First SQL query: `SELECT * FROM passengers`
+3. Compare pandas vs. SQL for the same operation
+4. Explore database structure with Python queries
 
 **Key Concepts:**
 - Data vs. Information
@@ -76,8 +77,8 @@
 - SQLite: serverless, file-based, perfect for learning
 
 **Deliverable:** 
-- **Track A:** Create SQLite database from CSV, write 3 basic SELECT queries
-- **Track B:** Create database, write 5 queries including WHERE and ORDER BY
+- Completed walkthrough notebook with basic SELECT queries
+- Students stay in JupyterLab environment
 
 ---
 
@@ -143,6 +144,39 @@ SELECT * FROM table_name LIMIT n;
 **Deliverable:**
 - **Track A:** Define entities and attributes for a given scenario, create simple ER diagram
 - **Track B:** Design a multi-table database with relationships, implement in SQLite
+
+---
+
+### Lesson 5.5: DB Browser for SQLite (Mini-Lesson)
+**State Alignment:** 2.8.9 (Differentiate front-end and back-end)  
+**Duration:** 30-45 minutes
+
+**Learning Objectives:**
+- Install and navigate DB Browser for SQLite
+- Visually explore database structure and data
+- Use GUI tools alongside JupyterLab workflow
+- Write and test queries in Execute SQL tab
+- Understand when to use GUI vs. code-based tools
+
+**Hands-On Activities:**
+1. Install DB Browser for SQLite
+2. Open existing titanic.db database
+3. Explore Database Structure tab (see table schemas)
+4. Browse Data tab (view records like Excel)
+5. Write queries in Execute SQL tab
+6. Export query results to CSV
+
+**Key Concepts:**
+- GUI tools complement code-based workflows
+- Visualization aids understanding
+- Different tools for different tasks (exploration vs. automation)
+- DB Browser = "training wheels" for seeing what SQL does
+
+**Deliverable:**
+- **Track A:** Open database in DB Browser, screenshot 3 explorations (structure, browse, query)
+- **Track B:** Use DB Browser to verify database design from Lesson 05, document findings
+
+**Teaching Note:** This is a transition lesson - students can now choose JupyterLab OR DB Browser for exploration tasks. Emphasize DB Browser is great for visual learners and quick exploration, but code (JupyterLab) is better for reproducible work.
 
 ---
 
