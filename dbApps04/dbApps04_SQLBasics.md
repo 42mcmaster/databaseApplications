@@ -24,7 +24,7 @@ By the end of this lesson, you will be able to:
 - Combine multiple SQL clauses in one query
 - Translate pandas operations to SQL equivalents
 
-**You already know these concepts from Lesson 02!** Today you learn the SQL syntax.
+**You already know these concepts from Lesson 02 and 03!** Today you will continue exploring the SQL syntax.
 
 ---
 
@@ -126,7 +126,7 @@ SELECT PassengerId, Name, Age, Sex, Survived
 FROM passengers;
 ```
 
-**Practice in your head:** How would you select just Fare and Pclass?
+**Question:** How would you select just Fare and Pclass?
 
 ---
 
@@ -498,5 +498,3 @@ Before you start the walkthrough and task:
 - ORDER BY vs sort_values()?
 - Any comparison operators unclear?
 - Ready to write SQL queries?
-
-**Let's do this!** 🚀
