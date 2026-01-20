@@ -5,756 +5,388 @@ class: invert
 paginate: true
 ---
 
-# Lesson 06: Database Design & Normalization
-## Building Better Databases
+# Lesson 06: Database Design Basics
+## Why Split Data Into Multiple Tables?
 
-## Database Applications Development
-### Software Engineering | Medina County Career Center
-
----
-
-## Learning Objectives
-
-By the end of this lesson, you will be able to:
-
-- Explain principles of good database design
-- Apply normalization rules (1NF, 2NF, 3NF)
-- Design databases with proper keys
-- Create entity-relationship diagrams
-- Recognize common relationship types
-- Analyze the NBA database structure
-
-**Today:** Learn to design databases that prevent problems!
+**Database Applications Development**
+Software Engineering | Medina County Career Center
 
 ---
 
-## Where We Are
+## Today's Big Question
+
+**Why is the NBA database split into 4 tables instead of 1 big table?**
+
+By the end of class, you'll understand:
+- What makes a good database design
+- How tables connect to each other
+- Why we avoid storing duplicate data
+
+**Let's find out!**
+
+---
+
+## Where We Are in the Course
 
 **Lessons 1-2:** Python & pandas ✅  
 **Lessons 3-4:** SELECT, WHERE, ORDER BY ✅  
-**Lesson 5:** Aggregations and grouping ✅  
+**Lesson 5:** GROUP BY and aggregations ✅  
 **Today:** Database design - the foundation 🏗️  
-**Next:** JOIN operations
 
-**Key idea:** Good design prevents data problems before they happen.
+**Key Idea:** Good design makes EVERYTHING easier!
 
 ---
 
-## Why Database Design Matters
+## The NBA Database Structure
 
-**Bad design leads to:**
-- ❌ Data redundancy (same info stored multiple times)
-- ❌ Update anomalies (change one place, miss others)
-- ❌ Wasted storage space
-- ❌ Slow, complex queries
-- ❌ Data inconsistencies
+We have **4 tables** in our database:
 
-**Good design gives you:**
-- ✅ Each fact stored once
-- ✅ Easy updates and maintenance
-- ✅ Data integrity
-- ✅ Fast, simple queries
+1. **teams** - Team information (30 teams)
+2. **players** - Player names (500+ players)
+3. **team_game_stats** - Game-by-game team stats
+4. **player_season_stats** - Player stats per season
+
+**Question:** Why not put everything in one giant table?
 
 ---
 
 ## Bad Design Example
 
+Imagine ONE table with all NBA data:
+
 ```
-Student_Courses Table:
-student_id | student_name | email        | course_id | course_name
-1          | Alice Smith  | alice@...    | CS101     | Intro to CS
-1          | Alice Smith  | alice@...    | MATH200   | Calculus
-2          | Bob Jones    | bob@...      | CS101     | Intro to CS
+player_name  | team_name | city      | state | game_date  | pts
+LeBron James | Lakers    | Los Angeles | CA  | 2024-01-15 | 28
+LeBron James | Lakers    | Los Angeles | CA  | 2024-01-17 | 32
+Anthony Davis| Lakers    | Los Angeles | CA  | 2024-01-15 | 22
+Anthony Davis| Lakers    | Los Angeles | CA  | 2024-01-17 | 25
 ```
 
-**Problems:**
-- Student info repeated for each course
-- Course info repeated for each student
-- If Alice changes email → update multiple rows
-- Delete Bob's courses → lose Bob entirely!
+**See any problems?** 🤔
 
 ---
 
-## Database Design Fundamentals
+## Problem: Data Redundancy
 
-**Entity:** A thing we store data about
-- Examples: Student, Course, Team, Player
-- Becomes a **table**
+**Redundancy = Storing the same thing over and over**
 
-**Attribute:** A property of an entity
-- Examples: name, email, city, position
-- Becomes a **column**
+In that bad design:
+- "Los Angeles" appears 4 times
+- "Lakers" appears 4 times
+- "California" appears 4 times
 
-**Instance:** Specific occurrence
-- Examples: One student, one game
-- Becomes a **row**
+If the Lakers have 82 games × 15 players = **1,230 duplicates!**
 
-| Concept | Database Term |
-|---------|---------------|
-| Entity | Table |
-| Attribute | Column |
-| Instance | Row |
+**This wastes space and causes problems.**
 
 ---
 
-## Primary Keys
+## Problems with Redundancy
 
-**Primary Key:** Uniquely identifies each row
+**1. Wasted Storage Space**
+- "Cleveland" stored 82 times instead of once
+- Multiply by 30 teams × 5 seasons = thousands of duplicates!
 
-**Requirements:**
-1. **Unique** - No duplicates
-2. **Not NULL** - Must have a value
+**2. Update Nightmares**
+- Team changes name? Update thousands of rows!
+- Miss one? Now you have inconsistent data!
+
+**3. Risk of Typos**
+- One person types "Cleaveland"
+- Now your data is wrong!
+
+---
+
+## Solution: Split Into Tables
+
+**Good Design:**
+
+```
+teams table:
+team_id | full_name | city      | state
+1       | Lakers    | Los Angeles | CA
+
+team_game_stats table:
+game_id | team_id | pts
+101     | 1       | 110
+102     | 1       | 105
+```
+
+**Now:** "Los Angeles" stored **once** ✅
+
+---
+
+## Part 1: Primary Keys
+
+**Primary Key = The unique identifier for each row**
+
+**Think of it like:**
+- Student ID number (not your name!)
+- Social Security Number
+- License plate number
+
+**Why use IDs instead of names?**
+- Names can be the same (two "John Smith" students)
+- Names can change (marriage, etc.)
+- IDs never change!
+
+---
+
+## Primary Key Rules
+
+Every table needs a primary key that is:
+
+1. **Unique** - No duplicates allowed
+2. **Never NULL** - Must have a value
 3. **Stable** - Never changes
-4. **Simple** - Prefer single column
 
 **Examples:**
 ```sql
--- ✅ GOOD
-CREATE TABLE players (
-    player_id INTEGER PRIMARY KEY,  -- Unique ID
-    full_name TEXT
-);
-
--- ❌ BAD
-CREATE TABLE students (
-    email TEXT PRIMARY KEY  -- Emails can change!
-);
+teams table:
+  team_id (PRIMARY KEY) ✅
+  
+players table:
+  player_id (PRIMARY KEY) ✅
 ```
 
 ---
 
-## Natural vs. Surrogate Keys
-
-**Natural Key:** Real-world identifier
-- SSN, ISBN, license plate
-- **Problem:** Can change, may not exist
-
-**Surrogate Key:** Created just to be the key
-- `student_id`, `player_id`, `team_id`
-- **Better:** Never changes, always works
-
-**Rule of thumb:** Use surrogate keys for primary keys.
+**NOT good primary keys:**
+- Names (can duplicate, can change)
+- Emails (can change)
+- Addresses (definitely change!)
 
 ---
 
-## Foreign Keys
+## Check Your Understanding
 
-**Foreign Key:** Links one table to another
+**Question:** Which would be a better primary key for a students table?
 
-**Purpose:** Establishes relationships
+A) Student's full name  
+B) Student's email address  
+C) Student ID number (like 12345)
+
+**Think:** What if a student changes their email? What if two students have the same name?
+
+---
+
+## Answer
+
+**C) Student ID number** ✅
+
+**Why?**
+- Never changes (you keep your ID number all 4 years)
+- Guaranteed unique (no two students have same ID)
+- Short and simple
+
+**Real world:** Your student ID is 8 digits. Your name might be 50 characters!
+
+---
+
+## Part 2: Foreign Keys
+
+**Foreign Key = A column that points to another table's primary key**
+
+**Think of it like:**
+- A link
+- A reference
+- "Go look in that other table"
+
+**Purpose:** Connects tables together!
+
+---
+
+## Foreign Key Example
 
 ```sql
-CREATE TABLE teams (
-    team_id INTEGER PRIMARY KEY,
-    full_name TEXT
-);
+teams table:
+team_id | full_name
+1       | Cleveland Cavaliers
+2       | Golden State Warriors
 
-CREATE TABLE players (
-    player_id INTEGER PRIMARY KEY,
-    full_name TEXT,
-    team_id INTEGER,  -- ← Foreign key
-    FOREIGN KEY (team_id) REFERENCES teams(team_id)
-);
+team_game_stats table:
+game_id | team_id | pts
+101     | 1       | 110  ← This team_id points to teams table
+102     | 2       | 105
 ```
 
-**What this means:**
-- Each player belongs to one team
-- Can't add player with invalid team_id
-- Keeps data consistent
+**The team_id in team_game_stats is a FOREIGN KEY**
+
+It says: "Go look up team #1 in the teams table to see the full name!"
 
 ---
 
-## Relationships: One-to-Many (1:M)
+## Why Use Foreign Keys?
 
-**Most common relationship type**
-
-**Definition:** One record in Table A → many records in Table B
-
-**Examples:**
-- One team → many players
-- One customer → many orders  
-- One teacher → many courses
-
-**Implementation:**
-- Foreign key in "many" table
-- Points to primary key in "one" table
-
+**Instead of:**
 ```
-teams (1) ←──── (M) team_game_stats
-   One team has many game stats
+game_id | team_name             | pts
+101     | Cleveland Cavaliers   | 110
+102     | Cleveland Cavaliers   | 95
+```
+
+**We do:**
+```
+game_id | team_id | pts
+101     | 1       | 110
+102     | 1       | 95
 ```
 
 ---
-
-## Relationships: Many-to-Many (M:N)
-
-**Definition:** Many in A → many in B
-
-**Examples:**
-- Students ↔ Courses
-- Players ↔ Games
-- Authors ↔ Books
-
-**Problem:** Can't directly implement!
-
-**Solution:** Junction table (bridge table)
-
-```
-Students ←── Enrollments ───→ Courses
-
-students (1) ←──── (M) enrollments (M) ────→ (1) courses
-
-Result: Students ↔ Courses (M:N)
-```
-
----
-
-## Junction Table Example
-
-```sql
-CREATE TABLE students (
-    student_id INTEGER PRIMARY KEY,
-    name TEXT
-);
-
-CREATE TABLE courses (
-    course_id TEXT PRIMARY KEY,
-    name TEXT
-);
-
--- Junction table converts M:N to two 1:M
-CREATE TABLE enrollments (
-    student_id INTEGER,
-    course_id TEXT,
-    grade TEXT,
-    PRIMARY KEY (student_id, course_id),
-    FOREIGN KEY (student_id) REFERENCES students(student_id),
-    FOREIGN KEY (course_id) REFERENCES courses(course_id)
-);
-```
-
----
-
-## Normalization Overview
-
-**Normalization:** Process of organizing data to reduce redundancy
-
-**Goal:** Each piece of information stored exactly once
-
-**Levels:**
-- **1NF** - First Normal Form
-- **2NF** - Second Normal Form
-- **3NF** - Third Normal Form
-- (BCNF, 4NF, 5NF...)
-
-**For this course:** Focus on 1NF, 2NF, 3NF
-**Industry standard:** Most databases aim for 3NF
-
----
-
-## First Normal Form (1NF)
-
-**Rule:** Atomic values only. No repeating groups.
-
-**Violations:**
-
-```
--- ❌ Multiple values in one cell
-player_id | positions
-1         | SF, PF
-
--- ❌ Repeating columns
-team_id | game1_pts | game2_pts | game3_pts
-1       | 110       | 105       | 98
-```
-
-**Fixed:**
-
-```
--- ✅ One value per cell
-player_id | position
-1         | SF
-1         | PF
-
--- ✅ Each game is a row
-team_id | game_id | pts
-1       | 1       | 110
-1       | 2       | 105
-```
-
----
-
-## 1NF Requirements
-
-1. Each cell contains one atomic value
-2. Each row is unique (has primary key)
-3. No repeating column groups
-4. Column values are same type
-
-**Test:** Can you split cells further? If yes → not 1NF
-
----
-
-## Second Normal Form (2NF)
-
-**Rule:** 1NF + all attributes depend on ENTIRE primary key
-
-**Only matters for composite keys!**
-
-**Violation:**
-
-```
-Order_Items:
-order_id | product_id | quantity | customer_name | product_price
-1        | 101        | 2        | Alice         | 29.99
-
-Primary Key: (order_id, product_id)
-```
-
-**Problem:**
-- `customer_name` depends only on `order_id`
-- `product_price` depends only on `product_id`
-- **Partial dependency!**
-
----
-
-## 2NF Fixed
-
-```
-Orders:
-order_id | customer_name
-1        | Alice
-
-Products:
-product_id | product_price
-101        | 29.99
-
-Order_Items:
-order_id | product_id | quantity
-1        | 101        | 2
-```
-
-**Now:** All attributes depend on entire primary key ✅
-
----
-
-## Third Normal Form (3NF)
-
-**Rule:** 2NF + no transitive dependencies
-
-**Transitive:** Non-key depends on non-key
-
-**Violation:**
-
-```
-Students:
-student_id | name  | advisor_id | advisor_name | advisor_office
-1          | Alice | 501        | Dr. Johnson  | Building A
-2          | Bob   | 502        | Dr. Lee      | Building B
-3          | Carol | 501        | Dr. Johnson  | Building A
-
-Primary Key: student_id
-```
-
-**Problem:** `advisor_name` → depends on `advisor_id`, not `student_id`
-
----
-
-## 3NF Fixed
-
-```
-Students:
-student_id | name  | advisor_id
-1          | Alice | 501
-2          | Bob   | 502
-3          | Carol | 501
-
-Advisors:
-advisor_id | advisor_name | advisor_office
-501        | Dr. Johnson  | Building A
-502        | Dr. Lee      | Building B
-```
-
-**Now:** All non-key attributes depend ONLY on primary key ✅
-
----
-
-## Normalization Summary
-
-**1NF:** Atomic values, no repeating groups
-
-**2NF:** No partial dependencies (composite keys)
-
-**3NF:** No transitive dependencies
 
 **Benefits:**
-- Less redundancy
-- Easier updates
-- Better data integrity
-
-**Trade-off:**
-- More tables
-- More JOINs
-- Potentially more complex queries
+- Store "Cleveland Cavaliers" once instead of 82 times
+- Update in one place if name changes
+- No risk of typos!
 
 ---
 
-## Our NBA Database: teams
+## Part 3: How Tables Connect
 
+**Our NBA database connections:**
+
+```
+teams (30 teams)
+  ↓
+  team_id used by...
+  ↓
+team_game_stats (2,460 games)
+```
+
+**One team → Many games**
+
+This is the most common relationship!
+
+---
+
+## Real Numbers: Storage Savings
+
+**Bad Design (everything in one table):**
+- "Cleveland Cavaliers" stored 82 times per season
+- × 5 seasons = 410 times
+- × 30 teams = 12,300 team names stored!
+
+**Good Design (separate tables):**
+- "Cleveland Cavaliers" stored 1 time
+- Referenced by team_id in games
+
+**We save 12,299 duplicates!** 💾
+
+---
+
+## Part 4: Update Example
+
+**Scenario:** The Lakers change their name to "LA Lakers"
+
+**Bad Design:**
 ```sql
-CREATE TABLE teams (
-    team_id INTEGER PRIMARY KEY,
-    full_name TEXT,
-    city TEXT,
-    state TEXT,
-    conference TEXT
-);
+UPDATE big_table 
+SET team_name = 'LA Lakers'
+WHERE team_name = 'Los Angeles Lakers';
 ```
+**Result:** Update 6,150 rows! ❌
 
-**Analysis:**
-- Primary Key: `team_id` ✅
-- All attributes depend on `team_id` ✅
-- No repeating groups ✅
-- No transitive dependencies ✅
-
-**Normalization: 3NF** ✅
-
----
-
-## Our NBA Database: team_game_stats
-
+**Good Design:**
 ```sql
-CREATE TABLE team_game_stats (
-    game_id TEXT,
-    team_id INTEGER,
-    season TEXT,
-    pts INTEGER,
-    wl TEXT,
-    PRIMARY KEY (game_id, team_id),
-    FOREIGN KEY (team_id) REFERENCES teams(team_id)
-);
+UPDATE teams
+SET full_name = 'LA Lakers'
+WHERE team_id = 1610612747;
 ```
-
-**Composite Primary Key:** `(game_id, team_id)`
-- Both needed - same game has 2 teams
-
-**Foreign Key:** `team_id` → teams
-
-**Normalization: 2NF/3NF** ✅
+**Result:** Update 1 row! ✅
 
 ---
 
-## Our NBA Database: players
+## Why This Matters to You
 
-```sql
-CREATE TABLE players (
-    player_id INTEGER PRIMARY KEY,
-    full_name TEXT
-);
+**Good database design makes your job easier:**
+
+✅ Queries run faster (less data to search)
+✅ Updates are simple (change one row)
+✅ Data stays consistent (no typos)
+✅ Less storage needed (no duplicates)
+
+**Bad database design causes headaches:**
+
+❌ Slow queries (searching through duplicates)
+❌ Update nightmares (miss one row → bad data)
+❌ Wasted space (storing same thing 1000x)
+
+---
+
+## The Three Keys to Good Design
+
+**1. Primary Keys**
+- Every table needs a unique identifier
+- Use ID numbers, not names
+
+**2. Foreign Keys**
+- Connect tables together
+- Reference the primary key in another table
+
+**3. No Duplicates**
+- Store each fact exactly once
+- Reference it with foreign keys
+
+**That's it! These simple rules prevent most problems.**
+
+---
+
+## Real-World Example
+
+**Bad:** 
 ```
-
-**Question:** Why no `team_id` here?
-
-**Answer:** Players change teams!
-- Can't store in players table
-- Would need to update constantly
-- Historical data would be lost
-
-**Solution:** Store team info in `player_season_stats` ✅
-
----
-
-## Our NBA Database: player_season_stats
-
-```sql
-CREATE TABLE player_season_stats (
-    player_id INTEGER,
-    team_id INTEGER,
-    season TEXT,
-    gp INTEGER,
-    pts REAL,
-    PRIMARY KEY (player_id, team_id, season),
-    FOREIGN KEY (player_id) REFERENCES players(player_id),
-    FOREIGN KEY (team_id) REFERENCES teams(team_id)
-);
+Every student record includes full teacher info
+(name, email, office, phone)
 ```
+**Problem:** Teacher changes office → update 150 student records!
 
-**Composite Primary Key:** `(player_id, team_id, season)`
-- Player can play for multiple teams in one season!
-
-**Junction Table:** Links players ↔ teams (M:N)
-
----
-
-## NBA Database Relationships
-
-**teams ↔ team_game_stats (1:M)**
-- One team → many game stats
-- FK: `team_id`
-
-**teams ↔ player_season_stats (1:M)**
-- One team → many player-seasons
-- FK: `team_id`
-
-**players ↔ player_season_stats (1:M)**
-- One player → many seasons
-- FK: `player_id`
-
-**players ↔ teams (M:N)**
-- Through `player_season_stats` junction table
-- One player plays for many teams (over career)
-- One team has many players (over seasons)
-
----
-
-## Entity-Relationship Diagram
-
+**Good:**
 ```
-┌─────────────┐              ┌──────────────────────┐
-│   teams     │1            M│  team_game_stats     │
-│─────────────│──────────────│──────────────────────│
-│ team_id (PK)│              │ game_id (PK)         │
-│ full_name   │              │ team_id (PK,FK)      │
-└─────────────┘              └──────────────────────┘
-       │1
-       │
-       │M
-┌──────────────────────┐
-│ player_season_stats  │
-│──────────────────────│
-│ player_id (PK,FK)    │M──┐
-│ team_id (PK,FK)      │   │
-│ season (PK)          │   │1
-└──────────────────────┘   │
-       │M              ┌─────────────┐
-       │               │   teams     │
-       │1              └─────────────┘
-┌─────────────┐
-│  players    │
-└─────────────┘
+Students table has teacher_id (foreign key)
+Teachers table has all teacher info
 ```
+**Now:** Teacher changes office → update 1 teacher record!
 
 ---
 
-## Common Design Patterns
+## NBA Database Summary
 
-**Pattern 1: Transactions**
-- Orders → Order_Items (1:M)
+**Our 4 tables work together:**
 
-**Pattern 2: Categories**
-- Products ↔ Categories (M:N with junction)
+1. **teams** - Team info (stored once per team)
+2. **players** - Player info (stored once per player)
+3. **team_game_stats** - Uses team_id to reference teams
+4. **player_season_stats** - Uses player_id and team_id
 
-**Pattern 3: Hierarchies**
-- Employees → manager_id (self-reference)
+**Each fact stored once. Connected with foreign keys.**
 
-**Pattern 4: Time-based**
-- Player stats by season
-
-**Pattern 5: Audit/History**
-- Keep all versions of changes
+**This is good database design!** 🎯
 
 ---
 
-## Design Best Practices
+## What We'll Practice Today
 
-**1. Naming:**
-- Tables: plural (`teams`, `orders`)
-- Columns: descriptive (`full_name`, not `fn`)
-- Keys: standard (`table_id`)
+**Walkthrough:**
+- Examine table structures
+- Verify primary keys are unique
+- Use foreign keys in JOINs
+- Calculate storage savings
 
-**2. Data Types:**
-- INTEGER for IDs and counts
-- REAL for measurements
-- TEXT for strings
+**Tasks:**
+- Part 1: Primary keys, foreign keys, redundancy
+- Part 2: Analyze database design decisions
 
-**3. Constraints:**
-- PRIMARY KEY always
-- FOREIGN KEY for relationships
-- NOT NULL for required fields
-
----
-
-## Design Process
-
-1. **Identify entities** - What things are we tracking?
-2. **Identify attributes** - What info about each?
-3. **Identify relationships** - How do they connect?
-4. **Draw ERD** - Visualize the structure
-5. **Normalize** - Apply 1NF, 2NF, 3NF
-6. **Refine** - Review and adjust
-7. **Implement** - CREATE TABLE statements
-
----
-
-## Common Design Mistakes
-
-**Mistake 1:** Storing calculated values
-```sql
--- ❌ Don't store total = subtotal + tax
--- ✅ Calculate when needed
-```
-
-**Mistake 2:** Wide tables instead of related tables
-```sql
--- ❌ Don't put customer info in every order
--- ✅ Separate customers table with FK
-```
-
-**Mistake 3:** No foreign keys
-```sql
--- ❌ Just storing IDs without constraints
--- ✅ FOREIGN KEY enforces relationships
-```
-
----
-
-## When to Denormalize?
-
-**Normalize first** - It's the default
-
-**Denormalize only if:**
-- Performance is critical
-- Data is mostly read-only
-- For reporting/analytics
-- Have a good reason!
-
-**Document why** you denormalize
-**Test before** and after
-
-**Rule:** Normalize for integrity, denormalize for performance
-
----
-
-## Today's Workflow
-
-**Part 1: Analysis**
-1. Analyze NBA database structure
-2. Verify normalization
-3. Identify relationships
-
-**Part 2: Design Practice**
-4. Normalize poorly designed tables
-5. Design new databases from requirements
-6. Create ERDs
-
-**Part 3: Documentation**
-7. Document design decisions
-8. Create Excel diagrams
-
-**You're learning professional database design!**
-
----
-
-## Real-World Example: Library
-
-**Entities:**
-- Books
-- Authors  
-- Patrons
-- Checkouts
-
-**Relationships:**
-- Books ↔ Authors (M:N via Book_Authors)
-- Books ↔ Checkouts (1:M)
-- Patrons ↔ Checkouts (1:M)
-
-**Why this design?**
-- Books can have multiple authors
-- Track checkout history
-- Patron info stored once
-
----
-
-## Real-World Example: E-Commerce
-
-**Entities:**
-- Customers
-- Products
-- Orders
-- Order_Items
-
-**Relationships:**
-- Customers → Orders (1:M)
-- Orders → Order_Items (1:M)
-- Products → Order_Items (1:M)
-
-**Key decision:**
-- Store price in Order_Items
-- Why? Product prices change
-- Keeps history of actual price paid
-
----
-
-## Tools for Database Design
-
-**Diagramming:**
-- dbdiagram.io (recommended!)
-- draw.io
-- MySQL Workbench
-- Lucidchart
-
-**Documentation:**
-- README files
-- Comments in SQL
-- Data dictionaries
-- ER diagrams
-
----
-
-## Practice Questions
-
-1. What makes a good primary key?
-2. When do you need a junction table?
-3. What's the difference between 1NF and 3NF?
-4. Why doesn't `players` table have `team_id`?
-5. What's a transitive dependency?
-
-**Discuss as you work on tasks!**
-
----
-
-## Key Takeaways
-
-✅ **Good design** prevents problems  
-✅ **Primary keys** uniquely identify records  
-✅ **Foreign keys** link tables  
-✅ **1NF:** Atomic values  
-✅ **2NF:** No partial dependencies  
-✅ **3NF:** No transitive dependencies  
-✅ **Relationships:** 1:M, M:N (junction), 1:1  
-✅ **Normalize first**, denormalize only if needed  
-✅ **ERDs** visualize structure
-
----
-
-## Today's Tasks
-
-**Part 1:**
-- Analyze existing tables
-- Identify normalization issues
-- Fix bad designs
-
-**Part 2:**
-- Design new databases
-- Create ERDs
-- Document decisions
-
-**Excel:**
-- Visual ERD diagrams
-- Database documentation
-
-**Let's build better databases!**
+**Let's get started!** 🚀
 
 ---
 
 ## Questions?
 
-Before we start the walkthrough:
+**Remember the key concepts:**
+- Primary key = unique ID for each row
+- Foreign key = points to another table
+- Good design = no duplicate data
 
-- Entity vs. attribute clear?
-- Primary vs. foreign keys?
-- Normalization levels?
-- Junction tables for M:N?
-- Ready to design?
+**These simple ideas make databases work well!**
 
-**Let's see it in action!**
+Ready for the walkthrough? Let's go! 💪
