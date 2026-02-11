@@ -1,0 +1,30 @@
+# Virtual environments
+venv/
+.env/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Datasets and data files
+datasets/
+data/
+
+# Excel and CSV files
+*.xlsx
+*.xls
+*.csv
+
+# SQLite databases (common in DB classes)
+*.db
+*.sqlite
+*.sqlite3
+
+# Mac system files
+.DS_Store
+
+# Solution folders
+teacher/
