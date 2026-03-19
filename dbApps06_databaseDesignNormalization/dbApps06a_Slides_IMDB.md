@@ -17,118 +17,104 @@ Software Engineering | Medina County Career Center
 
 **Why is the IMDb database split into 5 tables instead of 1 big table?**
 
-By the end of class, you'll understand:
-- What makes a good database design
-- How tables connect to each other
-- Why we avoid storing duplicate data
+**Where we are:**
+Lessons 1-2: Python & pandas | Lessons 3-5: SQL fundamentals
+Yesterday: SQL refresh with IMDb data | **Today:** Database design
 
 ---
 
-## Where We Are in the Course
-
-**Lessons 1-2:** Python & pandas
-**Lessons 3-5:** SELECT, WHERE, GROUP BY, JOINs
-**Yesterday:** SQL refresh with IMDb data
-**Today:** Database design — the foundation
-
----
-
-## Bad Design Example
-
-Imagine ONE table with all IMDb data:
+## Whiteboard: What's Wrong With This Table?
 
 ```
-title          | year | rating | actor_name    | birth_year | category
-Inception      | 2010 | 8.8    | Leonardo DiCaprio | 1974   | actor
-Inception      | 2010 | 8.8    | Tom Hardy         | 1977   | actor
-Inception      | 2010 | 8.8    | Elliot Page       | 1987   | actor
-Interstellar   | 2014 | 8.7    | Matthew McConaughey| 1969  | actor
-Interstellar   | 2014 | 8.7    | Anne Hathaway     | 1982  | actress
+Student Name | Grade | Class             | Teacher        | Room
+Agent 86     | 11    | Algebra 2         | Mr. Lasko      | 118
+Agent 86     | 11    | English 12        | Mr. Fitzgerald | 204
+Agent 86     | 11    | Software Eng.     | Mr. McMaster   | Lab 3
+Mr. Secretary| 11    | Algebra 2         | Mr. Lasko      | 118
+Mr. Secretary| 11    | English 12        | Mr. Fitzgerald | 204
+Arnold S.    | 12    | Pre-Calculus      | Mrs. Fernholz  | 122
+Arnold S.    | 12    | Software Eng.     | Mr. McMaster   | Lab 3
 ```
 
-**See any problems?**
+**1.** What data is repeated that doesn't need to be?
+**2.** If Mr. Fitzgerald moves to Room 210, how many rows do you fix?
+**3.** How would YOU split this into smaller tables? *(Draw it on the board!)*
 
 ---
 
-## Problem: Data Redundancy
+## Bad Design: One Giant Table
 
-**Redundancy = Storing the same thing over and over**
-
-In that bad design:
-- "Inception" appears 3 times (once per actor)
-- "2010" appears 3 times
-- The rating "8.8" appears 3 times
-
-One popular movie with 10 actors = **10 copies of everything!**
-
-Across 19,000 titles × ~19 credits each = **massive waste.**
-
----
-
-## Why Redundancy Is Bad
-
-**1. Wasted Storage**
-- "Inception" stored 10 times instead of once
-
-**2. Update Nightmares**
-- Movie title needs fixing? Update hundreds of rows!
-- Miss one? Now your data is inconsistent!
-
-**3. Typo Risk**
-- Someone types "Incepton" in one row
-- Now you have two different titles for the same movie
-
----
-
-## Solution: Split Into Tables
+Imagine cramming ALL IMDb data into a single table:
 
 ```
-title_basics:
-tconst    | primaryTitle | startYear | genres
-tt1375666 | Inception    | 2010      | Action,Adventure,Sci-Fi
-
-title_principals:
-tconst    | nconst    | category
-tt1375666 | nm0000138 | actor
-tt1375666 | nm1289434 | actor
+title          | year | rating | actor_name        | birth_year | category
+Inception      | 2010 | 8.8    | Leonardo DiCaprio | 1974       | actor
+Inception      | 2010 | 8.8    | Tom Hardy         | 1977       | actor
+Inception      | 2010 | 8.8    | Elliot Page       | 1987       | actor
+Interstellar   | 2014 | 8.7    | Matthew McConaughey| 1969      | actor
 ```
 
-Now "Inception" is stored **once**.
-Each actor just references the movie's ID.
+"Inception" appears 3 times. Its year and rating appear 3 times.
+With 10 actors? **10 copies of everything.** Across 19,000 titles? **Massive waste.**
 
 ---
 
-## Primary Keys
+## Why Redundancy Is the Enemy
+
+**Redundancy = Storing the same fact over and over**
+
+**Wasted Storage** — "Inception" stored 19 times instead of once
+
+**Update Nightmares** — Title needs fixing? Update 19 rows. Miss one? Inconsistent data.
+
+**Typo Risk** — Someone types "Incepton" in one row. Now searches break.
+
+---
+
+## Solution: Split Into Separate Tables
+
+**Titles — Movies & TV Shows** (`title_basics`):
+```
+Title ID  | Title     | Release Year | Genre(s)
+tt1375666 | Inception | 2010         | Action,Adventure,Sci-Fi
+```
+
+**Cast & Crew Credits** (`title_principals`):
+```
+Title ID  | Person ID | Role Type
+tt1375666 | nm0000138 | actor        ← just references the Title ID
+tt1375666 | nm1289434 | actor        ← same movie, different person
+```
+
+"Inception" stored **once**. Each credit just points to its ID.
+
+---
+
+## Our 5 Tables (with Friendly Names)
+
+| Friendly Name | Table Name | What It Stores | Rows |
+|---|---|---|---|
+| **Titles — Movies & TV Shows** | `title_basics` | Title, year, genre, runtime | 19,462 |
+| **Ratings — Audience Scores** | `title_ratings` | IMDb rating & vote count | 19,462 |
+| **People — Actors, Directors & More** | `name_basics` | Names, birth years, professions | 182,015 |
+| **Cast & Crew Credits** | `title_principals` | Who worked on what | 364,848 |
+| **Directors & Writers** | `title_crew_person` | Directed-by / Written-by credits | 116,970 |
+
+---
+
+## Primary Keys — Unique IDs for Every Row
 
 **Primary Key = The unique identifier for each row**
+Like your student ID, a license plate, or a barcode.
 
-Think of it like:
-- Your student ID number
-- A license plate number
-- A barcode on a product
+**Rules:** Must be unique, never empty (NULL), and stable.
 
-**IMDb uses:**
-- `tconst` for titles (like "tt1375666")
-- `nconst` for people (like "nm0000138")
+| Table (Friendly Name) | Primary Key | Example |
+|---|---|---|
+| Titles (`title_basics`) | `tconst` (Title ID) | tt1375666 = Inception |
+| People (`name_basics`) | `nconst` (Person ID) | nm0000138 = Leonardo DiCaprio |
 
----
-
-## Primary Key Rules
-
-Every primary key must be:
-
-1. **Unique** — No duplicates allowed
-2. **Never NULL** — Must have a value
-3. **Stable** — Doesn't change
-
-```
-title_basics:   tconst (PRIMARY KEY)
-name_basics:    nconst (PRIMARY KEY)
-```
-
-**Why IDs instead of names?**
-Two movies called "The Batman." Two actors named "Chris Evans."
-IDs never repeat!
+**Why IDs instead of names?** Two movies called "The Batman." Two actors named "Chris Evans." IDs never repeat!
 
 ---
 
@@ -140,80 +126,64 @@ A) Student's full name
 B) Student's email address
 C) Student ID number (like 12345)
 
----
-
-## Answer: C) Student ID number
-
-- Never changes (you keep it all 4 years)
-- Guaranteed unique
-- Short and simple
-
-Names can duplicate. Emails can change.
-IDs just work.
+**Answer: C** — Never changes, guaranteed unique, short and simple.
+Names can duplicate. Emails can change. IDs just work.
 
 ---
 
-## Foreign Keys
+## Foreign Keys — Links Between Tables
 
 **Foreign Key = A column that points to another table's primary key**
 
-Think of it as a **link** between tables.
-
 ```
-title_basics:       tconst (PK)
-                       ↑
-title_principals:   tconst (FK) — points to title_basics
-```
+Titles — Movies & TV Shows (title_basics):
+  Title ID  | Title
+  tt1375666 | Inception
 
-The FK says: "Go look up this title in the title_basics table!"
-
----
-
-## Foreign Key Example
-
-```
-title_basics:
-tconst    | primaryTitle
-tt1375666 | Inception
-
-title_principals:
-tconst    | nconst    | category
-tt1375666 | nm0000138 | actor      ← tconst points to title_basics
-tt1375666 | nm1289434 | actor      ← same tconst, different person
+Cast & Crew Credits (title_principals):
+  Title ID  | Person ID | Role Type
+  tt1375666 | nm0000138 | actor      ← Title ID points to Titles table
+  tt1375666 | nm1289434 | actor      ← Person ID points to People table
 ```
 
 Store "Inception" **once**, reference it everywhere.
-The `nconst` is ALSO a foreign key — it points to `name_basics`.
+Both `Title ID` (tconst) and `Person ID` (nconst) are foreign keys here.
 
 ---
 
-## How Tables Connect
-
-**Our IMDb database connections:**
+## How All 5 Tables Connect
 
 ```
-title_basics (19,462 titles)
-  ↓ tconst
-title_principals (364,848 credits)
-  ↑ nconst
-name_basics (182,015 people)
+People — Actors, Directors & More (name_basics)
+   PK: nconst (Person ID)
+          │
+    ┌─────┴──────┐
+    ▼             ▼
+Cast & Crew    Directors &
+Credits        Writers
+(title_principals)  (title_crew_person)
+    │             │
+    └─────┬───────┘
+          ▼
+Titles — Movies & TV Shows (title_basics)
+   PK: tconst (Title ID)
+          │
+          ▼
+Ratings — Audience Scores (title_ratings)
+   FK: tconst (Title ID)
 ```
 
-**One title → Many credits** (most common relationship)
-
-This is called a **One-to-Many** relationship.
+**One title -> Many credits** = **One-to-Many** relationship
 
 ---
 
 ## The Update Test
 
-**Scenario:** A movie title needs to be corrected
-
 **Bad Design (one big table):**
 ```sql
 UPDATE big_table SET title = 'The Shawshank Redemption'
 WHERE title = 'Shawshank Redemption';
--- Update 15 rows (one per actor/crew)!
+-- Update 15+ rows (one per actor/crew)!
 ```
 
 **Good Design (separate tables):**
@@ -223,40 +193,29 @@ WHERE tconst = 'tt0111161';
 -- Update 1 row!
 ```
 
----
-
-## Real Numbers: Storage Savings
-
-**Bad Design (everything in one table):**
-- "Inception" stored 19 times (once per credit)
-- × 19,462 titles = millions of duplicated strings!
-
-**Good Design (our 5 tables):**
-- "Inception" stored 1 time
-- Referenced by tconst wherever needed
-
-**We eliminate hundreds of thousands of duplicates!**
+We save **345,000+ duplicate entries** across the whole database.
 
 ---
 
 ## Three Keys to Good Design
 
-**1. Primary Keys** — Every table needs a unique ID
+**1. Primary Keys** — Every table needs a unique ID (Title ID, Person ID)
 
-**2. Foreign Keys** — Connect tables with references
+**2. Foreign Keys** — Connect tables with references, not copied data
 
-**3. No Duplicates** — Store each fact once
+**3. No Duplicates** — Store each fact exactly once
 
-**That's it! These simple rules prevent most problems.**
+**That's it! These simple rules prevent most database problems.**
 
 ---
 
 ## What You'll Practice Today
 
-**Walkthrough:**
-- Examine the IMDb table structures
+**Walkthrough (~20 min):**
 - Verify primary keys are unique
-- Use foreign keys in JOINs
-- Calculate storage savings
+- Trace foreign key connections between tables
+- Calculate the cost of redundancy
 
 **Then: Your task notebook — prove you understand PKs, FKs, and redundancy!**
+
+*Refer to the **Data Dictionary** and **Study Guide** anytime you need help.*
