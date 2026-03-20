@@ -47,15 +47,21 @@ Arnold S.    | 12    | Software Eng.     | Mr. McMaster   | Lab 3
 Imagine cramming ALL IMDb data into a single table:
 
 ```
-title          | year | rating | actor_name        | birth_year | category
-Inception      | 2010 | 8.8    | Leonardo DiCaprio | 1974       | actor
-Inception      | 2010 | 8.8    | Tom Hardy         | 1977       | actor
-Inception      | 2010 | 8.8    | Elliot Page       | 1987       | actor
-Interstellar   | 2014 | 8.7    | Matthew McConaughey| 1969      | actor
+title      | year | rating | runtime | genre        | actor_name         | birth_year | category
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Leonardo DiCaprio  | 1974       | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Joseph Gordon-Levitt| 1981      | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Elliot Page        | 1987       | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Tom Hardy          | 1977       | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Ken Watanabe       | 1959       | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Cillian Murphy     | 1976       | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Marion Cotillard   | 1975       | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Michael Caine      | 1933       | actor
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Christopher Nolan  | 1970       | director
+Inception  | 2010 | 8.8    | 148     | Sci-Fi       | Lukas Haas         | 1976       | actor
 ```
 
-"Inception" appears 3 times. Its year and rating appear 3 times.
-With 10 actors? **10 copies of everything.** Across 19,000 titles? **Massive waste.**
+"Inception" appears 10+ times. Its year and rating appear 10+ times.
+With 10+ actors? **10+ copies of everything.** Across 19,000 titles? **Massive waste.**
 
 ---
 
