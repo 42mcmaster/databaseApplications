@@ -160,26 +160,8 @@ Both `Title ID` (tconst) and `Person ID` (nconst) are foreign keys here.
 ## How All 5 Tables Connect
 
 ```
-People — Actors, Directors & More (name_basics)
-   PK: nconst (Person ID)
-          │
-    ┌─────┴──────┐
-    ▼             ▼
-Cast & Crew    Directors &
-Credits        Writers
-(title_principals)  (title_crew_person)
-    │             │
-    └─────┬───────┘
-          ▼
-Titles — Movies & TV Shows (title_basics)
-   PK: tconst (Title ID)
-          │
-          ▼
-Ratings — Audience Scores (title_ratings)
-   FK: tconst (Title ID)
+Let's take a look at the imdb_schema_chart.md
 ```
-
-**One title -> Many credits** = **One-to-Many** relationship
 
 ---
 
