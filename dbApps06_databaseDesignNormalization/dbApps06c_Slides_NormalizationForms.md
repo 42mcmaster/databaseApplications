@@ -6,114 +6,386 @@ paginate: true
 ---
 
 # Lesson 06c: Normalization Forms
-## 1NF → 2NF → 3NF
+## 1NF → 2NF → 3NF (the easy version)
 
 **Database Applications Development**
 Software Engineering | Medina County Career Center
 
 ---
 
-## Recap: What We've Done So Far
+## Quick Recap
 
-In **06a**, we explored the IMDb schema — PKs, FKs, and why tables exist.
+- **06a:** We looked at IMDb — how real databases use PKs and FKs.
+- **06b:** We took one messy table and split it into clean tables.
+- **Today:** There's a simple 3-step recipe for doing that split.
 
-In **06b**, we took a messy flat table and split it into 3 normalized entity tables.
+The three steps are called **1NF, 2NF, and 3NF**.
+Each step fixes ONE specific problem.
 
-**Today:** There's actually a formal, step-by-step process for normalization.
-It has three levels called **Normal Forms**: 1NF, 2NF, and 3NF.
+---
 
-Each form fixes a specific type of problem.
+## Wait — Is Duplicate Data Always Bad?
+
+**Nope.** In Excel, duplicate data is totally fine.
+
+- Excel is for **humans looking at stuff**.
+- A spreadsheet you print or share? Duplicates are fine.
+- Small personal trackers? Duplicates are fine.
+
+**Databases are different.** They're built for:
+- Storing **millions** of rows
+- Many people updating data at once
+- Keeping info **consistent** (one fact stored in one place)
+
+That's why we normalize — for **efficiency and scale**.
+
+---
+
+## Why Duplicates Hurt a Database
+
+Imagine 10,000 orders all storing the customer's phone number.
+
+Kobe changes his phone number. Now what?
+
+- You have to update it in **10,000 rows**.
+- If you miss one row → the data is wrong.
+- Different rows disagree about the "truth."
+
+**The fix:** Store Kobe's phone number in ONE place, and point to it.
+
+That's what normalization is for.
 
 ---
 
 ## First Normal Form (1NF)
+### The rule: one value per cell. No lists.
 
-**Rule: Every cell contains exactly ONE value. No lists, no comma-separated stuff.**
+If a cell has a comma-separated list, you're breaking 1NF.
 
-❌ Violates 1NF:
-```
-| gamertag   | games_played                    | scores      |
-|------------|---------------------------------|-------------|
-| xDragon99  | Rocket League, Valorant, Fortnite | 2100, 1850, 950 |
-```
+---
 
-✅ Fixed (1NF):
+## 1NF — Example 1 ❌
+
 ```
-| gamertag   | game_name      | score |
-|------------|----------------|-------|
-| xDragon99  | Rocket League  | 2100  |
-| xDragon99  | Valorant       | 1850  |
-| xDragon99  | Fortnite       |  950  |
+| student    | favorite_games                    |
+|------------|-----------------------------------|
+| xDragon99  | Rocket League, Valorant, Fortnite |
+| koboKing   | Madden, NBA 2K                    |
 ```
 
-**One value per cell. One fact per row.**
+**Problem:** `favorite_games` is a LIST in one cell.
+
+How would you search for "everyone who plays Valorant"?
+You'd have to dig through strings. Gross.
+
+---
+
+## 1NF — Example 1 ✅
+
+```
+| student    | game          |
+|------------|---------------|
+| xDragon99  | Rocket League |
+| xDragon99  | Valorant      |
+| xDragon99  | Fortnite      |
+| koboKing   | Madden        |
+| koboKing   | NBA 2K        |
+```
+
+**One game per row.** Now "find all Valorant players" is easy.
+
+---
+
+## 1NF — Example 2 ❌
+
+```
+| player     | phones                    |
+|------------|---------------------------|
+| Arnold     | 330-555-0300, 216-555-11  |
+| Lebron     | 330-555-0623              |
+```
+
+Two phone numbers jammed into one cell.
+
+---
+
+## 1NF — Example 2 ✅
+
+```
+| player     | phone         |
+|------------|---------------|
+| Arnold     | 330-555-0300  |
+| Arnold     | 216-555-0011  |
+| Lebron     | 330-555-0623  |
+```
+
+**One phone per row.** That's 1NF.
+
+---
+
+## 1NF in Plain English
+
+> **"If you can see commas in a cell, you're probably breaking 1NF."**
+
+Fix it by giving each item its own row.
 
 ---
 
 ## Second Normal Form (2NF)
+### The rule: everything in the row must be about the WHOLE key.
 
-**Rule: Every non-key attribute must depend on the WHOLE key, not just part of it.**
+2NF only matters when your key is made of **two columns** (a composite key).
 
-This matters when your table has a **composite key** (two+ columns that together identify a row).
+If a column in the row only cares about ONE half of the key, it doesn't belong.
 
-In our 1NF table, the key is **(gamertag, game_name)** — you need both to find a specific score.
+---
+
+## 2NF — The Setup
+
+Here's a tournament scores table.
+To identify a row, you need **BOTH** gamertag AND game:
 
 ```
-| gamertag  | email            | team       | game_name | score |
-|-----------|------------------|------------|-----------|-------|
-| xDragon99 | xd99@email.com   | Fire Squad | Valorant  | 1850  |
+| gamertag  | game     | score | email            | team       |
+|-----------|----------|-------|------------------|------------|
+| xDragon99 | Valorant | 1850  | xd99@email.com   | Fire Squad |
+| xDragon99 | Fortnite | 950   | xd99@email.com   | Fire Squad |
+| koboKing  | Valorant | 2100  | kobo@email.com   | Ice Crew   |
 ```
 
-`email` and `team` depend only on **gamertag** — they don't care about `game_name`.
-That's a **partial dependency** → violates 2NF.
+**Key = (gamertag, game)**
 
-**Fix: Pull those attributes into their own entity table.**
+---
+
+## 2NF — Spot the Problem
+
+Look at each column and ask:
+**"Does this need BOTH parts of the key, or just one?"**
+
+| Column | Depends on... |
+|--------|---------------|
+| score  | gamertag AND game ✅ |
+| email  | just gamertag ❌ |
+| team   | just gamertag ❌ |
+
+`email` and `team` don't care what game you're playing.
+They belong to the PLAYER, not the score.
+
+---
+
+## 2NF — Why It's a Problem
+
+Look at the duplication:
+
+```
+xDragon99 | Valorant | 1850 | xd99@email.com | Fire Squad
+xDragon99 | Fortnite |  950 | xd99@email.com | Fire Squad  ← duplicated!
+```
+
+xDragon99's email is stored twice.
+If xDragon99 gets a new email, you have to fix it in every row.
+
+**That's the 2NF smell: repeating data tied to just part of the key.**
+
+---
+
+## 2NF — The Fix
+
+Split into two tables:
+
+**Players** (one row per player)
+```
+| gamertag  | email          | team       |
+|-----------|----------------|------------|
+| xDragon99 | xd99@email.com | Fire Squad |
+| koboKing  | kobo@email.com | Ice Crew   |
+```
+
+**Scores** (one row per game played)
+```
+| gamertag  | game     | score |
+|-----------|----------|-------|
+| xDragon99 | Valorant | 1850  |
+| xDragon99 | Fortnite | 950   |
+| koboKing  | Valorant | 2100  |
+```
+
+Now each fact lives in exactly **one place**. ✨
+
+---
+
+## 2NF — Another Example
+
+Pizza order lines:
+
+```
+| order_id | pizza      | qty | customer_name | customer_phone |
+|----------|------------|-----|---------------|----------------|
+| 1001     | Pepperoni  | 2   | Agent 86      | 330-555-0186   |
+| 1001     | Cheese     | 1   | Agent 86      | 330-555-0186   |
+```
+
+**Key = (order_id, pizza)**
+
+- `qty` needs both (yes ✅)
+- `customer_name` only needs `order_id` ❌
+- `customer_phone` only needs `order_id` ❌
+
+**Fix:** Move customer info to the Orders table. Leave only (order_id, pizza, qty) here.
+
+---
+
+## 2NF in Plain English
+
+> **"If your key is two columns, every other column better need BOTH of them. Otherwise, it belongs in a different table."**
 
 ---
 
 ## Third Normal Form (3NF)
+### The rule: non-key columns shouldn't depend on other non-key columns.
 
-**Rule: No attribute should depend on another non-key attribute.**
-
-After 2NF, we have a Players table:
-```
-| gamertag  | email          | team       | coach      | coach_phone  |
-|-----------|----------------|------------|------------|--------------|
-| xDragon99 | xd99@email.com | Fire Squad | Mr. Torres | 330-555-0901 |
-```
-
-`coach` and `coach_phone` depend on **team**, not on **gamertag**.
-That's a **transitive dependency**: gamertag → team → coach
-
-**Fix: Pull team info into its own entity table. Use a FK to connect.**
+You fixed 2NF. Now look at what's left. Are any of those columns depending on **each other**?
 
 ---
 
-## The Progression
+## 3NF — Example 1 ❌
+
+Players table after 2NF:
 
 ```
-UNNORMALIZED        →   1NF              →   2NF           →   3NF
-Multi-value cells       One value/cell       No partial         No transitive
-Lists in columns        One fact/row         dependencies       dependencies
+| gamertag  | email          | team       | coach      | coach_phone   |
+|-----------|----------------|------------|------------|---------------|
+| xDragon99 | xd99@email.com | Fire Squad | Mr. Torres | 330-555-0901  |
+| fireFly   | ff@email.com   | Fire Squad | Mr. Torres | 330-555-0901  |
+| iceCold   | ic@email.com   | Ice Crew   | Ms. Lee    | 330-555-0444  |
 ```
 
-| Form | What It Fixes | The Rule |
-|------|---------------|----------|
-| 1NF  | Repeating groups / lists in cells | Every cell = one value |
-| 2NF  | Attributes that only depend on PART of the key | Every attribute depends on the WHOLE key |
-| 3NF  | Attributes that depend on OTHER non-key attributes | Every attribute depends on the key and NOTHING ELSE |
+The key is `gamertag`. But look — `coach` and `coach_phone` really depend on `team`, not on the gamertag.
+
+**This is called a transitive dependency:**
+gamertag → team → coach
+
+---
+
+## 3NF — Why It's a Problem
+
+Fire Squad's coach (Mr. Torres) is duplicated for every player on the team.
+
+- Coach changes? Update every single player row.
+- New player on Fire Squad? Type "Mr. Torres" again.
+- Someone misspells it? Now data disagrees.
+
+**Same old problem: one fact stored in many places.**
+
+---
+
+## 3NF — The Fix
+
+Pull team info into its own table.
+
+**Teams**
+```
+| team       | coach      | coach_phone   |
+|------------|------------|---------------|
+| Fire Squad | Mr. Torres | 330-555-0901  |
+| Ice Crew   | Ms. Lee    | 330-555-0444  |
+```
+
+**Players** (now much cleaner)
+```
+| gamertag  | email          | team       |
+|-----------|----------------|------------|
+| xDragon99 | xd99@email.com | Fire Squad |
+| fireFly   | ff@email.com   | Fire Squad |
+| iceCold   | ic@email.com   | Ice Crew   |
+```
+
+`team` is now a **foreign key** pointing to the Teams table.
+
+---
+
+## 3NF — Example 2 ❌
+
+Customers table:
+
+```
+| customer_id | name        | zip   | city     | state |
+|-------------|-------------|-------|----------|-------|
+| 1           | Arnold      | 44256 | Medina   | OH    |
+| 2           | Lebron      | 44256 | Medina   | OH    |
+| 3           | Maxibillion | 44133 | Cleveland| OH    |
+```
+
+Key is `customer_id`. But `city` and `state` actually depend on `zip`, not on the customer.
+
+**Transitive:** customer_id → zip → city, state
+
+---
+
+## 3NF — Example 2 ✅
+
+**Zipcodes**
+```
+| zip   | city      | state |
+|-------|-----------|-------|
+| 44256 | Medina    | OH    |
+| 44133 | Cleveland | OH    |
+```
+
+**Customers**
+```
+| customer_id | name        | zip   |
+|-------------|-------------|-------|
+| 1           | Arnold      | 44256 |
+| 2           | Lebron      | 44256 |
+| 3           | Maxibillion | 44133 |
+```
+
+Now if a city name changes, you fix it in ONE place.
+
+---
+
+## 3NF in Plain English
+
+> **"Every column should describe the key — and ONLY the key. If a column describes some OTHER column, it belongs in its own table."**
+
+---
+
+## The Whole Recipe
+
+| Step | The Rule (plain English) | The Fix |
+|------|--------------------------|---------|
+| **1NF** | One value per cell. No lists. | Break lists into separate rows. |
+| **2NF** | Every column must need the FULL key. | Move "partial" columns to their own table. |
+| **3NF** | No column should depend on another non-key column. | Move those chains into their own table. |
+
+Each step eliminates a type of **duplication**.
+
+---
+
+## Excel vs. Database — One More Time
+
+**Excel (flat tables):**
+- Duplicates = fine
+- Easy to read at a glance
+- Great for small, human-facing data
+
+**Database (normalized):**
+- Duplicates = bad
+- Each fact stored once
+- Scales to millions of rows, many users, and consistent updates
+
+**Normalization is about making data TRUSTWORTHY at scale.**
 
 ---
 
 ## Your Task: Normalize a Gaming Tournament
 
-You'll get a spreadsheet with one messy flat table of esports tournament data.
+Open `dbApps06c_NormalizationForms.xlsx`.
 
-**You'll work through it step by step:**
+**You'll walk through the steps one at a time:**
 1. **Sheet 2 → 1NF:** Fix the multi-value cells
-2. **Sheet 3 → 2NF:** Find and remove partial dependencies
-3. **Sheet 4 → 3NF:** Find and remove transitive dependencies
+2. **Sheet 3 → 2NF:** Remove partial dependencies
+3. **Sheet 4 → 3NF:** Remove transitive dependencies
 
-Each worksheet builds on the one before it.
-
-*Open `dbApps06c_NormalizationForms.xlsx` — start with the Flat Table sheet.*
+Each sheet builds on the one before it. Take it one step at a time.
