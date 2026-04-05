@@ -28,7 +28,7 @@ Each form fixes a specific type of problem.
 
 ## First Normal Form (1NF)
 
-**Rule: Every cell contains exactly ONE value. No lists, no comma-separated junk.**
+**Rule: Every cell contains exactly ONE value. No lists, no comma-separated stuff.**
 
 ❌ Violates 1NF:
 ```

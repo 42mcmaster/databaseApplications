@@ -10,7 +10,6 @@ By the end of this lesson you will:
 - Combine sensor input with driving to make the robot react to surfaces and colors
 - Design and build your own color-sensor-based robot program
 
-**Time:** ~60 minutes
 **What you need:** EV3 Brick, 2x Large Motors, Color Sensor, driving base build, Mini-USB cable, Computer, colored paper or tape for testing
 
 ---

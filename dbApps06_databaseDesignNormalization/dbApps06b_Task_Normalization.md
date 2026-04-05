@@ -1,14 +1,14 @@
 # dbApps06b: Normalization Task
-## Normalize a Pizza Shop Database
+## Normalize the Master Pizza Database
 
 **Database Applications Development**
-**Medina County Career Center | Instructor: Ryan McMaster**
+**Medina County Career Center | Software Engineering**
 
 ---
 
 ## Background
 
-Right now, Sal's Pizza tracks all their orders in one big spreadsheet. Every time a customer places an order, an employee types the customer's name, phone number, email, the item they ordered, the item's price, and the quantity — all into one row. If a customer orders three items, that's three rows with the same customer info copied each time.
+Right now, Master Pizza tracks all their orders in one big spreadsheet. Every time a customer places an order, an employee types the customer's name, phone number, email, the item they ordered, the item's price, and the quantity — all into one row. If a customer orders three items, that's three rows with the same customer info copied each time.
 
 Open `dbApps06b_NormalizationActivity.xlsx` and look at the **Flat_Table_Orders** sheet to see what this looks like.
 
@@ -18,9 +18,9 @@ Open `dbApps06b_NormalizationActivity.xlsx` and look at the **Flat_Table_Orders*
 
 Look at the flat table and answer these questions (write your answers on paper or discuss with your group):
 
-1. How many times does Maria Santos's phone number appear in the table?
+1. How many times does Agent 86's phone number appear in the table?
 2. How many times is the Pepperoni Pizza price ($12.99) stored?
-3. If Maria changes her email address, how many rows would you have to update?
+3. If Agent 86 changes his email address, how many rows would you have to update?
 4. What happens if you make a typo updating one row but not the others?
 
 ---

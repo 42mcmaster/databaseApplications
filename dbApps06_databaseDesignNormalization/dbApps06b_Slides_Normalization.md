@@ -102,9 +102,9 @@ That's normalization. Let's practice.
 
 ---
 
-## Your Task: Normalize a Pizza Shop
+## Your Task: Normalize Master Pizza
 
-You'll get a spreadsheet with one big messy table of pizza orders.
+You'll get a spreadsheet with one big messy table of Master Pizza orders.
 
 **Your job:**
 1. Study the flat table — spot the redundancy
