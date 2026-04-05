@@ -93,10 +93,3 @@ Check your design against these rules:
 
 ---
 
-## Think About It
-
-When you're done, consider these questions (we'll discuss as a class):
-
-1. How is your pizza shop design similar to the IMDb schema we studied in 06a?
-2. Which of your 3 tables is like IMDb's `title_principals` table? Why?
-3. Could Sal's Pizza run into problems if they keep using the flat table instead of your normalized design? What could go wrong?

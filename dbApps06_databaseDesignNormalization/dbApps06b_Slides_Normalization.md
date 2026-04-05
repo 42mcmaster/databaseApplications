@@ -19,7 +19,7 @@ Software Engineering | Medina County Career Center
 
 **Foreign Key (FK)** — Points to another table's PK (connects tables)
 
-**Redundancy** — Storing the same fact over and over (the enemy!)
+**Redundancy** — Storing the same fact over and over (we don't want this!)
 
 We saw *why* the IMDb database uses 5 tables instead of 1.
 **Today:** How do you actually *design* a database like that from scratch?
@@ -33,10 +33,10 @@ We saw *why* the IMDb database uses 5 tables instead of 1.
 It's the process the IMDb designers went through to get from this...
 
 ```
-title | year | rating | actor_name | birth_year | category
-Inception | 2010 | 8.8 | Leonardo DiCaprio | 1974 | actor
-Inception | 2010 | 8.8 | Tom Hardy | 1977 | actor
-Inception | 2010 | 8.8 | Cillian Murphy | 1976 | actor
+title     | year | rating | actor_name        | birth_year | category
+Inception | 2010 | 8.8    | Leonardo DiCaprio | 1974       | actor
+Inception | 2010 | 8.8    | Tom Hardy         | 1977       | actor
+Inception | 2010 | 8.8    | Cillian Murphy    | 1976       | actor
 ```
 
 ...to 5 clean tables with PKs and FKs.

@@ -181,7 +181,7 @@ WHERE tconst = 'tt0111161';
 -- Update 1 row!
 ```
 
-We save **345,000+ duplicate entries** across the whole database.
+We save **hundreds of thousands of duplicate entries** across the whole database.
 
 ---
 
@@ -193,7 +193,7 @@ We save **345,000+ duplicate entries** across the whole database.
 
 **3. No Duplicates** — Store each fact exactly once
 
-**That's it! These simple rules prevent most database problems.**
+
 
 ---
 
@@ -206,4 +206,4 @@ We save **345,000+ duplicate entries** across the whole database.
 
 **Then: Your task notebook — prove you understand PKs, FKs, and redundancy!**
 
-*Refer to the **Data Dictionary** and **Study Guide** anytime you need help.*
+*Refer to the **Data Dictionary** and **Study Guide** for help and examples*

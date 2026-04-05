@@ -1,5 +1,5 @@
-# dbApps06: Database Design — Study Guide
-## Primary Keys, Foreign Keys & Redundancy
+# dbApps06: Database Design & Normalization — Study Guide
+## Primary Keys, Foreign Keys, Redundancy & Normal Forms
 
 **Database Applications Development**
 **Medina County Career Center | Instructor: Ryan McMaster**
@@ -10,305 +10,280 @@
 
 ### Core Database Terms
 
-1. **Entity** - A person, place, thing, or event that you want to store information about in a database. In database design, entities become tables.
-   - *IMDb Example:* Title (movie/show), Person (actor/director), Credit (who worked on what)
+1. **Entity** — A person, place, thing, or event you want to store data about. Entities become tables.
 
-2. **Attribute** - A characteristic or property of an entity that you want to track. In a table, attributes become columns.
-   - *IMDb Example:* Title attributes include primaryTitle, startYear, genres, runtimeMinutes
+2. **Attribute** — A property of an entity. Attributes become columns in a table.
 
-3. **Table** - A structured collection of data organized in rows and columns (like a spreadsheet). Each table represents one entity type.
-   - *IMDb Example:* The `title_basics` table stores information about all 19,462 movies and TV series
+3. **Table** — A structured collection of data organized in rows and columns. Each table represents one entity.
 
-4. **Row** (also Record) - A single instance of an entity; one complete record in a table.
-   - *IMDb Example:* One row in title_basics = one movie or TV series
+4. **Row (Record)** — One instance of an entity; one complete record in a table.
 
-5. **Column** (also Field) - A named attribute that appears in every row; the vertical organization of data.
-   - *IMDb Example:* The `primaryTitle` column in the title_basics table
+5. **Column (Field)** — A named attribute that appears in every row.
 
-6. **Primary Key (PK)** - A column (or set of columns) that uniquely identifies each row in a table. No two rows can have the same primary key value, and it can never be empty (NULL).
-   - *IMDb Example:* `tconst` in title_basics (e.g., "tt1375666" for Inception)
+6. **Primary Key (PK)** — A column (or set of columns) that uniquely identifies each row. PKs cannot be NULL and cannot repeat.
 
-7. **Foreign Key (FK)** - A column in one table that references the primary key of another table. Foreign keys create relationships between tables.
-   - *IMDb Example:* `tconst` in title_principals references `tconst` in title_basics
+7. **Foreign Key (FK)** — A column that references the primary key of another table. FKs create relationships between tables.
 
-8. **Composite Key** - A primary key made up of two or more columns combined. Used when no single column uniquely identifies a row.
-   - *IMDb Example:* In title_principals, (tconst, ordering) together form a composite key — one movie can have many credits, and the ordering number distinguishes them
+8. **Composite Key** — A primary key made of two or more columns combined. Used when no single column is unique on its own.
 
-9. **Relationship** - A connection between tables that allows you to link data across them. Relationships are defined by primary and foreign keys.
-   - *IMDb Example:* The relationship between title_basics and title_principals tables
+9. **Relationship** — A link between tables, defined by primary and foreign keys.
 
-10. **One-to-Many (1:M)** - A relationship where one row in Table A can be linked to many rows in Table B, but each row in Table B links to only one row in Table A.
-    - *IMDb Example:* One title has many credits (1:M relationship between title_basics and title_principals)
+10. **One-to-Many (1:M)** — One row in Table A links to many rows in Table B, but each B row links to only one A row. (Example: one customer → many orders.)
 
-11. **Many-to-Many (M:M)** - A relationship where rows in Table A can link to many rows in Table B, and vice versa. Requires a junction table.
-    - *IMDb Example:* An actor can appear in many movies, and a movie can have many actors
+11. **Many-to-Many (M:M)** — Rows in both tables can link to many rows in the other. Requires a junction table. (Example: students ↔ classes.)
 
-12. **Junction Table** - A linking table that connects two tables in a many-to-many relationship. Also called a "join table" or "bridge table."
-    - *IMDb Example:* `title_principals` acts as a junction table connecting title_basics and name_basics — it has foreign keys to both
+12. **Junction Table** — A linking table that connects two tables in an M:M relationship. Holds FKs to both.
 
 ### Data Quality Terms
 
-13. **Redundancy** - Storing the same information multiple times unnecessarily in a database.
-    - *Problem:* If movie title, year, and genre were stored in every credit row, "Inception" would appear 19 times (once per actor/crew member)
-    - *Solution:* Store "Inception" once in title_basics, reference it with tconst
+13. **Redundancy** — Storing the same information multiple times. Wastes space and creates update problems.
 
-14. **Update Anomaly** - An inconsistency that occurs when updating data in a redundant database. When you update data in one place but forget to update it elsewhere.
-    - *Example:* If a movie title needs correcting, but it's stored in 19 credit rows, you'd need to update all 19 — miss one and your data is inconsistent
+14. **Update Anomaly** — Inconsistent data caused by updating one copy of a value and forgetting the others.
 
-15. **Insert Anomaly** - A problem where you cannot insert data without redundant or incomplete information.
-    - *Example:* Can't add a new actor credit without also duplicating the entire movie title, year, and genre info
+15. **Insert Anomaly** — Can't add new data without also duplicating other information.
 
-16. **Delete Anomaly** - A problem where deleting one piece of information unintentionally deletes related information.
-    - *Example:* If you delete all credit rows for a movie, you'd lose the movie's title and rating info too if it were all in one table
+16. **Delete Anomaly** — Deleting one piece of data accidentally wipes out related data.
 
-17. **Data Integrity** - The accuracy, consistency, and reliability of data in a database. Good design maintains integrity; redundancy damages it.
+17. **Data Integrity** — The accuracy and consistency of data in a database. Good design protects it; redundancy breaks it.
 
 ---
 
-## IMDb Database Structure Reference
+## Database Structure Basics
 
-### The Five Tables
+### What a Well-Designed Database Looks Like
 
-The imdb_class_2010plus.db database contains 5 tables that demonstrate good database design:
+A good database has:
 
-#### 1. **title_basics** Table
+- **Multiple focused tables**, each representing one entity
+- **A primary key on every table** (a unique ID column works best — not a name)
+- **Foreign keys** connecting related tables
+- **No repeated data** — each fact is stored exactly once
 
-| Column Name | Data Type | Key Type | Description |
-|---|---|---|---|
-| tconst | TEXT | PRIMARY KEY | Unique identifier for each title (e.g., "tt1375666") |
-| titleType | TEXT | | "movie" or "tvSeries" |
-| primaryTitle | TEXT | | The title you'd recognize (e.g., "Inception") |
-| originalTitle | TEXT | | Original language title |
-| isAdult | INTEGER | | 0 = no, 1 = yes |
-| startYear | INTEGER | | Release year |
-| endYear | INTEGER | | End year (for TV series) |
-| runtimeMinutes | INTEGER | | Length in minutes |
-| genres | TEXT | | Comma-separated genres (e.g., "Action,Adventure,Sci-Fi") |
+### Why IDs Make Better Primary Keys Than Names
 
-**Primary Key:** tconst
-**Row Count:** 19,462
-**Why tconst and not primaryTitle?** Multiple movies share the same title (e.g., several films called "Home" or "Alone"). tconst is guaranteed unique.
+Names repeat. Two students can be named "John Smith." Two movies can share the same title. Two pizzas can be called "The Special." IDs are guaranteed unique, so they make reliable primary keys.
 
----
-
-#### 2. **title_ratings** Table
-
-| Column Name | Data Type | Key Type | Description |
-|---|---|---|---|
-| tconst | TEXT | PRIMARY KEY / FK | References title_basics.tconst |
-| averageRating | REAL | | IMDb score (1.0 to 10.0) |
-| numVotes | INTEGER | | Number of people who rated it |
-
-**Primary Key:** tconst
-**Foreign Key:** tconst → title_basics.tconst
-**Row Count:** 19,462
-
----
-
-#### 3. **name_basics** Table
-
-| Column Name | Data Type | Key Type | Description |
-|---|---|---|---|
-| nconst | TEXT | PRIMARY KEY | Unique identifier for each person (e.g., "nm0000138") |
-| primaryName | TEXT | | Person's name (e.g., "Leonardo DiCaprio") |
-| birthYear | INTEGER | | Year born |
-| deathYear | INTEGER | | Year died (NULL if alive) |
-| primaryProfession | TEXT | | What they're known for |
-| knownForTitles | TEXT | | Comma-separated list of famous tconst IDs |
-
-**Primary Key:** nconst
-**Row Count:** 182,015
-**Why nconst and not primaryName?** Multiple people share the same name (e.g., many "David Smith" entries). nconst is guaranteed unique.
-
----
-
-#### 4. **title_principals** Table
-
-| Column Name | Data Type | Key Type | Description |
-|---|---|---|---|
-| tconst | TEXT | FK | References title_basics.tconst |
-| ordering | INTEGER | | Credit order (1st billed, 2nd billed, etc.) |
-| nconst | TEXT | FK | References name_basics.nconst |
-| category | TEXT | | Role type: "actor", "actress", "director", etc. |
-| job | TEXT | | Specific job description |
-| characters | TEXT | | Character name(s) played |
-
-**Primary Key:** (tconst, ordering) — composite key
-**Foreign Keys:**
-- tconst → title_basics.tconst
-- nconst → name_basics.nconst
-**Row Count:** 364,848
-
-This is the **junction table** that connects titles to people. It answers: "Who worked on what?"
-
----
-
-#### 5. **title_crew_person** Table
-
-| Column Name | Data Type | Key Type | Description |
-|---|---|---|---|
-| tconst | TEXT | FK | References title_basics.tconst |
-| nconst | TEXT | FK | References name_basics.nconst |
-| role | TEXT | | "director" or "writer" |
-
-**Primary Key:** (tconst, nconst, role) — composite key
-**Foreign Keys:**
-- tconst → title_basics.tconst
-- nconst → name_basics.nconst
-**Row Count:** 116,970
-
----
-
-### IMDb Database Relationships
+### How Foreign Keys Connect Tables
 
 ```
-title_basics (PK: tconst)
-    ↓ ← One rating per title (1:1)
-title_ratings (FK: tconst)
-
-title_basics (PK: tconst)
-    ↓ ← Many credits per title (1:M)
-title_principals (FK: tconst, FK: nconst)
-    ↑ ← Many credits per person (1:M)
-name_basics (PK: nconst)
-
-title_basics (PK: tconst)
-    ↓ ← Many crew per title (1:M)
-title_crew_person (FK: tconst, FK: nconst)
-    ↑ ← Many crew roles per person (1:M)
-name_basics (PK: nconst)
+customers                         orders
+---------                         ------
+customer_id (PK)  ◄──────┐       order_id (PK)
+name                     └─── customer_id (FK)
+phone                         order_date
+                              total
 ```
 
-**Summary of all foreign key relationships:**
+The FK `customer_id` in `orders` points to the PK `customer_id` in `customers`. This is how you answer "which customer placed this order?" without copying the customer's name and phone into every order row.
 
-| FK Column | In This Table | Points To | Relationship |
-|-----------|--------------|-----------|--------------|
-| tconst | title_ratings | title_basics | 1 title : 1 rating |
-| tconst | title_principals | title_basics | 1 title : Many credits |
-| nconst | title_principals | name_basics | 1 person : Many credits |
-| tconst | title_crew_person | title_basics | 1 title : Many crew |
-| nconst | title_crew_person | name_basics | 1 person : Many crew roles |
+### Relationship Types at a Glance
 
----
-
-## Redundancy: The Numbers
-
-**Bad Design (one big table):**
-If we crammed all data into one table, every credit row would duplicate the movie title, year, genre, rating, and all actor info.
-
-- Total credits: 364,848
-- Unique titles: 19,462
-- **Wasted copies of title info: 345,386**
-
-For a single movie like Inception with 19 credits, the title, year, and genre would be stored 19 times instead of once.
-
-**Good Design (our 5 tables):**
-- "Inception" is stored once in title_basics
-- "Leonardo DiCaprio" is stored once in name_basics
-- Credits just reference the IDs — no duplication
-
-**The Update Test:** If a title needs correcting:
-- Bad design: Update 19+ rows (one per credit)
-- Good design: Update 1 row in title_basics
+| Type | Example | How It's Built |
+|---|---|---|
+| 1:1 | person ↔ passport | FK on either side |
+| 1:M | customer → orders | FK on the "many" side |
+| M:M | students ↔ classes | Junction table with two FKs |
 
 ---
 
-## SQL Concepts Used in This Lesson
+## SQL Examples
+
+These are the SQL patterns you need to know for this unit.
+
+### SELECT — Pulling data from one table
+
+```sql
+SELECT primaryTitle, startYear
+FROM title_basics
+WHERE startYear = 2024;
+```
+
+### WHERE with AND / OR
+
+```sql
+SELECT *
+FROM title_basics
+WHERE titleType = 'movie'
+  AND startYear >= 2020;
+```
 
 ### LIKE with Wildcards
-Searches for partial text matches. The `%` wildcard means "any characters."
+
+The `%` wildcard means "any characters."
+
 ```sql
-WHERE primaryTitle LIKE '%Avengers%'   -- contains "Avengers" anywhere
+WHERE primaryTitle LIKE '%Avengers%'   -- contains "Avengers"
 WHERE primaryTitle LIKE 'The%'         -- starts with "The"
 ```
 
-### JOIN with ON
-Combines rows from two tables where a column matches.
-```sql
-FROM title_basics b
-JOIN title_ratings r ON b.tconst = r.tconst
-```
-This links each movie to its rating using the shared `tconst` column.
+### IN — Shortcut for multiple OR conditions
 
-### Table Aliases
-Shortcuts so you don't type the full table name every time.
 ```sql
-FROM title_basics b       -- "b" = title_basics
-JOIN title_ratings r      -- "r" = title_ratings
-WHERE b.startYear = 2024  -- use the alias with a dot
+WHERE category IN ('actor', 'actress')
+-- same as: WHERE category = 'actor' OR category = 'actress'
 ```
 
-### IS NOT NULL
-Filters out rows where a value is missing (blank).
+### IS NULL / IS NOT NULL
+
+Filter rows where a value is (or isn't) missing. You **must** use `IS NULL`, never `= NULL`.
+
 ```sql
 WHERE runtimeMinutes IS NOT NULL
 ```
-You **must** use `IS NULL` or `IS NOT NULL` — you can't use `= NULL`.
 
-### IN (value1, value2, ...)
-A shortcut for multiple OR conditions.
+### JOIN — Combining two tables
+
 ```sql
-WHERE category IN ('actor', 'actress')
--- Same as: WHERE category = 'actor' OR category = 'actress'
+SELECT b.primaryTitle, r.averageRating
+FROM title_basics b
+JOIN title_ratings r ON b.tconst = r.tconst
+WHERE r.averageRating >= 8.0;
+```
+
+The `ON` clause tells SQL which columns to match. `b` and `r` are table aliases — shortcuts so you don't retype the full table name.
+
+### JOIN Across Three Tables
+
+```sql
+SELECT b.primaryTitle, n.primaryName, p.category
+FROM title_basics b
+JOIN title_principals p ON b.tconst = p.tconst
+JOIN name_basics n ON p.nconst = n.nconst
+WHERE b.primaryTitle = 'Inception';
+```
+
+### Aggregates — COUNT, AVG, SUM, MIN, MAX
+
+```sql
+SELECT COUNT(*) FROM title_basics;
+SELECT AVG(averageRating) FROM title_ratings;
+SELECT MAX(startYear) FROM title_basics;
 ```
 
 ### COUNT(DISTINCT column)
-Counts only unique values, ignoring duplicates.
+
+Counts unique values only.
+
 ```sql
-COUNT(DISTINCT tconst)  -- counts each movie only once
+SELECT COUNT(DISTINCT tconst) FROM title_principals;
+```
+
+### GROUP BY
+
+Group rows that share a value and aggregate each group.
+
+```sql
+SELECT startYear, COUNT(*) AS movie_count
+FROM title_basics
+WHERE titleType = 'movie'
+GROUP BY startYear
+ORDER BY startYear DESC;
 ```
 
 ### ROUND(value, decimals)
-Rounds a number to a specified number of decimal places.
+
 ```sql
-ROUND(AVG(averageRating), 2)  -- gives 5.87 instead of 5.873291...
+SELECT ROUND(AVG(averageRating), 2) FROM title_ratings;
 ```
 
-### PRAGMA table_info()
-SQLite-specific command that shows a table's column structure.
+### ORDER BY and LIMIT
+
 ```sql
-PRAGMA table_info(title_basics)
+SELECT primaryTitle, averageRating
+FROM title_basics b
+JOIN title_ratings r ON b.tconst = r.tconst
+ORDER BY r.averageRating DESC
+LIMIT 10;
 ```
-The `pk` column in the output tells you which columns are primary keys (0 = no, 1+ = yes).
+
+### PRAGMA table_info() — Inspect a Table's Structure
+
+SQLite-specific. Shows columns, types, and which columns are primary keys.
+
+```sql
+PRAGMA table_info(title_basics);
+```
+
+The `pk` column in the result is `0` for non-keys and `1+` for PK columns.
+
+---
+
+## Normalization: The Formal Rules
+
+Splitting a messy flat table into smaller, cleaner tables is called **normalization**. It has three main steps, called **normal forms**.
+
+### "The key, the whole key, and nothing but the key"
+
+18. **First Normal Form (1NF) — "The key"**
+    Every cell holds a single value. No lists, no comma-separated data, no multi-value columns.
+    - *Violation:* A Players table with a `games_played` cell containing `"Rocket League, Valorant, Fortnite"`.
+    - *Fix:* Break the list into multiple rows so each row has exactly one game.
+
+19. **Second Normal Form (2NF) — "The whole key"**
+    Must be in 1NF, AND every non-key column depends on the **entire** primary key (not just part of a composite key). This fixes **partial dependencies**.
+    - *Violation:* A table keyed by (gamertag, game_name) where `player_email` depends only on `gamertag`.
+    - *Fix:* Move `player_email` into its own Players table keyed by `gamertag`.
+
+20. **Third Normal Form (3NF) — "Nothing but the key"**
+    Must be in 2NF, AND every non-key column depends **only** on the primary key — not on another non-key column. This fixes **transitive dependencies**.
+    - *Violation:* A Players table where `coach_name` depends on `team_name`, and `team_name` depends on `gamertag`.
+    - *Fix:* Pull `team_name` and `coach_name` into a Teams table; leave `team_name` in Players as an FK.
+
+### Dependency Terms
+
+21. **Functional Dependency** — One column's value determines another column's value. "If I know `gamertag`, I know `player_email`."
+
+22. **Partial Dependency** — A non-key column depends on only part of a composite PK. Fixed by 2NF.
+
+23. **Transitive Dependency** — A non-key column depends on another non-key column, not directly on the PK. Fixed by 3NF.
+
+### The Normalization Process (Short Version)
+
+1. Start with a messy flat table.
+2. **1NF:** Split multi-value cells.
+3. **2NF:** Remove partial dependencies.
+4. **3NF:** Remove transitive dependencies.
+5. Connect the resulting tables with primary and foreign keys.
 
 ---
 
 ## Sample Study Questions
 
-1. **What is a primary key, and why do we need one?**
-   - A primary key is a column that uniquely identifies each row. We need one so every record is distinct and can be referenced by other tables.
+1. **What is a primary key and why do we need one?**
+   A column that uniquely identifies each row. Without one, you can't reliably tell records apart or reference them from other tables.
 
-2. **Why can't we use the movie title as a primary key?**
-   - Multiple movies share the same title (e.g., several films called "Home"). Titles are not unique. That's why IMDb uses `tconst` — it's guaranteed unique.
+2. **Why are names usually bad primary keys?**
+   Names repeat. Two people (or movies, or products) can share the same name. A unique ID never does.
 
-3. **How does a foreign key create relationships between tables?**
-   - A foreign key in one table references the primary key of another table. For example, `tconst` in title_principals points to `tconst` in title_basics, linking each credit to its movie.
+3. **How does a foreign key create a relationship between tables?**
+   An FK in one table holds a value that matches a PK in another table, linking the two rows together.
 
-4. **What problem does redundancy cause in databases?**
-   - Redundancy wastes space, makes updates difficult (you might miss some rows), and increases the risk of inconsistent data (typos in some copies but not others).
+4. **What's the difference between a 1:M and an M:M relationship?**
+   1:M uses a single FK on the "many" side. M:M needs a junction table with two FKs.
 
-5. **In the IMDb database, why is actor information in a separate table from movie credits?**
-   - "Leonardo DiCaprio" appears in 45+ movies. Storing his name, birth year, and profession in every credit row would duplicate that info 45 times. By storing it once in name_basics and referencing his nconst, we eliminate all that redundancy.
+5. **What problems does redundancy cause?**
+   Wasted space, update anomalies (you miss some copies), insert anomalies (can't add partial data), and delete anomalies (you lose data you didn't mean to).
 
-6. **What is a composite key, and when would you use one?**
-   - A composite key is two or more columns combined to form the primary key. Use it when no single column uniquely identifies a row. In title_principals, (tconst, ordering) is the composite key because one movie has many credits.
+6. **What is a composite key and when would you use one?**
+   A PK made of two or more columns. Use it when no single column is unique on its own (common in junction tables).
 
-7. **How does the title_principals table function as a junction table?**
-   - It connects title_basics (movies) and name_basics (people) in a many-to-many relationship. One movie has many actors, and one actor appears in many movies. title_principals has foreign keys to both tables.
+7. **What's the difference between a partial dependency and a transitive dependency?**
+   Partial = depends on only part of a composite key (fixed by 2NF). Transitive = depends on another non-key column (fixed by 3NF).
 
-8. **How would you prove that a foreign key relationship is valid using SQL?**
-   - Write a JOIN query connecting the two tables on the FK column. If every row matches, the FK is valid. You can also check for orphaned rows: `SELECT COUNT(*) FROM title_principals WHERE tconst NOT IN (SELECT tconst FROM title_basics)` — this should return 0.
+8. **How would you check whether a foreign key is valid?**
+   Write a query that looks for orphaned rows:
+   ```sql
+   SELECT COUNT(*) FROM orders
+   WHERE customer_id NOT IN (SELECT customer_id FROM customers);
+   ```
+   It should return 0.
 
 ---
 
 ## Key Takeaways
 
-1. **Good database design is about organization and consistency.**
-2. **Redundancy is the enemy** — each fact should be stored exactly once.
-3. **Keys are connectors** — primary keys identify rows; foreign keys link tables.
-4. **Names make bad primary keys** — use unique IDs like tconst and nconst instead.
-5. **The IMDb database exemplifies good design** — 5 focused tables with clear relationships, eliminating over 345,000 duplicate entries.
-
----
-
-**Next Steps:** Learn the formal rules of normalization (1NF, 2NF, 3NF) and practice drawing ER diagrams to visualize database designs!
+1. Good database design is about organization and consistency.
+2. Redundancy is the enemy — each fact should be stored exactly once.
+3. Primary keys identify rows; foreign keys link tables.
+4. Names make bad primary keys — use unique IDs.
+5. Normalization (1NF → 2NF → 3NF) is the formal process for getting there.

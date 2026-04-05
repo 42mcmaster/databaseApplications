@@ -161,19 +161,20 @@ Design a robot that uses the **color sensor** and **two motors** to accomplish a
 ### The Rules
 
 1. Your robot must use the **color sensor** to make decisions (color mode, reflection mode, or both)
-2. Your robot must use the **DriveBase** (two motors) to move
-3. You must use a **`while` loop** with sensor readings inside it
-4. You decide what the robot's **goal** is — be creative
+2. You **may also add the ultrasonic sensor** from Lesson 04 if it helps your design (combo projects are welcome)
+3. Your robot must use the **DriveBase** (two motors) to move
+4. You must use a **`while` loop** with sensor readings inside it
+5. You decide what the robot's **goal** is — be creative
 
 ### Some Ideas to Get You Started
 
 Pick one of these or come up with your own:
 - **Line follower** — follows the edge of a black line on a white surface using reflected light values
 - **Color sorter** — drives over colored zones and does a different action for each color (beep, turn, spin, stop)
-- **Edge detector** — drives on a table and turns around before going over the edge (dark surface = table, no reflection = edge)
+- **Edge detector** — drives on a table and turns around before going over the edge
 - **Stoplight robot** — drives until it sees red (stop), waits for green (go), turns on yellow
-- **Light seeker / light avoider** — uses ambient mode to drive toward or away from a flashlight
 - **Patrol bot** — drives back and forth between two colored tape lines
+- **Combo: Color + Ultrasonic hallway bot** — drives forward until the ultrasonic sees a wall, then uses the color sensor to decide which way to turn based on colored tape on the floor
 
 ### Your Planning Checklist
 
