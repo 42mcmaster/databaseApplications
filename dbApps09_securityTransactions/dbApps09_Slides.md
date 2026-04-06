@@ -6,159 +6,280 @@ paginate: true
 ---
 
 # Security & Transactions
+## Keeping data safe and consistent
 
-Database Applications Development (145085)
-Medina County Career Center
-
----
-<!-- _header: "Sub-Lesson 09a — SQL Injection" -->
-
-## What is SQL Injection?
-
-A technique where an attacker inserts malicious SQL code into a query.
-
-**Vulnerable Code Example:**
-```python
-userInput = "Robert"
-query = "SELECT * FROM users WHERE name = '" + userInput + "'"
-# Result: SELECT * FROM users WHERE name = 'Robert'
-```
-
-**Attack Example:**
-```python
-userInput = "' OR '1'='1"
-query = "SELECT * FROM users WHERE name = '" + userInput + "'"
-# Result: SELECT * FROM users WHERE name = '' OR '1'='1'
-# This returns ALL rows!
-```
+**Database Applications Development**
+Software Engineering | Medina County Career Center
 
 ---
 
-## The Damage from SQL Injection
+## Quick Recap
 
-- Unauthorized data access (reading private records)
-- Data deletion or corruption
-- Bypassing authentication (login without password)
-- Modifying database structure
-- Data exfiltration and breaches
+In the last lessons we learned to **read, write, update, and delete** data.
 
-**Bottom Line:** SQL injection is a critical vulnerability. Prevention is essential.
+Today we answer two new questions:
+
+1. **How do we keep bad guys from messing with our database?**
+2. **How do we keep our own code from half-messing it up when something fails mid-operation?**
+
+Welcome to **Security** and **Transactions**.
+
+---
+
+## Part 1: SQL Injection
+
+First, the bad guys.
+
+Imagine a simple login page. The user types their name into a box, and your code builds a SQL query around it.
+
+What could possibly go wrong?
+
+*(A lot.)*
+
+---
+
+## A Normal Login — Looks Fine
+
+```python
+username = "Arnold"
+query = "SELECT * FROM users WHERE name = '" + username + "'"
+# Becomes:
+# SELECT * FROM users WHERE name = 'Arnold'
+```
+
+Totally normal. The query looks up Arnold's user record.
+
+Now watch what happens when the user is sneaky…
+
+---
+
+## SQL Injection — The Attack
+
+```python
+username = "' OR '1'='1"
+query = "SELECT * FROM users WHERE name = '" + username + "'"
+# Becomes:
+# SELECT * FROM users WHERE name = '' OR '1'='1'
+```
+
+The attacker didn't type a name — they typed **SQL**.
+
+`'1'='1'` is always true, so the query returns **every user** in the table. Login bypassed.
+
+This is **SQL injection**. The attacker "injected" SQL code through a text box.
+
+---
+
+## Why It's Scary
+
+Once someone can inject SQL, they can:
+
+- Read data they shouldn't see (private records, passwords)
+- Delete or modify tables
+- Bypass login screens entirely
+- Dump your whole database to a file
+
+SQL injection has been the cause of some of the biggest data breaches in history. It's still one of the most common attacks on the internet.
 
 ---
 
 ## The Fix: Parameterized Queries
 
-Use **placeholders** instead of string concatenation.
+Instead of gluing user input into a SQL string, use a **placeholder** (`?`) and pass the value separately.
 
-**Unsafe (String Concatenation):**
 ```python
-userInput = "Robert"
-query = "SELECT * FROM users WHERE name = '" + userInput + "'"
+username = "Arnold"
+query = "SELECT * FROM users WHERE name = ?"
+cursor.execute(query, (username,))
+```
+
+The database treats the parameter as **data**, never as SQL code. Even if the user types `' OR '1'='1`, it's just a weird string, not code.
+
+---
+
+## Unsafe vs Safe — Side by Side
+
+❌ **Unsafe** (string concatenation):
+```python
+query = "SELECT * FROM users WHERE name = '" + username + "'"
 cursor.execute(query)
 ```
 
-**Safe (Parameterized Query):**
+✅ **Safe** (parameterized):
 ```python
-userInput = "Robert"
 query = "SELECT * FROM users WHERE name = ?"
-cursor.execute(query, (userInput,))
-# Even if userInput = "' OR '1'='1", it's treated as a literal string
+cursor.execute(query, (username,))
 ```
 
-The database treats the parameter as **data**, not SQL code.
+**Rule:** If you ever find yourself using `+` to glue user input into a SQL string, stop. Use `?` instead.
 
 ---
-<!-- _header: "Sub-Lesson 09b — Transactions" -->
 
-## What is a Transaction?
+## The Golden Rule
 
-A **transaction** is a group of SQL operations that must all succeed or all fail together.
+> **"Never trust user input. Always parameterize."**
 
-Think of it as an all-or-nothing deal.
+This is the #1 rule of database security. It's that simple, and that important.
 
-**Real-World Example: Bank Transfer**
-- Debit $100 from Account A
-- Credit $100 to Account B
+---
 
-If the debit succeeds but the credit fails, money disappears. Use a transaction to prevent this.
+## Part 2: Transactions
 
-**In SQL:**
+Now let's talk about the OTHER kind of data disaster — the one where nobody's attacking you, but something still goes wrong halfway through.
+
+---
+
+## The Classic Example: Bank Transfer
+
+You want to move $100 from Arnold's account to Lebron's.
+
+That's actually TWO operations:
+
+```sql
+UPDATE accounts SET balance = balance - 100 WHERE name = 'Arnold';
+UPDATE accounts SET balance = balance + 100 WHERE name = 'Lebron';
+```
+
+What if the first one succeeds… and then the power goes out before the second one runs?
+
+**Arnold lost $100. Lebron never got it. It just vanished.** 😱
+
+---
+
+## What a Transaction Does
+
+A **transaction** is a group of SQL operations that must **all succeed or all fail**. No in-between.
+
+It's an **all-or-nothing deal**.
+
 ```sql
 BEGIN;
-UPDATE accounts SET balance = balance - 100 WHERE id = 1;
-UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+  UPDATE accounts SET balance = balance - 100 WHERE name = 'Arnold';
+  UPDATE accounts SET balance = balance + 100 WHERE name = 'Lebron';
 COMMIT;
 ```
 
+If anything fails between `BEGIN` and `COMMIT`, the database undoes **everything**. Nothing is half-done.
+
 ---
 
-## BEGIN, COMMIT, ROLLBACK
+## The Three Commands
 
-**BEGIN** — Start a transaction. All subsequent operations are grouped.
+| Command | What it does |
+|---------|--------------|
+| **BEGIN** | "Start a transaction — I'm about to do multiple things that must stay together." |
+| **COMMIT** | "All good. Save everything I just did." |
+| **ROLLBACK** | "Something went wrong. Undo everything I just did." |
 
-**COMMIT** — Save all changes. The transaction succeeds.
+---
 
-**ROLLBACK** — Undo all changes. The transaction fails.
+## ROLLBACK — The Undo Button
 
-**Example:**
 ```sql
 BEGIN;
-DELETE FROM logs WHERE timestamp < '2023-01-01';
-COMMIT;  -- Changes are permanent
-
--- OR
-
-BEGIN;
-INSERT INTO audit (action) VALUES ('admin login');
-ROLLBACK;  -- Changes are undone, nothing is inserted
+  DELETE FROM students WHERE grade_level = 12;  -- oops, wrong table
+ROLLBACK;  -- phew, undo that
 ```
 
----
+Between BEGIN and COMMIT, nothing is permanent yet. You can always change your mind.
 
-## ACID Properties
-
-**A — Atomicity:** All operations succeed or all fail. No partial updates.
-
-**C — Consistency:** The database moves from one valid state to another. Rules are enforced.
-
-**I — Isolation:** Transactions don't interfere with each other. One transaction's changes don't affect another until committed.
-
-**D — Durability:** Once committed, data is permanent, even if the system crashes.
+Once you COMMIT, though, it's done. No more undo.
 
 ---
 
-## Data Protection Laws
+## When Should You Use a Transaction?
 
-**HIPAA (Health Insurance Portability & Accountability Act)**
-- Protects health information
-- Applies to healthcare organizations and their vendors
-- Your responsibility: encrypt data, control access, audit activity
+Any time your task requires **more than one change** that all have to happen together.
 
-**FERPA (Family Educational Rights & Privacy Act)**
-- Protects student education records
-- Applies to schools and educational institutions
-- Your responsibility: restrict access, don't share without consent
+Examples:
+- Bank transfer (debit + credit)
+- Placing an order (create order + add order lines + reduce stock)
+- Enrolling a student (add enrollment + charge tuition + send confirmation)
+- Deleting a user (delete user + delete their posts + delete their messages)
 
-**As a developer:** Know what data your database holds and who can access it.
+If any single step fails, you want ALL of them rolled back.
 
 ---
 
-## Best Practices Summary
+## ACID — Why Transactions Are Trustworthy
 
-1. **Always use parameterized queries** — no string concatenation in SQL
-2. **Use transactions for multi-step operations** — ensures consistency
-3. **Apply principle of least privilege** — users get only the access they need
-4. **Encrypt sensitive data** — especially PII (personally identifiable information)
-5. **Log and audit database activity** — track who accessed what and when
-6. **Keep software updated** — patches close security holes
+Databases promise four properties, nicknamed **ACID**:
+
+| Letter | Meaning | Plain English |
+|--------|---------|---------------|
+| **A** | Atomicity | All steps happen, or none do. |
+| **C** | Consistency | The database always follows its own rules. |
+| **I** | Isolation | Transactions don't mess with each other mid-flight. |
+| **D** | Durability | Once committed, it survives a crash. |
+
+You don't have to memorize the letters — just understand that transactions are how databases deliver on these promises.
+
+---
+
+## Part 3: Real-World Data Laws
+
+Writing secure code isn't just a technical job — it's a legal one.
+
+Two laws you should recognize by name:
+
+---
+
+## HIPAA — Health Data
+
+**Health Insurance Portability and Accountability Act**
+
+- Protects medical records and health information
+- Applies to hospitals, clinics, insurance companies, and their software vendors
+- Requires encryption, access control, and audit logs
+
+If you ever build software that touches health data, HIPAA applies. Violations are expensive.
+
+---
+
+## FERPA — Student Data
+
+**Family Educational Rights and Privacy Act**
+
+- Protects student education records (grades, attendance, disciplinary records)
+- Applies to schools and anybody working for schools
+- Records can't be shared without consent (with specific exceptions)
+
+Yes — it applies to this school. Yes — it applies to any student-facing app you build someday.
+
+---
+
+## Your Responsibility as a Developer
+
+Whether it's HIPAA, FERPA, or your company's own policy:
+
+1. **Know what data you store.** Is any of it sensitive?
+2. **Control who can access it.** Not every user needs every column.
+3. **Encrypt it** where required.
+4. **Log access** so you can tell who looked at what.
+5. **Don't leak it** through sloppy code (hi, SQL injection).
+
+Good developers think about security BEFORE something goes wrong.
+
+---
+
+## Best Practices — The Short List
+
+1. **Parameterize every query.** No string concatenation. Ever.
+2. **Use transactions** for anything that takes multiple steps.
+3. **Least privilege** — give users only the access they need.
+4. **Encrypt sensitive data** — especially personal info.
+5. **Log database activity** — who did what, when.
+6. **Keep software updated** — patches close known holes.
 
 ---
 
 ## Key Takeaways
 
-- SQL injection is a serious threat — use parameterized queries
-- Transactions guarantee consistency in multi-step operations
-- BEGIN, COMMIT, ROLLBACK control transaction flow
-- ACID ensures data integrity and reliability
-- HIPAA and FERPA are real-world privacy regulations
-- Security is a shared responsibility — developers must build safely
+- **SQL injection** is real and common. Parameterized queries stop it.
+- **Transactions** guarantee that multi-step work is all-or-nothing.
+- `BEGIN`, `COMMIT`, `ROLLBACK` are the three commands you need.
+- **ACID** is the promise: Atomicity, Consistency, Isolation, Durability.
+- **HIPAA** protects health data; **FERPA** protects student data.
+- Security is a habit, not a feature. Build it in from day one.
+
+**Next up:** Walkthrough, then tasks, then DIY.

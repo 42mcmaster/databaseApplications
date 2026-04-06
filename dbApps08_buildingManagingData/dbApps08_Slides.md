@@ -6,195 +6,355 @@ paginate: true
 ---
 
 # Building & Managing Data
-**Database Applications Development (145085)**
-*Medina County Career Center | Instructor: Ryan McMaster*
+## CREATE, INSERT, UPDATE, DELETE, and Constraints
+
+**Database Applications Development**
+Software Engineering | Medina County Career Center
 
 ---
 
-## Sub-Lesson 08a — CREATE TABLE & INSERT
+## Quick Recap
 
-### CREATE TABLE Syntax
+So far, we've **read** data out of existing databases:
+- SELECT, WHERE, JOINs, GROUP BY…
+
+Today we flip it around and **build our own** database from scratch.
+
+You'll learn how to:
+1. **Create** a table
+2. **Insert** rows into it
+3. **Update** rows that already exist
+4. **Delete** rows you don't want
+5. **Protect** the table with constraints so bad data can't get in
+
+---
+
+## The Four Big Verbs
+
+| Verb | What it does |
+|------|--------------|
+| **CREATE TABLE** | Build a new empty table with columns and rules |
+| **INSERT** | Add new rows |
+| **UPDATE** | Change existing rows |
+| **DELETE** | Remove rows |
+
+SELECT asks "what's in there?" — these four verbs actually change what's in there.
+
+---
+
+## CREATE TABLE — The Basics
+
+You're making a blueprint. You tell SQL:
+- What the table is called
+- What columns it has
+- What kind of data each column holds
 
 ```sql
-CREATE TABLE table_name (
-  column_name  DATA_TYPE  [constraints],
-  column_name  DATA_TYPE  [constraints]
+CREATE TABLE students (
+  student_id  INTEGER,
+  name        TEXT,
+  gpa         REAL
 );
 ```
 
-### SQLite Data Types
-- **INTEGER** — whole numbers (-9223372036854775808 to 9223372036854775807)
-- **TEXT** — strings, names, descriptions
-- **REAL** — floating-point numbers (decimals)
-- **BLOB** — binary data (images, files)
-- **NULL** — missing or unknown value
+That's it. Empty table, ready for rows.
 
 ---
 
-## INSERT INTO — Adding Records
+## SQLite Data Types (the simple version)
 
-```sql
-INSERT INTO table_name (column1, column2, column3)
-VALUES (value1, value2, value3);
-```
+| Type | Use it for |
+|------|-----------|
+| **INTEGER** | Whole numbers (id, age, count) |
+| **TEXT** | Strings — names, emails, descriptions |
+| **REAL** | Decimals — gpa, price, height |
+| **BLOB** | Raw binary — images, files (rarely used in class) |
+| **NULL** | The column has no value yet |
 
-**Key Points:**
-- Column names tell SQL which order the VALUES go in
-- Match data types: TEXT values need quotes, INTEGER/REAL don't
-- If a column has NOT NULL constraint, you must provide a value
-
-**Example:**
-```sql
-INSERT INTO students (id, name, gpa)
-VALUES (1, 'Alice Smith', 3.85);
-```
+Pick the smallest type that fits. If you'll never store decimals, use INTEGER not REAL.
 
 ---
 
-## Sub-Lesson 08b — UPDATE & DELETE
-
-### UPDATE Syntax with WHERE
+## INSERT INTO — Adding Rows
 
 ```sql
-UPDATE table_name
-SET column1 = value1, column2 = value2
-WHERE condition;
+INSERT INTO students (student_id, name, gpa)
+VALUES (1, 'Arnold', 3.85);
 ```
 
-**CRITICAL: Test your WHERE clause first!**
-```sql
--- Step 1: Test what rows you'll affect
-SELECT * FROM students WHERE gpa < 2.0;
+**Read it like a sentence:**
+> "INSERT INTO students, using these columns, these values."
 
--- Step 2: Run the UPDATE only if results look right
-UPDATE students SET status = 'probation' WHERE gpa < 2.0;
-```
+- Text values need **quotes**: `'Arnold'`
+- Numbers don't: `3.85`
+- The order of values must match the order of columns you listed.
 
 ---
 
-## The Danger: UPDATE Without WHERE
+## INSERT — Multiple Rows at Once
+
+You can stack rows in one statement:
 
 ```sql
--- WRONG: This changes EVERY row!
+INSERT INTO students (student_id, name, gpa)
+VALUES
+  (1, 'Arnold',      3.85),
+  (2, 'Lebron',      3.70),
+  (3, 'Kobe',        3.92),
+  (4, 'Maxibillion', 2.45);
+```
+
+Fast, clean, and easy to read.
+
+---
+
+## UPDATE — Changing Existing Rows
+
+```sql
+UPDATE students
+SET gpa = 3.90
+WHERE student_id = 1;
+```
+
+**Read it like a sentence:**
+> "UPDATE the students table, SET gpa to 3.90, WHERE student_id is 1."
+
+The `WHERE` clause is what tells SQL **which rows** to change.
+
+---
+
+## ⚠️ The #1 Rookie Mistake
+
+What happens if you forget the WHERE?
+
+```sql
 UPDATE students SET gpa = 4.0;
 ```
 
-**Result:** All students suddenly have a 4.0 GPA. Disaster.
+**Every single student now has a 4.0.**
+No warning. No undo. You just rewrote your whole table.
 
-**Right Approach:**
-1. Write your WHERE clause
-2. Test it with SELECT first
-3. Copy the exact WHERE into UPDATE
-4. Run UPDATE only after verification
+This is the most common painful mistake in SQL. Be careful.
 
 ---
 
-## DELETE Syntax — Same Safety Principle
+## The Safe UPDATE Workflow
 
+Always do this in TWO steps:
+
+**Step 1 — Test the WHERE with a SELECT:**
 ```sql
-DELETE FROM table_name
-WHERE condition;
+SELECT * FROM students WHERE gpa < 2.0;
+```
+Look at the rows. Are they the ones you actually want to change?
+
+**Step 2 — Then UPDATE:**
+```sql
+UPDATE students SET status = 'probation' WHERE gpa < 2.0;
 ```
 
-**CRITICAL: Always test first!**
-```sql
--- Step 1: Verify what you're deleting
-SELECT * FROM students WHERE id = 5;
+**SELECT first, UPDATE second.** Make this a habit.
 
--- Step 2: Delete only if you're sure
-DELETE FROM students WHERE id = 5;
+---
+
+## DELETE — Removing Rows
+
+```sql
+DELETE FROM students
+WHERE student_id = 4;
 ```
 
-**Never do this:**
+Same shape as UPDATE: you need a WHERE to say **which** rows.
+
+And the same scary trap…
+
 ```sql
--- WRONG: Deletes ALL rows!
 DELETE FROM students;
 ```
 
----
-
-## Sub-Lesson 08c — Constraints
-
-### Why Constraints Matter
-
-**Garbage In, Garbage Out (GIGO)**
-- Without constraints, anyone can insert incomplete, duplicate, or invalid data
-- Constraints enforce rules at the database level — before bad data gets in
-- Data integrity = trustworthy data = reliable business decisions
+**This deletes EVERY row in the table.** Gone. Just like that.
 
 ---
 
-## Column-Level Constraints
+## The Safe DELETE Workflow
 
-### NOT NULL
-Ensures a column must always have a value.
+Same two-step habit:
+
 ```sql
-CREATE TABLE employees (
-  id INTEGER NOT NULL,
-  name TEXT NOT NULL,
-  salary REAL
+-- Step 1: See what you'd delete
+SELECT * FROM students WHERE student_id = 4;
+
+-- Step 2: Delete only if the results look right
+DELETE FROM students WHERE student_id = 4;
+```
+
+> **"SELECT before you UPDATE or DELETE. Always."**
+
+---
+
+## Why Constraints?
+
+So far, our CREATE TABLE was wide open. Anybody could:
+- Leave the name blank
+- Insert two students with the same ID
+- Type a negative GPA
+- Invent a `dept_id` that doesn't exist
+
+**Constraints** are rules you bake into the table so bad data can't get in.
+
+> **Garbage in → Garbage out.** Constraints are how you keep the garbage out.
+
+---
+
+## Constraint 1: NOT NULL
+
+"This column must have a value."
+
+```sql
+CREATE TABLE students (
+  student_id INTEGER,
+  name       TEXT NOT NULL,
+  gpa        REAL
 );
 ```
 
-### UNIQUE
-Prevents duplicate values in a column.
+Now you can't insert a student with no name. SQL will refuse.
+
+---
+
+## Constraint 2: UNIQUE
+
+"No two rows can have the same value in this column."
+
 ```sql
 CREATE TABLE users (
-  id INTEGER,
-  email TEXT UNIQUE
+  user_id INTEGER,
+  email   TEXT UNIQUE
 );
 ```
 
-### DEFAULT
-Provides an automatic value if none is given.
+Try to insert two users with the same email? Rejected.
+Perfect for emails, usernames, phone numbers.
+
+---
+
+## Constraint 3: DEFAULT
+
+"If nobody provides a value, use this one."
+
 ```sql
 CREATE TABLE posts (
-  id INTEGER,
+  post_id    INTEGER,
+  title      TEXT,
   created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 ```
 
+Now if you insert a post without `created_at`, SQL fills in the current time for you. Saves typing and prevents forgotten timestamps.
+
 ---
 
-## Value & Referential Constraints
+## Constraint 4: CHECK
 
-### CHECK
-Validates that values meet a condition.
+"The value must make this condition true."
+
 ```sql
 CREATE TABLE products (
-  id INTEGER,
-  price REAL CHECK (price > 0)
+  product_id INTEGER,
+  name       TEXT,
+  price      REAL CHECK (price > 0)
 );
 ```
 
-### PRIMARY KEY
-Uniquely identifies each row (NOT NULL + UNIQUE).
+Try to insert a product with `price = -5`? Rejected.
+CHECK catches impossible values before they ever enter the table.
+
+---
+
+## Constraint 5: PRIMARY KEY
+
+The big one. It means:
+- This column is the **unique ID** for each row
+- Values must be unique (UNIQUE)
+- Values can't be empty (NOT NULL)
+- SQL will make lookups on this column very fast
+
 ```sql
 CREATE TABLE courses (
   course_id INTEGER PRIMARY KEY,
-  title TEXT NOT NULL
+  title     TEXT NOT NULL
 );
 ```
 
-### FOREIGN KEY
-Links to a PRIMARY KEY in another table (referential integrity).
-```sql
-CREATE TABLE enrollments (
-  id INTEGER PRIMARY KEY,
-  student_id INTEGER REFERENCES students(id),
-  course_id INTEGER REFERENCES courses(course_id)
-);
-```
+Every good table should have a primary key.
 
 ---
 
-## Key Takeaways & Syntax Reference
+## Constraint 6: FOREIGN KEY
 
-**CREATE TABLE:** Define structure before adding data
-**INSERT:** Add one row at a time with VALUES
-**UPDATE:** Change existing data — test WHERE first with SELECT
-**DELETE:** Remove rows — test WHERE first with SELECT
-**Constraints:** Enforce rules to protect data integrity
+"This column must match a primary key in another table."
 
-**Remember:** GIGO — good constraints prevent bad data from ever entering your database.
+```sql
+CREATE TABLE enrollments (
+  enrollment_id INTEGER PRIMARY KEY,
+  student_id    INTEGER REFERENCES students(student_id),
+  course_id     INTEGER REFERENCES courses(course_id)
+);
+```
 
+Now you can't enroll a student who doesn't exist or in a course that doesn't exist. This is called **referential integrity** — your FKs always point to something real.
+
+---
+
+## Putting It All Together
+
+A small but properly protected table:
+
+```sql
+CREATE TABLE students (
+  student_id INTEGER PRIMARY KEY,
+  name       TEXT NOT NULL,
+  email      TEXT UNIQUE NOT NULL,
+  gpa        REAL CHECK (gpa >= 0 AND gpa <= 4.0),
+  dept_id    INTEGER REFERENCES departments(dept_id),
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+Every column has a job, a type, and a rule. This is how real databases are built.
+
+---
+
+## Quick Review: What Does Each Constraint Catch?
+
+| Rule | Blocks… |
+|------|---------|
+| NOT NULL | Missing values |
+| UNIQUE | Duplicate values |
+| DEFAULT | Forgotten values (fills them in) |
+| CHECK | Invalid / impossible values |
+| PRIMARY KEY | Missing IDs and duplicate IDs |
+| FOREIGN KEY | Pointers to rows that don't exist |
+
+Each one prevents a different category of "bad data."
+
+---
+
+## The Whole Recipe
+
+1. **CREATE TABLE** with columns, types, and constraints.
+2. **INSERT** rows using the column list + VALUES.
+3. To change data, **SELECT first** to verify → then **UPDATE**.
+4. To remove data, **SELECT first** to verify → then **DELETE**.
+5. Use **constraints** so future you (and future students) can't break the table.
+
+---
+
+## Key Takeaways
+
+- SELECT reads data. CREATE / INSERT / UPDATE / DELETE change it.
+- **Always SELECT before UPDATE or DELETE.** Always.
+- Constraints aren't extra work — they're how you keep your data clean.
+- PRIMARY KEY + FOREIGN KEY are what turn separate tables into a real relational database.
+
+**Next up:** Walkthrough, then tasks, then DIY.

@@ -8,134 +8,206 @@ paginate: true
 # Capstone Project
 ## Design, Build, Query, Present
 
-Database Applications Development (145085)
-Medina County Career Center
-Instructor: Ryan McMaster
+**Database Applications Development**
+Software Engineering | Medina County Career Center
 
 ---
 
-<!-- _header: "Sub-Lesson 10a — Project Kickoff" -->
+## The Big Idea
 
-# What You'll Build
+You're going to build **your own database from scratch** on a topic you actually care about.
 
-Your own **SQLite database** from scratch.
+Then you'll:
+- Design it
+- Fill it with real data
+- Query it like a pro
+- Present it to the class
 
-Pick a **real-world topic** you care about.
-
-Then **design it, populate it with data, and query it.**
+This is where everything from the semester comes together.
 
 ---
 
-# Topic Ideas
+## Pick a Topic You Actually Like
 
-- Sports stats tracker
-- Video game library
+The best projects come from topics you genuinely enjoy. A few ideas:
+
+- Sports stats tracker (NBA, NFL, your own fantasy league)
+- Video game library / achievements
 - Recipe collection
-- School club manager
-- Pet shelter database
+- Pet shelter or kennel
 - Music playlist organizer
 - Small business inventory
-- Workout/fitness log
+- Workout / fitness log
+- School club or team manager
 
-**Or propose your own!**
+**Or propose your own.** If you're into it, you'll build it better.
 
 ---
 
-# Project Requirements
+## What You Have to Include
+
+Every project needs:
 
 - **3+ tables** with primary keys and foreign keys
-- **20+ records** per main table (realistic data)
+- **20+ rows** in each main table (realistic data)
 - **Constraints:** NOT NULL, UNIQUE, DEFAULT, CHECK, FOREIGN KEY
-- **10+ queries** (JOINs, aggregations, GROUP BY, HAVING)
-- **Parameterized queries** (prevent SQL injection)
-- **At least 1 transaction** (BEGIN/COMMIT/ROLLBACK)
-- **Data dictionary** (table & column descriptions)
-- **ER diagram** (entity-relationship diagram)
+- **10+ SQL queries** (including JOINs and aggregates)
+- **Parameterized queries** (no SQL injection!)
+- **At least 1 transaction** (BEGIN / COMMIT / ROLLBACK)
+- **Data dictionary** (plain-English table/column descriptions)
+- **ER diagram** (shows your tables and their relationships)
 
 ---
 
-<!-- _header: "Sub-Lesson 10b-10c — Design & Build" -->
+## The Four Phases
 
-# Design Phase
+| Phase | What happens |
+|-------|--------------|
+| **1. Design** | Plan your tables, keys, and relationships |
+| **2. Build** | Create the tables and insert the data |
+| **3. Query** | Write the 10+ queries that prove it works |
+| **4. Present** | Demo your project to the class |
 
-1. Identify your **entities** (tables)
-2. List **attributes** (columns) for each
-3. Determine **relationships** (1-to-many, many-to-many)
-4. Draw your **ER diagram**
-5. Write **CREATE TABLE** statements with constraints
-
-**Build Phase**
-
-1. Create the database
-2. Run CREATE TABLE statements
-3. Populate with 20+ realistic INSERT statements per main table
+We'll walk through each phase on the next few slides.
 
 ---
 
-<!-- _header: "Sub-Lesson 10d — Queries" -->
+## Phase 1: Design
 
-# Query Phase
+Before you write any SQL, you plan.
 
-Write **10+ queries** that demonstrate course concepts:
-
-- **SELECT with WHERE** — filtering data
-- **INNER JOIN** — combining tables
-- **LEFT JOIN** — including non-matches
-- **GROUP BY with aggregates** — COUNT, SUM, AVG, MIN, MAX
-- **HAVING** — filtering groups
-- **ORDER BY** — sorting results
-- **Subqueries or CTEs** — nested logic
-
-Keep queries clean and well-commented.
+1. **List your entities** — what "things" does your database track? (Each one becomes a table.)
+2. **List attributes** — what facts do you store about each entity? (Those are columns.)
+3. **Find the relationships** — which tables connect, and how?
+4. **Draw an ER diagram** — boxes for tables, lines for relationships.
+5. **Write your `CREATE TABLE` statements** with PKs, FKs, and constraints.
 
 ---
 
-<!-- _header: "Sub-Lesson 10e — Polish" -->
+## Design Example: Pet Shelter
 
-# Polish Phase
+**Entities (tables):**
+- Animals
+- Adopters
+- Adoptions
 
-- **Data Dictionary:** Describe each table and column
-- **Security:** Use parameterized queries everywhere
-- **Transaction Demo:** Show one example of BEGIN/COMMIT/ROLLBACK
-- **Comments:** Explain the logic in your SQL
-- **Code Cleanup:** Remove debug code, test thoroughly
+**Relationships:**
+- One adopter can adopt many animals
+- Each adoption links one animal to one adopter
 
----
+**ER diagram sketch:**
+```
+[Adopters] ───1..*─── [Adoptions] ───*..1─── [Animals]
+```
 
-<!-- _header: "Sub-Lesson 10f — Presentations" -->
-
-# Presentation (10 minutes)
-
-1. **Introduce your topic** (30 sec) — what problem does it solve?
-2. **Show your ER diagram** (1 min) — explain relationships
-3. **Demo 3-4 best queries live** (5 min) — run them, show results
-4. **Share one achievement** (2 min) — what are you proud of?
-5. **Answer questions** (1 min)
-
-*Keep it simple, confident, clear.*
+That's it — plan first, code second.
 
 ---
 
-# Rubric Overview
+## Phase 2: Build
+
+Once the design is locked in:
+
+1. Create the database file.
+2. Run your `CREATE TABLE` statements (with constraints!).
+3. Insert **20+ realistic rows** into each main table.
+4. Spot-check with `SELECT *` to make sure it looks right.
+
+**Tip:** Use realistic data. "Cat 1, Cat 2, Cat 3" is boring and makes querying pointless. Give your rows real names, dates, and details.
+
+---
+
+## Phase 3: Query
+
+Write **10+ queries** that show off what you can do:
+
+- `SELECT ... WHERE` — basic filtering
+- `INNER JOIN` — connect two tables
+- `LEFT JOIN` — keep rows that don't match
+- `GROUP BY` + `COUNT / SUM / AVG / MIN / MAX`
+- `HAVING` — filter groups
+- `ORDER BY` — sort results
+- A **subquery or CTE** for bonus points
+
+Make each query answer a real question about your topic.
+
+---
+
+## Phase 3: Query Examples (Pet Shelter)
+
+```sql
+-- 1. Every dog currently available for adoption
+SELECT name, breed, age FROM animals
+WHERE species = 'Dog' AND available = 1;
+
+-- 2. How many animals each adopter has taken home
+SELECT a.name, COUNT(*) AS total_adopted
+FROM adopters AS a
+INNER JOIN adoptions AS ad ON a.adopter_id = ad.adopter_id
+GROUP BY a.name
+ORDER BY total_adopted DESC;
+```
+
+Good queries tell a story about your data.
+
+---
+
+## Phase 4: Polish & Protect
+
+Before presenting, clean it up:
+
+- **Data dictionary** — a short doc explaining every table and column in plain English.
+- **Parameterized queries everywhere** — no string concatenation.
+- **Show one transaction** — BEGIN / COMMIT (or ROLLBACK) demonstrating an all-or-nothing operation.
+- **Comment your SQL** — explain *why*, not just *what*.
+- **Test everything** — run each query one more time before demo day.
+
+---
+
+## Phase 4: The Presentation (10 minutes)
+
+1. **Your topic** (30 sec) — what does this database track, and why?
+2. **Your ER diagram** (1 min) — walk us through the tables and links.
+3. **Live demo of 3–4 best queries** (5 min) — run them, show the results.
+4. **One thing you're proud of** (2 min) — toughest challenge, coolest query, favorite feature.
+5. **Questions** (1 min)
+
+Keep it **simple, confident, and clear**. Don't read slides — talk about your work.
+
+---
+
+## Rubric at a Glance
 
 | Category | Points |
 |----------|--------|
-| **Design** (ER, tables, constraints) | 30 |
-| **Build** (create, populate, clean) | 30 |
-| **Queries** (10+, variety, correct) | 30 |
-| **Documentation** (dictionary, comments) | 15 |
-| **Presentation** (clarity, live demo) | 15 |
-| **TOTAL** | 120 |
+| Design (ER diagram, tables, constraints) | 30 |
+| Build (CREATE, populate, clean data) | 30 |
+| Queries (10+, variety, correctness) | 30 |
+| Documentation (data dictionary, comments) | 15 |
+| Presentation (clarity, live demo) | 15 |
+| **TOTAL** | **120** |
+
+Full rubric is in `dbApps10_Rubric.md`.
 
 ---
 
-# Timeline & Tips
+## Timeline & Survival Tips
 
-- Work through **10a–10f in order**
-- **Ask questions early** — don't wait until the last day
-- **Commit to GitHub often** — at least after each phase
-- **Keep it simple** — quality over quantity
-- **Test your queries** before presentation
-- **Backup your work** regularly
+- Work through the phases **in order** — don't start writing INSERTs before your design is done.
+- **Commit to GitHub often** — at least after each phase.
+- **Ask questions EARLY.** Don't silently struggle until demo day.
+- **Keep it simple.** A clean, working project beats a fancy broken one every time.
+- **Back up your work.**
+- **Pick something you genuinely like** — it shows.
 
-*You've got this. Build something you're excited about.*
+---
+
+## Final Thought
+
+This is the project you'll be able to point at for the rest of your life and say:
+
+> "I designed, built, and shipped a real database."
+
+That's a big deal. Take it seriously, have fun with it, and build something you're proud of.
+
+**Let's go.** 🚀

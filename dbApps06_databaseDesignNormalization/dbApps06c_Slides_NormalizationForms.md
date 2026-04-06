@@ -479,6 +479,8 @@ Transitive: **order_id → customer → customer_phone**
 ```
 🔑 **PK = customer_id**
 
+---
+
 **Orders** (points to the customer with a FK)
 ```
 | order_id | customer_id |
@@ -524,7 +526,7 @@ Each step eliminates a type of **duplication**.
 - Each fact stored once
 - Scales to millions of rows, many users, and consistent updates
 
-**Normalization is about making data TRUSTWORTHY at scale.**
+**Normalization is about making data TRUSTWORTHY, CLEAN, and EFFICIENT at scale.**
 
 ---
 
