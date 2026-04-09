@@ -6,10 +6,21 @@ paginate: true
 ---
 
 # Lesson 06c: Normalization Forms
-## 1NF → 2NF → 3NF (the easy version)
+## 1NF, 2NF, 3NF — following the Decomplexify approach
 
 **Database Applications Development**
 Software Engineering | Medina County Career Center
+
+---
+
+## Credit Where It's Due
+
+Today's lesson follows the excellent video by **Decomplexify**:
+**"Database Normalization — 1NF through 5NF"**
+https://www.youtube.com/watch?v=GFQaEYEc8_8
+
+We're covering **1NF through 3NF** (that's all you need for this class).
+Watch the video to see the full walkthrough — we'll use the same examples here.
 
 ---
 
@@ -17,181 +28,230 @@ Software Engineering | Medina County Career Center
 
 - **06a:** We looked at IMDb — how real databases use PKs and FKs.
 - **06b:** We took one messy table and split it into clean tables.
-- **Today:** There's a simple 3-step recipe for doing that split.
+- **Today:** There's a formal 3-step recipe for doing that split.
 
 The three steps are called **1NF, 2NF, and 3NF**.
 Each step fixes ONE specific problem.
 
 ---
 
-## Wait — Is Duplicate Data Always Bad?
+## What Is Normalization?
 
-**Nope.** In Excel, duplicate data is totally fine.
+When you normalize a database table, you structure it so that it **can't express redundant information**.
 
-- Excel is for **humans looking at stuff**.
-- A spreadsheet you print or share? Duplicates are fine.
-- Small personal trackers? Duplicates are fine.
+Example: a normalized table wouldn't let you give Customer 1001 **two dates of birth** even if you wanted to. The table can only express **one version of the truth**.
 
-**Databases are different.** They're built for:
-- Storing **millions** of rows
-- Many people updating data at once
-- Keeping info **consistent** (one fact stored in one place)
-
-That's why we normalize — for **efficiency and scale**.
+Normalized tables are:
+- Easier to understand
+- Easier to enhance and extend
+- Protected from **insertion, update, and deletion anomalies**
 
 ---
 
-## Why Duplicates Hurt a Database
+## The Normal Forms Are Like Safety Levels
 
-Imagine 10,000 orders all storing the customer's phone number.
+Think of it like a bridge safety assessment:
 
-Kobe changes his phone number. Now what?
+| Level | Bridge | Database |
+|-------|--------|----------|
+| Level 1 | Safe for pedestrians | **1NF** — bare minimum |
+| Level 2 | Safe for cars | **2NF** — better |
+| Level 3 | Safe for trucks | **3NF** — solid for real use |
 
-- You have to update it in **10,000 rows**.
-- If you miss one row → the data is wrong.
-- Different rows disagree about the "truth."
-
-**The fix:** Store Kobe's phone number in ONE place, and point to it.
-
-That's what normalization is for.
+Each level is stricter. A table must pass **all lower levels** to qualify for a higher one.
 
 ---
 
 ## First Normal Form (1NF)
-### The rule: one value per cell. No lists.
-
-If a cell has a comma-separated list, you're breaking 1NF.
+### Four rules your table has to follow
 
 ---
 
-## 1NF — Example 1 ❌
+## 1NF Rule 1: No Using Row Order to Convey Info
 
-```
-| student    | favorite_games                    |
-|------------|-----------------------------------|
-| xDragon99  | Rocket League, Valorant, Fortnite |
-| koboKing   | Madden, NBA 2K                    |
-```
+**Who were the members of the Beatles?**
+- You might say: "John, Paul, George, Ringo"
+- I might say: "Paul, John, Ringo, George"
 
-**Problem:** `favorite_games` is a LIST in one cell.
+Both answers are the same — the order doesn't matter.
 
-How would you search for "everyone who plays Valorant"?
-You'd have to dig through strings. Gross.
+In a relational database, rows have **no guaranteed order**. If you need to convey something like height, **add a column for it** — don't rely on which row comes first.
 
 ---
 
-## 1NF — Example 1 ✅
+## 1NF Rule 1 — Example
+
+**Bad:** Relying on row order to mean "tallest to shortest"
 
 ```
-| student    | game          |
-|------------|---------------|
-| xDragon99  | Rocket League |
-| xDragon99  | Valorant      |
-| xDragon99  | Fortnite      |
-| koboKing   | Madden        |
-| koboKing   | NBA 2K        |
+| Beatle  |
+|---------|
+| Paul    |   ← tallest?
+| John    |
+| Ringo   |
+| George  |   ← shortest?
 ```
 
-🔑 **Primary Key = (student, game)** — a composite key (you need both to uniquely ID a row)
+**Good:** Be explicit with a column
 
-**One game per row.** Now "find all Valorant players" is easy.
+```
+| Beatle  | Height_In_Cm |
+|---------|--------------|
+| Paul    | 180          |
+| John    | 179          |
+| Ringo   | 170          |
+| George  | 177          |
+```
 
 ---
 
-## 1NF — Example 2 ❌
+## 1NF Rule 2: No Mixing Data Types in a Column
+
+In a spreadsheet, you can put a number in one cell and text in the next — same column. Databases don't allow that.
+
+If `Height_In_Cm` is defined as an integer column, **every value must be an integer**. No strings, no timestamps.
 
 ```
-| player     | phones                    |
-|------------|---------------------------|
-| Arnold     | 330-555-0300, 216-555-11  |
-| Lebron     | 330-555-0623              |
+| Beatle  | Height_In_Cm |
+|---------|--------------|
+| Paul    | 180          |   ← integer, good
+| John    | 179          |   ← integer, good
+| Ringo   | not sure     |   ← string! NOT ALLOWED
+| George  | 177          |
 ```
 
-Two phone numbers jammed into one cell.
+The database platform won't even let you do this — so it's basically enforced for you.
 
 ---
 
-## 1NF — Example 2 ✅
+## 1NF Rule 3: Every Table Needs a Primary Key
+
+A **primary key** uniquely identifies each row. Without one, you could end up with duplicate rows that contradict each other.
 
 ```
-| player     | phone         |
-|------------|---------------|
-| Arnold     | 330-555-0300  |
-| Arnold     | 216-555-0011  |
-| Lebron     | 330-555-0623  |
+| Beatle  | Height_In_Cm |
+|---------|--------------|
+| Paul    | 180          |
+| Paul    | 175          |   ← which is it??
 ```
 
-🔑 **Primary Key = (player, phone)** — both together make each row unique
+With `Beatle` as the PK, the database **prevents** this. One row per Beatle, guaranteed.
 
-**One phone per row.** That's 1NF.
+A table without a primary key is **not in 1NF**.
 
 ---
 
-## 1NF in Plain English
+## 1NF Rule 4: No Repeating Groups
 
-> **"If you can see commas in a cell, you're probably breaking 1NF."**
+This is the big one. Imagine an online multiplayer game where players have inventories.
 
-Fix it by giving each item its own row.
+**Bad:** Cramming all inventory items into one row
+
+```
+| Player  | Inventory                              |
+|---------|----------------------------------------|
+| trev73  | 3 arrows, 2 shields, 18 copper coins   |
+| jdog21  | 5 arrows, 2 amulets                    |
+```
+
+There's no easy way to query "who has more than 10 copper coins?"
+
+---
+
+## 1NF Rule 4 — Still Bad
+
+What about making separate columns for each item type?
+
+```
+| Player  | Item_1_Type | Item_1_Qty | Item_2_Type | Item_2_Qty | ...
+|---------|-------------|------------|-------------|------------|----
+| trev73  | arrows      | 3          | shields     | 2          | ...
+| jdog21  | arrows      | 5          | amulets     | 2          | ...
+```
+
+With hundreds of possible item types, you'd need hundreds of columns. Still terrible to query.
+
+---
+
+## 1NF Rule 4 — The Fix
+
+**Give each item its own row:**
+
+```
+| Player  | Item_Type     | Item_Quantity |
+|---------|---------------|---------------|
+| trev73  | arrows        | 3             |
+| trev73  | shields       | 2             |
+| trev73  | copper coins  | 18            |
+| jdog21  | arrows        | 5             |
+| jdog21  | amulets       | 2             |
+```
+
+Each row = one player owning one item type.
+
+🔑 **Primary Key = (Player, Item_Type)** — a composite key
+
+Now "who has more than 10 copper coins?" is a simple query.
+
+---
+
+## 1NF — Summary
+
+1. **No using row order** to convey information
+2. **No mixing data types** within the same column
+3. **Every table must have a primary key**
+4. **No repeating groups** — one fact per row
 
 ---
 
 ## Second Normal Form (2NF)
-### The rule: everything in the row must be about the WHOLE key.
+### Every non-key attribute must depend on the ENTIRE primary key
 
-2NF only matters when your key is made of **two columns** (a composite key).
-
-If a column in the row only cares about ONE half of the key, it doesn't belong.
+2NF matters when your key is **composite** (made of two or more columns).
 
 ---
 
 ## 2NF — The Setup
 
-Here's a tournament scores table.
-To identify a row, you need **BOTH** gamertag AND game:
+Our Player_Inventory table is in 1NF. Now suppose we add **Player_Rating** (Beginner, Intermediate, Advanced):
 
 ```
-| gamertag  | game     | score | email            | team       |
-|-----------|----------|-------|------------------|------------|
-| xDragon99 | Valorant | 1850  | xd99@email.com   | Fire Squad |
-| xDragon99 | Fortnite | 950   | xd99@email.com   | Fire Squad |
-| koboKing  | Valorant | 2100  | kobo@email.com   | Ice Crew   |
+| Player  | Item_Type     | Item_Quantity | Player_Rating |
+|---------|---------------|---------------|---------------|
+| trev73  | arrows        | 3             | Advanced      |
+| trev73  | shields       | 2             | Advanced      |
+| trev73  | copper coins  | 18            | Advanced      |
+| jdog21  | arrows        | 5             | Intermediate  |
+| jdog21  | amulets       | 2             | Intermediate  |
+| gila19  | copper coins  | 7             | Beginner      |
 ```
 
-**Key = (gamertag, game)**
+PK = **(Player, Item_Type)**
 
 ---
 
 ## 2NF — Spot the Problem
 
-Look at each column and ask:
-**"Does this need BOTH parts of the key, or just one?"**
+Ask: "Does each non-key column need the WHOLE key?"
 
 | Column | Depends on... |
 |--------|---------------|
-| score  | gamertag AND game ✅ |
-| email  | just gamertag ❌ |
-| team   | just gamertag ❌ |
+| Item_Quantity | Player AND Item_Type ✅ |
+| Player_Rating | just Player ❌ |
 
-`email` and `team` don't care what game you're playing.
-They belong to the PLAYER, not the score.
+`Player_Rating` doesn't care what items you own. It's a property of the **Player alone** — not the full composite key.
+
+That's a **partial dependency**, and it violates 2NF.
 
 ---
 
-## 2NF — Why It's a Problem
+## 2NF — Why It Causes Real Problems
 
-Look at the duplication:
+**Deletion anomaly:** gila19 loses all her copper coins. Her only row is deleted. Now we've lost her Player_Rating entirely — the database doesn't know she's a Beginner anymore.
 
-```
-| gamertag  | game     | score | email            | team       |
-|-----------|----------|-------|------------------|------------|
-| xDragon99 | Valorant | 1850  | xd99@email.com   | Fire Squad |
-| xDragon99 | Fortnite | 950   | xd99@email.com   | Fire Squad | ← duplicated!
-```
+**Update anomaly:** trev73 gets promoted from Advanced to... wait, we have to update 3 rows. If we miss one, the data says trev73 is both Advanced and something else at the same time.
 
-xDragon99's email is stored twice.
-If xDragon99 gets a new email, you have to fix it in every row.
-
-**That's the 2NF smell: repeating data tied to just part of the key.**
+**Insertion anomaly:** New player tina42 joins as a Beginner but has no inventory yet. We can't insert her rating because there's no Item_Type to put in the key.
 
 ---
 
@@ -199,79 +259,33 @@ If xDragon99 gets a new email, you have to fix it in every row.
 
 Split into two tables:
 
-**Players** (one row per player)
+**Player** (one row per player)
 ```
-| gamertag  | email          | team       |
-|-----------|----------------|------------|
-| xDragon99 | xd99@email.com | Fire Squad |
-| koboKing  | kobo@email.com | Ice Crew   |
+| Player  | Player_Rating |
+|---------|---------------|
+| trev73  | Advanced      |
+| jdog21  | Intermediate  |
+| gila19  | Beginner      |
 ```
-
-🔑 **PK = gamertag**
+🔑 **PK = Player**
 
 ---
 
-**Scores** (one row per game played)
+**Player_Inventory** (one row per player per item)
 ```
-| gamertag  | game     | score |
-|-----------|----------|-------|
-| xDragon99 | Valorant | 1850  |
-| xDragon99 | Fortnite | 950   |
-| koboKing  | Valorant | 2100  |
+| Player  | Item_Type     | Item_Quantity |
+|---------|---------------|---------------|
+| trev73  | arrows        | 3             |
+| trev73  | shields       | 2             |
+| trev73  | copper coins  | 18            |
+| jdog21  | arrows        | 5             |
+| jdog21  | amulets       | 2             |
+| gila19  | copper coins  | 7             |
 ```
+🔑 **PK = (Player, Item_Type)**
+🔗 **FK:** `Player` → Player.Player
 
-🔑 **PK = (gamertag, game)** — composite key
-🔗 **FK:** `gamertag` → Players.gamertag
-
-Now each fact lives in exactly **one place**. ✨
-
----
-
-## 2NF — Another Example
-
-Pizza order lines:
-
-```
-| order_id | pizza      | qty | customer_name | customer_phone |
-|----------|------------|-----|---------------|----------------|
-| 1001     | Pepperoni  | 2   | Agent 86      | 330-555-0186   |
-| 1001     | Cheese     | 1   | Agent 86      | 330-555-0186   |
-```
-
-**Key = (order_id, pizza)**
-
-- `qty` needs both (yes ✅)
-- `customer_name` only needs `order_id` ❌
-- `customer_phone` only needs `order_id` ❌
-
----
-
-## 2NF — Pizza Fix
-
-Split into two tables:
-
-**Orders** (one row per order)
-```
-| order_id | customer_name | customer_phone |
-|----------|---------------|----------------|
-| 1001     | Agent 86      | 330-555-0186   |
-```
-🔑 **PK = order_id**
-
----
-
-**OrderLines** (one row per pizza on the order)
-```
-| order_id | pizza     | qty |
-|----------|-----------|-----|
-| 1001     | Pepperoni | 2   |
-| 1001     | Cheese    | 1   |
-```
-
-🔑 **PK = (order_id, pizza)** — composite key
-🔗 **FK:** `order_id` → Orders.order_id
-
-2NF is happy now. *(We'll come back to this — 3NF will push customer info even further into its own Customers table.)*
+Every attribute depends on **the whole key**. That's 2NF.
 
 ---
 
@@ -281,236 +295,105 @@ Split into two tables:
 
 ---
 
-## What a GOOD Composite Key Looks Like
-
-Not every composite key is bad! Sometimes a table exists *specifically* to link two things, and every non-key column genuinely needs both parts.
-
-**Example: Student course enrollments**
-
-```
-| student_id | course_id | grade |
-|------------|-----------|-------|
-| 1042       | MATH101   | A     |
-| 1042       | ENG201    | B     |
-| 1088       | MATH101   | C     |
-| 1088       | ENG201    | A     |
-```
-
-🔑 **PK = (student_id, course_id)** — composite key
-🔗 **FKs:** `student_id` → Students, `course_id` → Courses
-
----
-
-## Why This Composite Key Passes 2NF
-
-Ask the 2NF question about `grade`:
-
-- Does it depend on just `student_id`? ❌ No — student 1042 has DIFFERENT grades in different courses.
-- Does it depend on just `course_id`? ❌ No — MATH101 has DIFFERENT grades for different students.
-- Does it need BOTH? ✅ **Yes!**
-
-"What grade did 1042 get in MATH101?" requires both pieces to answer.
-
-**This table is already in 2NF. ✨**
-
----
-
-## The Pattern
-
-Tables that record a **relationship between two things** usually have legit composite keys:
-
-| Table | Composite Key | Non-key column |
-|-------|---------------|----------------|
-| Enrollments | (student, course) | grade |
-| OrderLines | (order, product) | qty |
-| Scores | (player, game) | score |
-| ProjectAssignments | (employee, project) | hours_worked |
-
-In each case, the non-key column literally makes no sense without BOTH halves of the key.
-
-**These are called junction tables (or link tables).** They're normal and correct.
-
----
-
 ## Third Normal Form (3NF)
-### The rule: non-key columns shouldn't depend on other non-key columns.
-
-You fixed 2NF. Now look at what's left. Are any of those columns depending on **each other**?
+### No non-key attribute should depend on another non-key attribute
 
 ---
 
-## 3NF — Example 1 ❌
+## 3NF — The Setup
 
-Players table after 2NF:
+Let's enhance our Player table. The game has a 9-point skill scale:
+
+| Rating | Skill Level |
+|--------|-------------|
+| Beginner | 1–3 |
+| Intermediate | 4–6 |
+| Advanced | 7–9 |
+
+We add Player_Skill_Level to the Player table:
 
 ```
-| gamertag  | email          | team       | coach      | coach_phone   |
-|-----------|----------------|------------|------------|---------------|
-| xDragon99 | xd99@email.com | Fire Squad | Mr. Torres | 330-555-0901  |
-| fireFly   | ff@email.com   | Fire Squad | Mr. Torres | 330-555-0901  |
-| iceCold   | ic@email.com   | Ice Crew   | Ms. Lee    | 330-555-0444  |
+| Player  | Player_Rating  | Player_Skill_Level |
+|---------|----------------|--------------------|
+| trev73  | Advanced       | 8                  |
+| jdog21  | Intermediate   | 5                  |
+| gila19  | Beginner       | 3                  |
 ```
 
-The key is `gamertag`. But look — `coach` and `coach_phone` really depend on `team`, not on the gamertag.
-
-**This is called a transitive dependency:**
-gamertag → team → coach
+🔑 **PK = Player**
 
 ---
 
-## 3NF — Why It's a Problem
+## 3NF — Spot the Problem
 
-Fire Squad's coach (Mr. Torres) is duplicated for every player on the team.
+Both `Player_Rating` and `Player_Skill_Level` depend on the key (`Player`). Looks fine for 2NF.
 
-- Coach changes? Update every single player row.
-- New player on Fire Squad? Type "Mr. Torres" again.
-- Someone misspells it? Now data disagrees.
+But look closer:
+- Player_Skill_Level depends on Player ✅
+- Player_Rating depends on Player_Skill_Level ❌ (not directly on the key!)
 
-**Same old problem: one fact stored in many places.**
+**This is a transitive dependency:**
+`Player → Player_Skill_Level → Player_Rating`
+
+If gila19's skill goes from 3 to 4, her rating should change from Beginner to Intermediate. But if the update only changes the skill level and misses the rating — **now the data contradicts itself**.
 
 ---
 
 ## 3NF — The Fix
 
-Pull team info into its own table.
+Remove Player_Rating from the Player table:
 
-**Teams**
+**Player**
 ```
-| team       | coach      | coach_phone   |
-|------------|------------|---------------|
-| Fire Squad | Mr. Torres | 330-555-0901  |
-| Ice Crew   | Ms. Lee    | 330-555-0444  |
+| Player  | Player_Skill_Level |
+|---------|--------------------|
+| trev73  | 8                  |
+| jdog21  | 5                  |
+| gila19  | 3                  |
 ```
-🔑 **PK = team**
+🔑 **PK = Player**
 
 ---
 
-**Players** (now much cleaner)
+**Player_Skill_Levels** (a lookup table)
 ```
-| gamertag  | email          | team       |
-|-----------|----------------|------------|
-| xDragon99 | xd99@email.com | Fire Squad |
-| fireFly   | ff@email.com   | Fire Squad |
-| iceCold   | ic@email.com   | Ice Crew   |
+| Skill_Level | Player_Rating  |
+|-------------|----------------|
+| 1           | Beginner       |
+| 2           | Beginner       |
+| 3           | Beginner       |
+| 4           | Intermediate   |
+| 5           | Intermediate   |
+| 6           | Intermediate   |
+| 7           | Advanced       |
+| 8           | Advanced       |
+| 9           | Advanced       |
 ```
+🔑 **PK = Skill_Level**
 
-🔑 **PK = gamertag**
-🔗 **FK:** `team` → Teams.team
+Now each fact lives in exactly one place. If we ever need the rating, we join to the lookup table.
 
 ---
 
-## 3NF — Example 2 ❌
+## 3NF — The Golden Rule
 
-Employees table:
+> **"Every attribute in a table should depend on the key, the whole key, and nothing but the key."**
 
-```
-| emp_id | name        | dept_id | dept_name   | dept_location |
-|--------|-------------|---------|-------------|---------------|
-| 101    | Arnold      | D1      | Engineering | Building A    |
-| 102    | Lebron      | D1      | Engineering | Building A    |
-| 103    | Maxibillion | D2      | Marketing   | Building C    |
-| 104    | Kobe        | D1      | Engineering | Building A    |
-```
+Commit that to memory. If you follow it while designing a database, you'll get normalized tables 99% of the time.
 
-Key is `emp_id`. But `dept_name` and `dept_location` don't really depend on the employee — they depend on `dept_id`.
-
-**Transitive:** emp_id → dept_id → dept_name, dept_location
-
----
-
-## 3NF — Example 2 ✅
-
-**Departments**
-```
-| dept_id | dept_name   | dept_location |
-|---------|-------------|---------------|
-| D1      | Engineering | Building A    |
-| D2      | Marketing   | Building C    |
-```
-🔑 **PK = dept_id**
-
----
-
-**Employees**
-```
-| emp_id | name        | dept_id |
-|--------|-------------|---------|
-| 101    | Arnold      | D1      |
-| 102    | Lebron      | D1      |
-| 103    | Maxibillion | D2      |
-| 104    | Kobe        | D1      |
-```
-🔑 **PK = emp_id**
-🔗 **FK:** `dept_id` → Departments.dept_id
-
-**Why this is better:**
-- "Engineering" and "Building A" are typed exactly ONCE — not on every engineer's row.
-- If Engineering moves to Building D, you change ONE row instead of every engineer.
-- No typos: nobody can accidentally type "Enginering" on one row and "Engineering" on another.
-- Every employee in D1 is *guaranteed* to show the same department name and location.
-
----
-
-## 3NF — Finishing the Pizza Example
-
-Remember the Orders table from 2NF?
-
-```
-| order_id | customer_name | customer_phone |
-|----------|---------------|----------------|
-| 1001     | Agent 86      | 330-555-0186   |
-| 1002     | Agent 86      | 330-555-0186   |  ← duplicate!
-| 1003     | Lebron        | 330-555-0623   |
-```
-
-`customer_phone` depends on `customer_name`, not on `order_id`.
-Transitive: **order_id → customer → customer_phone**
-
----
-
-## 3NF — Pizza Fix
-
-**Customers** (one row per customer)
-```
-| customer_id | name     | phone         |
-|-------------|----------|---------------|
-| 1           | Agent 86 | 330-555-0186  |
-| 2           | Lebron   | 330-555-0623  |
-```
-🔑 **PK = customer_id**
-
----
-
-**Orders** (points to the customer with a FK)
-```
-| order_id | customer_id |
-|----------|-------------|
-| 1001     | 1           |
-| 1002     | 1           |
-| 1003     | 2           |
-```
-🔑 **PK = order_id**
-🔗 **FK:** `customer_id` → Customers.customer_id
-
-Now Agent 86's phone lives in **one place**. Change it once, done.
-
----
-
-## 3NF in Plain English
-
-> **"Every column should describe the key — and ONLY the key. If a column describes some OTHER column, it belongs in its own table."**
+(There's also a slightly stronger version called **Boyce-Codd Normal Form** — practically the same thing for our purposes.)
 
 ---
 
 ## The Whole Recipe
 
-| Step | The Rule (plain English) | The Fix |
-|------|--------------------------|---------|
-| **1NF** | One value per cell. No lists. | Break lists into separate rows. |
-| **2NF** | Every column must need the FULL key. | Move "partial" columns to their own table. |
-| **3NF** | No column should depend on another non-key column. | Move those chains into their own table. |
+| Step | The Rule | What It Fixes |
+|------|----------|---------------|
+| **1NF** | Atomic values, PKs, no repeating groups | Tables that can't even be queried |
+| **2NF** | Every column depends on the WHOLE key | Partial dependencies (when key is composite) |
+| **3NF** | Every column depends on NOTHING BUT the key | Transitive dependencies (column → column → key) |
 
-Each step eliminates a type of **duplication**.
+Each step eliminates a type of **redundancy** and protects against **anomalies**.
 
 ---
 
@@ -530,13 +413,14 @@ Each step eliminates a type of **duplication**.
 
 ---
 
-## Your Task: Normalize a Gaming Tournament
+## Your Task: Normalize a Multiplayer Game Database
 
 Open `dbApps06c_NormalizationForms.xlsx`.
 
 **You'll walk through the steps one at a time:**
-1. **Sheet 2 → 1NF:** Fix the multi-value cells
-2. **Sheet 3 → 2NF:** Remove partial dependencies
-3. **Sheet 4 → 3NF:** Remove transitive dependencies
+1. **Flat_Table →** Look at the mess and identify the problems
+2. **1NF sheet →** Fix the repeating groups
+3. **2NF sheet →** Remove partial dependencies
+4. **3NF sheet →** Remove transitive dependencies
 
 Each sheet builds on the one before it. Take it one step at a time.
