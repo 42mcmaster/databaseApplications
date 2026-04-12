@@ -75,7 +75,7 @@ Each level is stricter. A table must pass **all lower levels** to qualify for a 
 
 Both answers are the same — the order doesn't matter.
 
-In a relational database, rows have **no guaranteed order**. If you need to convey something like height, **add a column for it** — don't rely on which row comes first.
+In a relational database, rows have **no guaranteed order**. If you need to communicate or display an attribute like height, **add a column for it** — don't rely on which row comes first.
 
 ---
 
