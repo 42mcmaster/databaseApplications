@@ -389,7 +389,7 @@ Commit that to memory. If you follow it while designing a database, you'll get n
 
 | Step | The Rule | What It Fixes |
 |------|----------|---------------|
-| **1NF** | Atomic values, PKs, no repeating groups | Tables that can't even be queried |
+| **1NF** | Atomic values (one cell = one thing), PKs, no repeating groups | Tables that can't even be queried |
 | **2NF** | Every column depends on the WHOLE key | Partial dependencies (when key is composite) |
 | **3NF** | Every column depends on NOTHING BUT the key | Transitive dependencies (column → column → key) |
 
