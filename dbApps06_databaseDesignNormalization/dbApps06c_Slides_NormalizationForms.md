@@ -141,7 +141,7 @@ A table without a primary key is **not in 1NF**.
 
 ---
 
-## 1NF Rule 4: No Repeating Groups
+## 1NF Rule 4: Don't store multiple values in one column
 
 This is the big one. Imagine an online multiplayer game where players have inventories.
 
