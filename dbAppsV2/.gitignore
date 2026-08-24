@@ -1,0 +1,17 @@
+# --- Teacher material — never pushed ---
+teacher/
+**/teacher/
+
+# --- Large databases: distribute via Classroom or shared drive ---
+*.db
+!datasets/nba_5seasons.db
+!datasets/movies_small.db
+
+# --- OS / editor noise ---
+.DS_Store
+.~lock.*#
+~$*
+.ipynb_checkpoints/
+
+# --- Student work, if they ever share a repo ---
+*_report_*.csv
