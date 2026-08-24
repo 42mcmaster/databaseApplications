@@ -141,7 +141,7 @@ A table without a primary key is **not in 1NF**.
 
 ---
 
-## 1NF Rule 4: No Repeating Groups
+## 1NF Rule 4: Don't store multiple values in one column
 
 This is the big one. Imagine an online multiplayer game where players have inventories.
 
@@ -375,7 +375,7 @@ Now each fact lives in exactly one place. If we ever need the rating, we join to
 
 ---
 
-## 3NF — The Golden Rule
+## 3NF — The Rule
 
 > **"Every attribute in a table should depend on the key, the whole key, and nothing but the key."**
 
@@ -385,11 +385,11 @@ Commit that to memory. If you follow it while designing a database, you'll get n
 
 ---
 
-## The Whole Recipe
+## The Three Main Rules for Database Normalization
 
 | Step | The Rule | What It Fixes |
 |------|----------|---------------|
-| **1NF** | Atomic values, PKs, no repeating groups | Tables that can't even be queried |
+| **1NF** | Atomic values (one cell = one thing), PKs, no repeating groups | Tables that can't even be queried |
 | **2NF** | Every column depends on the WHOLE key | Partial dependencies (when key is composite) |
 | **3NF** | Every column depends on NOTHING BUT the key | Transitive dependencies (column → column → key) |
 
