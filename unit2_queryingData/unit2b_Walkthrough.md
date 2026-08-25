@@ -4,7 +4,7 @@ Read this, then open `unit2b_lastname.sql` and do today's work.
 
 ---
 
-## Boolean Logic — the Actual Name
+## Boolean Logic — Evaluating what is T or F
 
 Every `WHERE` clause is **Boolean logic**: each row gets tested, and the answer is either true or false.
 
@@ -19,7 +19,7 @@ Every `WHERE` clause is **Boolean logic**: each row gets tested, and the answer 
 
 ---
 
-## NOT, on Its Own
+## Using NOT in a WHERE clause
 
 ```sql
 SELECT full_name, state
@@ -27,9 +27,14 @@ FROM   teams
 WHERE  NOT (state = 'California');
 ```
 
-Same as writing `state <> 'California'` — `NOT` just flips whatever's inside the parentheses.
+You can also write: 
 
-It matters more once the condition is bigger than one comparison:
+ ```sql 
+ WHERE state <> 'California'
+ ```
+The "<>" operator stands for NOT
+
+It is perhaps more useful when the condition is bigger than one comparison:
 
 ```sql
 WHERE NOT (state = 'California' OR state = 'Texas')
@@ -100,12 +105,10 @@ WHERE abbreviation LIKE 'C_E'   -- C, any one character, E
 ```sql
 WHERE birth_year IS NULL       -- correct
 WHERE birth_year IS NOT NULL   -- correct
-WHERE birth_year = NULL        -- always false. never returns anything.
+WHERE birth_year = NULL        -- ❌ does not work; use IS NULL instead
 ```
 
-You can't compare to nothing. You can only ask whether it *is* nothing.
-
-Also: **`<>` is "not equal"** in standard SQL. `!=` works in some systems, but `<>` is the one to know.
+Reminder from earlier: **`<>` is "not equal"** in standard SQL. `!=` works in some systems, but `<>` is the one to know.
 
 ---
 
