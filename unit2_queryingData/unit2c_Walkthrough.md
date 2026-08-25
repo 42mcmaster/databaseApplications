@@ -16,6 +16,15 @@ FROM   teams;
 
 `years_old` isn't stored anywhere. SQL computes it for each row as the results come out. **The table is unchanged.** Use `+` `-` `*` `/` normally.
 
+Try this version with ORDER BY to make it more useful as an output:
+
+```sql
+SELECT full_name,
+       2026 - year_founded AS years_old
+FROM   teams
+ORDER BY years_old DESC;
+```
+
 ---
 
 ## Gluing Text Together
