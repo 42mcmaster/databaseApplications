@@ -39,7 +39,13 @@ WHERE NOT (year_founded BETWEEN 1960 AND 1980)
 -- keeps every team founded OUTSIDE that range
 ```
 
-SQL also lets you write `NOT BETWEEN` or `NOT IN` directly, no outer parentheses needed.
+SQL also lets you write `NOT BETWEEN` or `NOT IN` directly, no outer parentheses needed.  For example in a student database where you don't want to include middle school grades but do want all others: 
+
+```sql
+SELECT *
+FROM students
+WHERE grade NOT BETWEEN 6 AND 8;
+```
 
 ---
 
