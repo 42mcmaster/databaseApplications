@@ -6,7 +6,7 @@ Read this, then open `unit2e_lastname.sql` and do today's work.
 
 ## GROUP BY
 
-Aggregates on their own summarize *everything*. `GROUP BY` summarizes **per category**.
+`GROUP BY` summarizes **per category**.
 
 ```sql
 SELECT   state, COUNT(*) AS team_count
