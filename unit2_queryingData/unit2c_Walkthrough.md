@@ -47,7 +47,7 @@ FROM   teams;
 UPPER(full_name)          -- ATLANTA HAWKS
 LOWER(abbreviation)       -- atl
 LENGTH(nickname)          -- 5
-SUBSTR(season, 1, 4)      -- '2021' from '2021-22'
+SUBSTR(season, 1, 4)      -- '2021' from '2021-22' **start at char 1 and take 4 chars**
 REPLACE(matchup,'@','at') -- swap text
 TRIM(city)                -- strip outer spaces
 ```
