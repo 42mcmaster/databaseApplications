@@ -48,6 +48,14 @@ SELECT COUNT(birth_year) FROM people;  -- 14397
 
 In this example, the database/dataset has 22,844 total records, but only 14,397 persons have a recorded birth year.  The gap between them tells you how much data is missing — a genuinely useful trick.
 
+Although, you could also directly count NULLs by using a filter (WHERE): 
+
+```sql
+SELECT COUNT(*)
+FROM people
+WHERE birth_year IS NULL;
+```
+
 ---
 
 ## Today's Work
