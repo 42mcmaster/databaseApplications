@@ -18,7 +18,7 @@ Instead of one number for all 30 teams, you get one row per state.
 
 ---
 
-## The Rule That Trips Everyone
+## A Rule That Can Trip You Up
 
 > **Every column in `SELECT` that isn't inside an aggregate function must appear in `GROUP BY`.**
 
@@ -29,6 +29,34 @@ GROUP BY state;                    -- ...and not grouped. Wrong.
 ```
 
 ⚠️ **SQLite will run that anyway** and hand you an arbitrary city. Most other databases reject it outright. **SQLite is being permissive, not correct** — follow the rule regardless of what it lets you get away with.
+
+---
+
+## Two Ways to Fix It — Pick Based on What You're Asking
+
+The broken query above is ambiguous: do you want counts **per state**, or counts **per city**? The fix is different depending on the answer.
+
+**Option A — you want one row per state.**
+Then `city` doesn't belong in `SELECT` at all — there's no single correct city to show for a whole state, so drop it:
+
+```sql
+SELECT   state, COUNT(*) AS team_count
+FROM     teams
+GROUP BY state;
+```
+
+**Option B — you want one row per state+city combination.**
+Then `city` is part of what you're grouping by, so add it to `GROUP BY` too:
+
+```sql
+SELECT   state, city, COUNT(*) AS team_count
+FROM     teams
+GROUP BY state, city;
+```
+
+Note this changes the result: a state with teams in 3 different cities now gives you 3 rows instead of 1. That's expected — you're grouping by a more specific category.
+
+**The takeaway:** every column in `GROUP BY` becomes part of the "category" your rows represent. Decide what a row *should* mean first, then match your `SELECT` and `GROUP BY` to that.
 
 ---
 
@@ -44,28 +72,4 @@ HAVING   COUNT(*) > 1;             -- filters GROUPS, after grouping
 
 **`WHERE` filters rows before they're grouped. `HAVING` filters groups after.**
 
-You cannot put an aggregate in `WHERE` — at that point the groups don't exist yet.
-
 ---
-
-## Clause Order Is Fixed
-
-```
-SELECT     columns
-FROM       table
-WHERE      row filter
-GROUP BY   grouping columns
-HAVING     group filter
-ORDER BY   sorting
-LIMIT      cutoff
-```
-
-Out of order is a syntax error. Memorize the shape: **S — F — W — G — H — O**
-
----
-
-## Today's Work
-
-Open `unit2e_lastname.sql`. Six queries — `teams` and `team_game_stats`. Teams per state. Sorted. Only the states with more than one. Average points per season. Wins per team. Then only the teams with more than 200 wins.
-
-That last pair is the `WHERE` / `HAVING` distinction in action — you need `WHERE wl = 'W'` **and** a `HAVING` on the count.
