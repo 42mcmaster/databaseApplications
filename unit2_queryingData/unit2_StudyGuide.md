@@ -333,7 +333,7 @@ FROM   team_game_stats;
 avg_rebounds
 43.9
 ```
-One number, summarizing 10,842 rows.
+One number, summarizing 12,300 rows.
 
 ---
 
@@ -469,7 +469,7 @@ JOIN   player_season_stats s
 matched
 605
 ```
-605 of the 997 players in the database have a stat row for 2021-22. `JOIN` (which means `INNER JOIN`) silently throws away everyone else.
+605 of the 1,029 players in the database have a stat row for 2021-22. `JOIN` (which means `INNER JOIN`) silently throws away everyone else.
 
 ### LEFT JOIN keeps them
 
@@ -481,9 +481,9 @@ LEFT JOIN player_season_stats s
 ```
 ```
 all_rows
-997
+1029
 ```
-Now every player is in the results — 997, not 605. The 392 who have no 2021-22 row still show up; every column that would have come from `player_season_stats` is just `NULL` for them.
+Now every player is in the results — 1,029, not 605. The 424 who have no 2021-22 row still show up; every column that would have come from `player_season_stats` is just `NULL` for them.
 
 ### Finding exactly the unmatched rows
 

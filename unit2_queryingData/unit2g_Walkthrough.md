@@ -6,7 +6,7 @@ Read this, then open `unit2g_lastname.sql` and do today's work.
 
 ## The Problem with INNER JOIN
 
-997 players are in the database. Only 506 played in 2025-26.
+1,029 players are in the database. Only 582 played in 2025-26.
 
 ```sql
 FROM players p
@@ -14,9 +14,9 @@ JOIN player_season_stats s
   ON s.player_id = p.player_id AND s.season = '2025-26';
 ```
 
-→ **506 rows.** The other 491 vanished.
+→ **652 rows.** That is more than 582 because 70 players were traded during the season and have one stat row for each team they played for. Either way, 447 players vanished.
 
-Sometimes that's what you want. Sometimes those 491 are the whole point.
+Sometimes that's what you want. Sometimes those 447 are the whole point.
 
 ---
 
@@ -28,7 +28,7 @@ LEFT JOIN player_season_stats s
   ON s.player_id = p.player_id AND s.season = '2025-26';
 ```
 
-→ **997 rows.**
+→ **1,099 rows.** (652 matched + 447 unmatched.)
 
 Every player from the left table survives. Players with no 2025-26 season get **NULL** in every column that came from the right table.
 
@@ -48,7 +48,7 @@ LEFT JOIN player_season_stats s
 WHERE  s.player_id IS NULL;
 ```
 
-→ **491 players** who didn't play in 2025-26.
+→ **447 players** who didn't play in 2025-26.
 
 This pattern — LEFT JOIN, then `WHERE ... IS NULL` — answers "which ones are missing?"
 

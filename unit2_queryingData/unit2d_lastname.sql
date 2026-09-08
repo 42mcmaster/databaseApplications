@@ -33,7 +33,7 @@
 -- CHECK YOUR WORK
 -- =====================================================================
 
--- Query 6 reads 10,842 rows and gives you one number. What is it?
+-- Query 6 reads 12,300 rows and gives you one number. What is it?
 
 
 -- COUNT(*) counts rows. What does COUNT(birth_year) count instead?
