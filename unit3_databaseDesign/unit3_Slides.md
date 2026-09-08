@@ -34,7 +34,7 @@ Same rhythm every day:
 2. Download **`unit3X_lastname.md`**, rename it, do the work
 3. Commit and push
 
-Five lessons, five turn-in files. No paper, no drawings.
+Five lessons, five turn-in files. 
 
 ---
 

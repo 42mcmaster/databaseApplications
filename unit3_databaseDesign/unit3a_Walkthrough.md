@@ -43,7 +43,9 @@ An **anomaly** is something that goes wrong because of how the table is designed
 
 ## Two rows are already wrong
 
-Somebody typed the Cavaliers' name wrong in one row, and typed the state as `OH` instead of `Ohio` in another. Run this in the **Execute SQL** tab:
+Two rows in `games_flat` were typed wrong on purpose. In one row the Cavaliers' team name is misspelled. In another row the state is typed as `OH` instead of `Ohio`. Here is how a mistake like that shows up.
+
+Count the Cavaliers' games by **team name**. Run this in the **Execute SQL** tab:
 
 ```sql
 SELECT COUNT(*)
@@ -51,18 +53,46 @@ FROM   games_flat
 WHERE  home_team = 'Cleveland Cavaliers'
    OR  away_team = 'Cleveland Cavaliers';
 ```
+```
+COUNT(*)
+32
+```
 
-Now count the games where `home_city` or `away_city` is `'Cleveland'`. The two numbers are different. The database didn't complain — it just gave a wrong answer.
+Now count the same games by **city** instead:
 
-That is what redundancy does over time. The more places a fact is typed, the more places it can be typed wrong.
+```sql
+SELECT COUNT(*)
+FROM   games_flat
+WHERE  home_city = 'Cleveland'
+   OR  away_city = 'Cleveland';
+```
+```
+COUNT(*)
+33
+```
 
-`SELECT DISTINCT` is the fastest way to find typos like this:
+Both queries are asking "how many games did the Cavaliers play?" They should give the same answer. They don't. The city count is 33 because 33 games really have Cleveland in them. The name count is 32 because in one of those games the team name is misspelled, so `= 'Cleveland Cavaliers'` doesn't match it. The database didn't complain — it just gave a wrong answer.
+
+That is what redundancy does over time. The more places a fact is typed, the more places it can be typed wrong. Every extra copy is one more chance for a typo, and a typo means every query that filters on that column quietly skips that row.
+
+**Finding the bad rows.** `SELECT DISTINCT` lists each different value in a column once. It is the fastest way to spot a typo:
 
 ```sql
 SELECT DISTINCT home_team FROM games_flat ORDER BY home_team;
 ```
 
-Thirty teams should give thirty names. If you get thirty-one, one of them is a misspelling.
+There are 30 teams, so this should return 30 names. It returns 31. Look down the list — one of the names is spelled wrong. The misspelled one sorts right next to the correct one, so it's easy to see.
+
+Do the same for the state columns. Check **both** `home_state` and `away_state` — a mistake can be on either side of a game, and the `OH` row is only in one of them.
+
+Once you know the wrong value, find the row:
+
+```sql
+SELECT game_id, game_date, home_team, away_team
+FROM   games_flat
+WHERE  home_team = 'the misspelled name you found'
+   OR  away_team = 'the misspelled name you found';
+```
 
 ---
 
