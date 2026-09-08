@@ -28,3 +28,7 @@ data/
 
 # Solution folders
 teacher/
+# ======================================
+# CLAUDE DESKTOP APP OUTPUT FOLDER
+# ======================================
+Claude outputs/
