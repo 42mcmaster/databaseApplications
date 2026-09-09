@@ -100,11 +100,21 @@ WHERE  home_team = 'the misspelled name you found'
 
 The same database has two more tables, `teams` and `games`. Look at them in Browse Data.
 
+**`teams`** — one row per team. The city is stored here, once.
+
 ```
-teams                                    games
-team_id  full_name            city       game_id  game_date   home_team_id  away_team_id  home_pts  away_pts
-6        Cleveland Cavaliers  Cleveland  1        2025-10-21  6             5             112       104
+team_id  full_name            city       state  conference  division
+6        Cleveland Cavaliers  Cleveland  Ohio   East        Central
 ```
+
+**`games`** — one row per game. No team names, no cities. Just the team's ID number.
+
+```
+game_id  game_date   home_team_id  away_team_id  home_pts  away_pts
+73       2025-11-08  6             11            109       98
+```
+
+Game 73 is the Cavaliers (team 6) at home against team 11. To find out who team 11 is, you look it up in `teams` — that's the Houston Rockets.
 
 The city is in **one row** of `teams`. Each game just points at the team by number — `home_team_id` and `away_team_id` are **foreign keys** to `teams.team_id`, exactly like the ones you joined on in Unit 2f.
 
