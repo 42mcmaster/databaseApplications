@@ -2,11 +2,13 @@
 
 **Read this first. Then open `unit3b_lastname.md` and do the work.**
 
+We might watch this video in class on relationships: **Everything you NEED TO KNOW about Relationships** - https://www.youtube.com/watch?v=WOX9g1s43-g
+
 ---
 
 ## What you're doing today
 
-Yesterday you saw that splitting one big table into smaller ones fixes redundancy. But the smaller tables have to stay connected, or you can't answer questions across them. Keys and relationships are how they connect. Today you learn the vocabulary, sort some real relationships, and write your first ER diagram — typed, not drawn.
+In 3a you saw that splitting one big table into smaller ones fixes redundancy. But the smaller tables have to stay connected, or you can't answer questions across them. Keys and relationships are how they connect. Today you learn the vocabulary, sort some real relationships, and write your first entity-relationship (ER) diagram — typed, not drawn.
 
 ---
 
@@ -30,7 +32,7 @@ A **primary key** identifies one row. You've been using them since Unit 1. There
 
 **Composite key** — two or more columns together. In `nba_5seasons.db`, `player_season_stats` is keyed by `(player_id, season)` — a player has many seasons, and a season has many players, but each player-season pair appears once.
 
-Most tables you design get a surrogate key. Use a natural key only when the real-world value is guaranteed unique and never changes. Names fail both tests.
+Most tables you design get a surrogate key. Use a natural key only when the real-world value is guaranteed unique and never changes (uncommon!).
 
 ---
 
@@ -41,42 +43,79 @@ A **foreign key** is a column that holds another table's primary key. `games.hom
 The foreign key **promises** that the value exists in the other table. When the database enforces that promise, it's called **referential integrity**. Two things follow from it:
 
 - Insert a game with `home_team_id = 99` when there is no team 99? The database refuses.
-- Delete team 6 while games still point at it? The designer chooses what happens. **Restrict** — refuse the delete. **Cascade** — delete the games too. Or set the foreign key to NULL. All three are legitimate; the choice depends on what the data means.
+- Delete team 6 while games still point at it? The designer chooses what happens. **Restrict** — refuse the delete. **Cascade** — delete the games too. Or set the foreign key to NULL. All three are legitimate options.
 
 ---
 
 ## Relationships — three kinds
 
-Every relationship between two entities is one of these:
+Every relationship between two tables is one of these:
 
-| Kind | Example | How it's stored |
-|---|---|---|
-| **One-to-one** | a country and its capital | a foreign key in either table |
-| **One-to-many** | a team and its games | a foreign key in the *many* table |
-| **Many-to-many** | students and courses | can't be stored directly — see below |
+| Kind             | What it means                                                                                                               | Example                   | How it's stored                     |
+| ---------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------- | ----------------------------------- |
+| **One-to-one**   | One record in Table A is related to **one** record in Table B, and vice versa.                                              | A country and its capital | A foreign key in either table       |
+| **One-to-many**  | One record in Table A can be related to **many** records in Table B, but each B record is related to only one A record.     | A team and its games      | A foreign key in the **many** table |
+| **Many-to-many** | One record in Table A can be related to **many** records in Table B, and one B record can be related to **many** A records. | Students and courses      | Requires a **junction table**       |
 
-The word for "which kind" is **cardinality**.
+The word for **how many records can be related to each other** is **cardinality**.
 
-One-to-many is by far the most common. The rule for where the foreign key goes: **always in the many side**. A game knows its team; a team doesn't list its games.
+**One-to-many is by far the most common relationship.**
+
+### Where does the foreign key go?
+
+For a **one-to-many** relationship, the rule is:
+
+> **The foreign key always goes in the "many" table.**
+
+For example, a team can have many games, so `team_id` goes in the `games` table:
+
+```text
+teams                    games
+---------                ----------
+team_id                  game_id
+name                     team_id  ← FK
+                         game_date
+                         pts
+```
+
+Each game knows which team it belongs to. The team does not need to store a list of all its games.
+
+For a **one-to-one** relationship, there is no "many" side, so the foreign key can be placed in either table. In practice, you choose the table where it makes the most sense.
+
+For a **many-to-many** relationship, neither table can hold the foreign key by itself. Instead, a third **junction table** holds the foreign keys from both tables.
+
 
 ---
 
 ## Many-to-many needs a junction table
 
-A student takes many courses. A course has many students. Neither table can hold the other's key, because a single cell can only hold one value — and "Math, Science, Art" in one cell is exactly the kind of thing you'll learn to fix in 3c.
+A student takes many courses. A course has many students.
 
-The answer is a third table:
+Try to store that with a foreign key the way you did for one-to-many. Put a `course_id` column in `STUDENTS`? A cell holds one value, and a student has three courses — which one do you write? You'd end up typing "Math, Science, Art" into one cell, which is exactly what 3c teaches you not to do. Put a `student_id` in `COURSES`? Same problem — a course has thirty students.
+
+So the foreign keys can't go in either table. They go in a **third table**, one row per student-course pair:
 
 ```
-STUDENTS            ENROLLMENTS                  COURSES
-student_id  PK      student_id  FK  ┐ PK         course_id  PK
-name                course_id   FK  ┘            title
-                    grade
+STUDENTS                ENROLLMENTS                     COURSES
+student_id  PK          student_id  FK  ┐               course_id  PK
+name                    course_id   FK  ┘ PK together   title
+                        grade
 ```
 
-`ENROLLMENTS` is a **junction table**. One row per student-course *pair*. Its primary key is usually both foreign keys together — a composite key. It can also carry attributes that belong to the pair, like the grade the student got in that course.
+```
+ENROLLMENTS
+student_id  course_id  grade
+40213       101        A
+40213       102        B
+40213       105        A
+40214       101        B
+```
 
-You saw one already: `roles` in `movies_small.db` is the junction between `movies` and `people`.
+Student 40213 takes three courses, so they get three rows. Course 101 has two students, so it shows up twice. Every cell still holds one value.
+
+`ENROLLMENTS` is a **junction table**. Both of its foreign keys together make the primary key — a composite key — because the *pair* is what's unique: a student can't be enrolled in the same course twice. A junction table can also carry attributes that belong to the pair, like the grade the student got in *that* course.
+
+You saw one already: `roles` in `movies_small.db` is the junction between `movies` and `people`..
 
 ---
 
