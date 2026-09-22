@@ -50,10 +50,10 @@ FROM   games_flat;
 ```
 ```
 names
-31
+32
 ```
 
-There are 30 NBA teams. Thirty-one distinct names means one of them is spelled wrong somewhere. The database didn't complain — it just counted the misspelling as a 31st team. (Finding *which* row is your 3a task.)
+There are 30 NBA teams. Thirty-two distinct names means two of them are spelled wrong somewhere. The database didn't complain — it just counted each misspelling as another team. (Finding *which* rows is your 3a task.)
 
 The same idea catches the two counts that should match but don't:
 

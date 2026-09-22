@@ -41,9 +41,9 @@ An **anomaly** is something that goes wrong because of how the table is designed
 
 ---
 
-## Two rows are already wrong
+## Some rows are already wrong
 
-Two rows in `games_flat` were typed wrong on purpose. In one row the Cavaliers' team name is misspelled. In another row the state is typed as `OH` instead of `Ohio`. Here is how a mistake like that shows up.
+Some rows in `games_flat` were typed wrong on purpose. Two of them are in Cavaliers games. In one row the Cavaliers' team name is misspelled. In another row the state is typed as `OH` instead of `Ohio`. Here is how a mistake like that shows up.
 
 Count the Cavaliers' games by **team name**. Run this in the **Execute SQL** tab:
 
@@ -81,7 +81,7 @@ That is what redundancy does over time. The more places a fact is typed, the mor
 SELECT DISTINCT home_team FROM games_flat ORDER BY home_team;
 ```
 
-There are 30 teams, so this should return 30 names. It returns 31. Look down the list — one of the names is spelled wrong. The misspelled one sorts right next to the correct one, so it's easy to see.
+There are 30 teams, so this should return 30 names. It returns 32 — so two names are spelled wrong. Look down the list near Cleveland. The misspelled Cavaliers name sorts right next to the correct one, so it's easy to see. (The other wrong name is part of your task.)
 
 Do the same for the state columns. Check **both** `home_state` and `away_state` — a mistake can be on either side of a game, and the `OH` row is only in one of them.
 
@@ -142,4 +142,4 @@ LIMIT  5;
 
 ## Now do the work
 
-Open `unit3a_lastname.md`. Count the repeats, find the two mistakes, explain the three anomalies using this table, then compare to the fixed version. Commit and push when you're done.
+Open `unit3a_lastname.md`. You'll do the same counts for a different team, find every mistake in `games_flat` (there are more than the two Cavaliers ones), spot the three anomalies in a new table, and write queries on the fixed version. Commit and push when you're done.

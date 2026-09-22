@@ -58,7 +58,7 @@ Five lessons, five turn-in files.
 game_date   home_team            home_city  home_state
 2025-10-21  Cleveland Cavaliers  Cleveland  Ohio
 2025-10-24  Cleveland Cavaliers  Cleveland  Ohio
-2025-10-27  Cleveland Cavaliers  Cleveland  Ohio
+2025-10-28  Cleveland Cavaliers  Cleveland  Ohio
 ```
 
 "The Cavaliers play in Cleveland, Ohio" — typed **33 times**.
@@ -74,7 +74,7 @@ Splitting tables so every fact is stored **once** is called **normalization**.
 ```
 teams                            games
 team_id  full_name   city        game_id  home_team_id  away_team_id
-6        Cleveland   Cleveland   1        6             5
+6        Cleveland   Cleveland   4        6             5
          Cavaliers
 ```
 

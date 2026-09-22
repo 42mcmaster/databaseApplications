@@ -54,7 +54,7 @@ Everything you turn in is typed. Diagrams are typed too — you'll write them in
 
 ## What's in each segment
 
-**3a** — Open `denormalized_demo.db`. One table, `games_flat`, has every team's city, state, conference and division typed into every single game row. You'll count how many times Cleveland shows up, find two typing mistakes hiding in the data, and explain in plain words what goes wrong when you try to update, add, or delete. Then you'll open the fixed version — two tables, `teams` and `games` — and see the same data with every fact stored once.
+**3a** — Open `denormalized_demo.db`. One table, `games_flat`, has every team's city, state, conference and division typed into every single game row. You'll count how many times a team's city shows up, find the typing mistakes hiding in the data, and explain in plain words what goes wrong when you try to update, add, or delete. Then you'll open the fixed version — two tables, `teams` and `games` — and see the same data with every fact stored once.
 
 **3b** — Keys and relationships. Natural keys vs. made-up ID numbers, composite keys, and what a foreign key actually promises. You'll sort six real relationships into one-to-one, one-to-many, and many-to-many, then write an ER diagram in Mermaid for a school schedule. A copy-and-edit template is in the turn-in file.
 
