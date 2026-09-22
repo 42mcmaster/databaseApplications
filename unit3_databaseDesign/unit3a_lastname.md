@@ -62,14 +62,6 @@ If a list has more than that, something in it is wrong. Once you find a wrong va
 | 7 | | | | |
 | 8 | | | | |
 
-**d.** Write a query that counts every Bulls game by **team name** (home or away). Compare your count to your city count from **b**. Which count is right, and why are they different?
-
-```sql
-
-```
-
-**Answer:**
-
 
 ## 3. Spot the anomalies in a new table
 
@@ -113,29 +105,6 @@ For each scenario, name the anomaly (**update**, **insert**, or **delete**) and 
 **Answer:**
 
 
-## 4. The fixed version
-
-Now look at the tables **`teams`** and **`games`** in the same database.
-
-**f.** In the fixed version, how many rows would you change to move the Bulls to a new city? Which table is that row in?
-
-**Answer:**
-
-
-**g.** Look up the Bulls' `team_id` in `teams`. Then write a query on **`games`** (not `games_flat`) that counts every Bulls game using that number. Which count from Part 1 or 2 does it match? Why can't the `games` table have the kind of mistake you found in Part 2?
-
-```sql
-
-```
-
-**Answer:**
-
-
-**h.** Write one query that shows the game date, home team name, away team name, home points, and away points for **Bulls games only**, sorted by date. Start from the walkthrough's query. You will need to add columns and a `WHERE`.
-
-```sql
-
-```
 
 ## Closing 3a — Vocabulary
 
