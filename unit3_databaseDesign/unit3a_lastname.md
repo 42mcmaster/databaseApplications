@@ -32,11 +32,6 @@ Use the **Execute SQL** tab. You know enough SQL from Unit 2 for all of these. P
 **Answer:**
 
 
-**c.** So how many times is the fact any team "plays in Chicago, Illinois" typed into this table?
-
-**Answer:**
-
-
 ## 2. Find the mistakes
 
 There are **8** mistakes planted in `games_flat`. Two of them are the Cavaliers mistakes from the walkthrough. Find all 8.
