@@ -32,7 +32,7 @@ Use the **Execute SQL** tab. You know enough SQL from Unit 2 for all of these. P
 **Answer:**
 
 
-**c.** So how many times is the fact "the Bulls play in Chicago, Illinois" typed into this table?
+**c.** So how many times is the fact any team "plays in Chicago, Illinois" typed into this table?
 
 **Answer:**
 
@@ -149,4 +149,3 @@ Your words, not the slide's.
 | Delete anomaly | |
 | Normalization | |
 
-**Partner check:** trade files. Cover your partner's Part 3 answers. Using only their definitions above, decide which anomaly each scenario is. Then check against what they wrote.
