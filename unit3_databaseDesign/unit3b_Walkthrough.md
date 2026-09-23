@@ -22,7 +22,7 @@ The **schema** is the whole structure: the tables, their columns, their keys, an
 
 ---
 
-## Primary keys — three flavors
+## Primary keys — three types
 
 A **primary key** identifies one row. You've been using them since Unit 1. There are three kinds:
 
@@ -36,7 +36,7 @@ Most tables you design get a surrogate key. Use a natural key only when the real
 
 ---
 
-## Foreign keys — a promise
+## Foreign keys 
 
 A **foreign key** is a column that holds another table's primary key. `games.home_team_id` holds a `teams.team_id`.
 
