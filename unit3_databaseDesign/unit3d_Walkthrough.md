@@ -1,119 +1,67 @@
-# Unit 3d Walkthrough — Design Vocabulary
+# Unit 3d Walkthrough — Types of Databases
 
-**Read this first. Then open `unit3d_lastname.md` and do the work.**
+**Watch the video, read this page, then open `unit3d_lastname.md` and answer the questions.**
 
 ---
 
 ## What you're doing today
 
-This is the describe-it lesson. Five short topics the state outline names that you need to recognize and explain, but don't need to build. Read each section, then do the matching task for it. The last part is six practice questions where the job is explaining why the wrong answers are wrong.
+Every database we've used in this course is **relational**: tables with rows and columns, linked by keys. But relational is not the only kind. Today you'll see the other main types, what each one is good at, and how to pick the right one for a job.
 
-No database file today.
-
----
-
-## 1. Four levels of a design
-
-A database design goes through levels, from vague to exact. The outline calls these **levels of data abstraction**.
-
-| Level | What's in it | What it looks like |
-|---|---|---|
-| **Conceptual** | Entities and relationships only. No columns. | Boxes and lines: "Students take Courses. Teachers teach Courses." |
-| **Logical** | Tables, columns, keys, relationships. No data types, no storage details. | The ER diagram you wrote in 3b |
-| **Physical** | Data types, indexes, constraints, the actual file and DBMS. | `student_id INTEGER PRIMARY KEY`, an index on `last_name`, a SQLite file |
-| **View** | The slice one user or role is allowed to see. | A teacher sees their own gradebook, not the whole school |
-
-Unit 3 lives at conceptual and logical. Unit 4 is physical. Views come back in Unit 5 when we talk about who can see what.
+No SQL today.
 
 ---
 
-## 2. Picking a data model
+## The video
 
-Unit 1 covered *types of databases*. This is a different question: given a client's situation, which **data model** fits? The outline lists eleven. You need to recognize them and be able to pick one for a client with a reason.
+**[7 Database Paradigms – Fireship](https://www.youtube.com/watch?v=W2Z7fbCLSTw)** (about 10 minutes)
 
-| Model | What it is | Pick it when the client says… |
-|---|---|---|
-| **Relational** | Tables, keys, joins. Everything in this course. | "Nothing can be out of sync." Strict rules, lots of linked records. |
-| **Document** | Each record is a self-contained document (usually JSON); records can have different fields. | "Every product has completely different attributes." |
-| **Graph** | Nodes and edges. Relationships are the point. | "Who is connected to whom, several hops out." |
-| **Star** (data warehouse) | One big fact table (sales) surrounded by dimension tables (region, month, product). Denormalized on purpose. | "Totals by region by month, ten years of history." |
-| **Key-value** | One key, one value. Nothing else. | "Look up one thing by ID, millions of times a second." |
-| **Hierarchical** | A tree. Every record has one parent. | Folders on a drive, an org chart, old mainframe systems. |
-| **Object-oriented** | Stores program objects as-is, no tables. | "Our app is all objects and we hate writing joins." |
-| **Object-relational** | A relational database that also understands objects and custom types. | PostgreSQL is the usual example. |
-| **Entity-attribute-value** | One row per (thing, attribute, value) triple. | Sparse data with thousands of possible attributes, like medical records. |
-| **Multidimensional** | Data organized as a cube with several dimensions, for analysis. | Spreadsheet-style pivoting over big data (OLAP). |
-| **Multivalue** | A field can legally hold a list. The thing 1NF forbids, done on purpose. | Older business systems (Pick, UniVerse). |
-
-The first five are the ones you'll be asked to choose between. The other six you should be able to say one sentence about.
+"Paradigm" just means *type* or *style*. He talks fast and names a lot of real products. Pause and rewind as much as you need. Have `unit3d_lastname.md` open while you watch. The first question is a table you fill in during the video.
 
 ---
 
-## 3. Four kinds of documentation
+## The seven types in plain words
 
-The outline says a designer produces documentation, and names four kinds.
-
-| Document | What it shows | Who reads it |
-|---|---|---|
-| **ER diagram** | Entities, keys, relationships | The database designer |
-| **Data dictionary** | Every table and column: type, key, required or not, what it means | Everyone who writes queries |
-| **Workflow diagram** | The steps a process goes through, start to finish (a flowchart) | The people running the process |
-| **UML class diagram** | The program's classes, their fields and methods | The programmers |
-
-You will produce the first two in 3e. Recognize the other two.
-
-A data dictionary is just a table. One row per column, everything anyone would need to know about it:
-
-| Table | Column | Type | Key | Required? | Description |
-|---|---|---|---|---|---|
-| teams | team_id | INTEGER | PK | yes | Surrogate ID for the team |
-| teams | full_name | TEXT | | yes | City plus nickname, e.g. "Cleveland Cavaliers" |
-| games | home_team_id | INTEGER | FK → teams | yes | The team playing at home |
+| Type | How the data is stored | Think of it like | Good for |
+|---|---|---|---|
+| **Key-value** | One key points to one value. Kept in memory. | A dictionary: look up a word, get its meaning | Very fast lookups: logins, caching, game leaderboards |
+| **Wide-column** | Like key-value, but each key holds a whole row of columns. No fixed layout. | A giant spreadsheet spread across many computers | Huge amounts of incoming data, like readings from sensors over time |
+| **Document** | Each record is a self-contained document (like JSON). Records can have different fields. | A folder of forms where every form can be different | Records that don't all look the same: products, game saves, blog posts |
+| **Relational** | Tables with rows and columns, linked by primary and foreign keys | Our NBA database: `teams` and `games` linked by `team_id` | Data that must always match up: grades, banking, orders |
+| **Graph** | Nodes (things) connected by edges (relationships) | A map of who is friends with whom | When the connections are the point: friend suggestions, fraud detection |
+| **Full-text search** | An index of every word, like the index at the back of a book | Google search on your own data | Search boxes that find text fast, even with typos |
+| **Multi-model** | Several types in one database | A toolbox with more than one tool | Apps that need more than one type |
 
 ---
 
-## 4. Storage types
+## How to pick one
 
-Every column needs a type. For now you only need the families, not the SQL Server sizes.
+When a client describes what they need, listen for these clues:
 
-| Family | Holds | Examples |
-|---|---|---|
-| **INTEGER** | Whole numbers | points, quantity, an ID |
-| **REAL** | Decimals | price, height in meters, a rating |
-| **TEXT** | Characters | names, addresses, anything you'd never do math on |
-| **DATE / TIME** | Dates and times | game_date, created_at |
-| **BOOLEAN** | True / false | is_active, is_paid |
+| If the client says… | Pick |
+|---|---|
+| "Everything has to match up. Nothing can be out of sync." | Relational |
+| "Every item has different information." | Document |
+| "We care about who is connected to whom." | Graph |
+| "We look up one thing by its ID, millions of times a second." | Key-value |
+| "People need to search through lots of text." | Full-text search |
+| "We collect a nonstop flood of data, like sensor readings." | Wide-column |
 
-The one rule that catches people: **if you'd never do math on it, it's TEXT.** Phone numbers and zip codes look like numbers but aren't. A zip code can start with 0 (`03104` becomes `3104` as a number), a phone number has dashes and a country code, and nobody ever adds two of them together.
-
-SQLite is loose about types — it stores dates as TEXT and booleans as 0/1 — but the design decision is the same.
-
----
-
-## 5. Constraints as design decisions
-
-A **constraint** is a rule the database enforces so bad data can't get in. You'll write them in SQL in Unit 4. Today you just pick the right one.
-
-| Problem | Constraint | What it does |
-|---|---|---|
-| Two students with the same email | `UNIQUE` | No two rows may have the same value in this column |
-| A game saved with no date | `NOT NULL` | The column can't be empty |
-| Two rows that are the same team | `PRIMARY KEY` | Unique and not null, and identifies the row |
-| A game pointing at team 99, which doesn't exist | `FOREIGN KEY` | The value must exist in the other table |
-| A height of −5 | `CHECK` | A custom rule you write: `CHECK (height > 0)` |
-
-Every constraint is a design decision: you're saying *this can never be true in our data*. Get them right in the design and Unit 4 is easy.
+Most real apps start with **relational**. It's the most common type, and it's what this course teaches. The others are for special jobs.
 
 ---
 
-## 6. Practice items — how to do them
+## Why our NBA database is relational
 
-Six multiple-choice questions at the end of the turn-in file. Answer each one, and then **for every wrong option, write one sentence about why it's wrong.**
+In 3a you saw two ways to store the same games:
 
-That second step is the point. Anyone can guess. Knowing what makes the other three answers false is what the exam actually tests.
+- `games_flat` repeated each team's name and city in every game row. That caused typos and anomalies.
+- `teams` + `games` stored each team **once** and linked games to teams with `team_id`.
+
+Linking tables with keys so every fact is stored once is exactly what relational databases are built for.
 
 ---
 
 ## Now do the work
 
-Open `unit3d_lastname.md`. Five short matching tasks, then the six practice items.
+Open `unit3d_lastname.md`, rename it with your last name, and answer the questions.
