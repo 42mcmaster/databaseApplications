@@ -86,37 +86,49 @@ For a **many-to-many** relationship, neither table can hold the foreign key by i
 
 
 ---
-
 ## Many-to-many needs a junction table
 
 A student takes many courses. A course has many students.
 
-Try to store that with a foreign key the way you did for one-to-many. Put a `course_id` column in `STUDENTS`? A cell holds one value, and a student has three courses — which one do you write? You'd end up typing "Math, Science, Art" into one cell, which is exactly what 3c teaches you not to do. Put a `student_id` in `COURSES`? Same problem — a course has thirty students.
+Try storing that with a foreign key the way you did for one-to-many. Put a `course_id` column in `STUDENTS`? A cell holds one value, and a student has three courses — which one do you write? You'd end up typing "Math, Science, Art" into one cell, which is exactly what an upcoming lesson teaches you not to do. Put a `student_id` in `COURSES`? Same problem — a course has thirty students.
 
-So the foreign keys can't go in either table. They go in a **third table**, one row per student-course pair:
+So the foreign keys can't go in either table. They go in a third table, with one row per student-course pair.
+
+**The design.** This shows the three tables and what columns each one has. No data yet — just the column names and which ones are keys.
 
 ```
-STUDENTS                ENROLLMENTS                     COURSES
-student_id  PK          student_id  FK  ┐               course_id  PK
-name                    course_id   FK  ┘ PK together   title
-                        grade
+STUDENTS              ENROLLMENTS           COURSES
+----------            ----------            ----------
+student_id  PK        student_id  FK        course_id  PK
+name                  course_id   FK        title
+                      grade
 ```
+
+`ENROLLMENTS` sits between the other two. Its `student_id` points back to a row in `STUDENTS`, and its `course_id` points to a row in `COURSES`.
+
+**The data.** Now the same `ENROLLMENTS` table with actual rows in it. These are the columns from the design above, filled in.
 
 ```
 ENROLLMENTS
-student_id  course_id  grade
-40213       101        A
-40213       102        B
-40213       105        A
-40214       101        B
+student_id   course_id   grade
+---------------------------------
+40213        101         A
+40213        102         B
+40213        105         A
+40214        101         B
 ```
 
-Student 40213 takes three courses, so they get three rows. Course 101 has two students, so it shows up twice. Every cell still holds one value.
+Read it a row at a time. Row one says student 40213 is enrolled in course 101 and earned an A.
 
-`ENROLLMENTS` is a **junction table**. Both of its foreign keys together make the primary key — a composite key — because the *pair* is what's unique: a student can't be enrolled in the same course twice. A junction table can also carry attributes that belong to the pair, like the grade the student got in *that* course.
+Student 40213 appears three times because they take three courses. Course 101 appears twice because two students are in it. Every cell still holds exactly one value — that's the point.
 
-You saw one already: `roles` in `movies_small.db` is the junction between `movies` and `people`..
+`ENROLLMENTS` is a **junction table**: a table whose job is to connect two other tables.
 
+Its primary key is `student_id` and `course_id` together, not either one alone. Neither works by itself — 40213 shows up three times, and 101 shows up twice. It's the *pair* that's unique, because a student can't enroll in the same course twice. A primary key made of two or more columns is called a **composite key**.
+
+A junction table can also carry columns that belong to the pairing itself. `grade` is one: it isn't a fact about the student and it isn't a fact about the course, it's a fact about that student *in* that course.
+
+You've already seen one. In `movies_small.db`, the `roles` table is the junction between `movies` and `people`.
 ---
 
 ## Outside the relational model
