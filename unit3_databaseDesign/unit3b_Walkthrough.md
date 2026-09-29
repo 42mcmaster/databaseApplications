@@ -44,6 +44,7 @@ The foreign key **promises** that the value exists in the other table. When the 
 
 - Insert a game with `home_team_id = 99` when there is no team 99? The database refuses.
 - Delete team 6 while games still point at it? The designer chooses what happens. **Restrict** — refuse the delete. **Cascade** — delete the games too. Or set the foreign key to NULL. All three are legitimate options.
+- An important note: the foreign key column name, in this case `games.home_team_id` which is referencing the `home_team_id` column or field, does not have to be the same name as the primary key it is referencing, which in this case is the `team_id` column in the `teams` table.  The schema is what you use to set the relationship up, and the column names don't have to match. 
 
 ---
 
@@ -97,10 +98,10 @@ So the foreign keys can't go in either table. They go in a third table, with one
 **The design.** This shows the three tables and what columns each one has. No data yet — just the column names and which ones are keys.
 
 ```
-STUDENTS              ENROLLMENTS           COURSES
-----------            ----------            ----------
-student_id  PK        student_id  FK        course_id  PK
-name                  course_id   FK        title
+STUDENTS              ENROLLMENTS (Junction Table)         COURSES
+----------            ----------                           -------------
+student_id  PK        student_id  FK                       course_id  PK
+name                  course_id   FK                       title
                       grade
 ```
 
@@ -128,16 +129,92 @@ Its primary key is `student_id` and `course_id` together, not either one alone. 
 
 A junction table can also carry columns that belong to the pairing itself. `grade` is one: it isn't a fact about the student and it isn't a fact about the course, it's a fact about that student *in* that course.
 
-You've already seen one. In `movies_small.db`, the `roles` table is the junction between `movies` and `people`.
+--- 
+
+## An example you've seen before, from the movies database
+
+You've already seen a junction table. In `movies_small.db`, the `roles` table is the junction between `movies` and `people`.
+
+A movie has many people working on it. A person works on many movies. Same many-to-many problem, same solution.
+
+**The design.** Four tables. Column names only — no data yet.
+
+```
+movies                    roles                     people
+-----------------         -----------------         -----------------
+movie_id      PK          movie_id      FK          person_id   PK
+title                     person_id     FK          name
+release_year              role                      birth_year
+runtime_minutes           character                 death_year
+genres                                              profession
+
+ratings
+-----------------
+movie_id      PK, FK
+avg_rating
+num_votes
+```
+
 ---
 
 ## Outside the relational model
 
-The state outline says relationships can also be described in two other ways. You need to recognize them, not design with them.
+Two other kinds of databases store relationships differently. You need to **recognize** them, not design with them.
 
-**Nodes and relationships** — how a **graph database** stores things. Instagram's follow list is people as *nodes* and FOLLOWS as *edges* between them. No junction table; the relationship is a first-class thing. Great for "friends of friends of friends."
+### Key / value
 
-**Key / value** — the simplest store there is. One key, one value: `session_8f3a → "ryan"`. There is no relationship structure at all. If you need to connect two things, you store the other key inside the value and your program follows it.
+The simplest store there is. Each piece of data is saved under one unique **key**, and you get it back only by asking for that key. The database never looks inside the **value**. Examples: **Redis**, **DynamoDB**.
+
+| Key | Value | Used for |
+|---|---|---|
+| `session:8f3a91` | `"user:1042"` | Remembering who is logged in |
+| `cart:user:1042` | `{"items": [{"sku": "MUG-01", "qty": 1}]}` | A shopping cart |
+| `views:video:5521` | `48213` | A view counter |
+
+There are no foreign keys and no JOINs. To connect two things, you store one key inside another value, and your program does a second lookup:
+
+```
+GET session:8f3a91   →  "user:1042"
+GET user:1042        →  {"name": "Ryan"}
+```
+
+**Good at:** very fast lookups by ID. **Bad at:** searching, like "find every cart with a mug in it."
+
+### Nodes and relationships
+
+This is how a **graph database** (like **Neo4j**) stores data. **Nodes** are the things, and **relationships** (also called **edges**) are the connections between them. There's no junction table because the relationship is stored directly.
+
+```mermaid
+graph LR
+    Ava -->|FOLLOWS| Ben
+    Ava -->|FOLLOWS| Dee
+    Ben -->|FOLLOWS| Cam
+    Dee -->|FOLLOWS| Eli
+```
+
+Graphs are good at questions about paths, like "who is two steps away from Ava?":
+
+```cypher
+MATCH (a:Person {name: "Ava"})-[:FOLLOWS]->()-[:FOLLOWS]->(fof)
+RETURN fof.name;   // Cam, Eli
+```
+
+In SQL, every extra step would be another JOIN. In a graph, you just follow more arrows.
+
+**Example: catching fraud.** A bank stores accounts, phone numbers, and addresses as nodes. Three accounts are opened under three different names. On their own, each account looks normal. But in the graph, all three connect to the same phone number, and two of them share an address:
+
+```mermaid
+graph LR
+    A1["Acct 4471<br/>Tyrone Farrell"] -->|USES| P["Phone<br/>999-867-5309"]
+    A2["Acct 4488<br/>Arnold Gilbert"] -->|USES| P
+    A3["Acct 4502<br/>Alyn Saul"] -->|USES| P
+    A1 -->|LIVES_AT| H["67 Main Street"]
+    A3 -->|LIVES_AT| H
+```
+
+Three different people wouldn't normally share one phone number. A cluster like this suggests one person is running fake accounts. A graph database finds these clusters by following the connections.
+
+Social network analysis tools like **Gephi** use the same nodes-and-edges idea to draw a network and measure things like who has the most connections.
 
 ---
 
@@ -145,7 +222,9 @@ The state outline says relationships can also be described in two other ways. Yo
 
 An **ER diagram** (entity-relationship diagram) shows entities as boxes, attributes inside them, and relationships as lines between them. Every database design starts with one.
 
-You'll write yours in **Mermaid**, a text format GitHub renders as a picture. Type this in a markdown file:
+You'll write yours in **Mermaid**, a text format GitHub renders as a picture. We'll watch this in class to see one being built: https://www.youtube.com/watch?v=bXLVDkJV2EE
+
+Type this in a markdown file:
 
 ````
 ```mermaid
@@ -166,12 +245,14 @@ And GitHub shows two boxes with a line between them.
 
 The relationship line is the important part. `TEAMS ||--o{ GAMES` reads left to right: **one** team (`||`), **zero or many** games (`o{`). The symbols:
 
+
 | Symbol | Means |
 |---|---|
-| `||` | exactly one |
-| `o|` | zero or one |
-| `|{` | one or many |
+| `\|\|` | exactly one |
+| `o\|` | zero or one |
+| `\|{` | one or many |
 | `o{` | zero or many |
+
 
 The end with the `{` is the "many" end — it's drawn as a crow's foot. You cannot type the line without deciding which side is the many side, which is the whole skill.
 
@@ -179,8 +260,105 @@ Inside the braces, each attribute is `type name`, in that order, with an optiona
 
 **Preview before you push:** paste your code into **mermaid.live**. If GitHub shows an error box instead of a diagram, the usual cause is an attribute line with the name before the type.
 
+### Three patterns
+
+**One-to-many:** the teams and games example above. One team, many games. The foreign key (`home_team_id`) is in the "many" table.
+
+**One-to-one:** one country, one capital. Exactly one on both ends (`||--||`).
+
+````
+```mermaid
+erDiagram
+    COUNTRIES ||--|| CAPITALS : "has"
+    COUNTRIES {
+        int country_id PK
+        string name
+    }
+    CAPITALS {
+        int capital_id PK
+        string city_name
+        int country_id FK
+    }
+```
+````
+
+**Many-to-many:** movies and people, from `movies_small.db`. They can't connect directly, so the junction table `ROLES` sits in the middle. Both lines have their crow's foot on the junction table, because each movie has many roles and each person has many roles.
+
+````
+```mermaid
+erDiagram
+    MOVIES ||--o{ ROLES : "has"
+    PEOPLE ||--o{ ROLES : "works as"
+    MOVIES {
+        int movie_id PK
+        string title
+        int release_year
+    }
+    PEOPLE {
+        int person_id PK
+        string name
+    }
+    ROLES {
+        int movie_id FK
+        int person_id FK
+        string role
+    }
+```
+````
+
+**Optional side (`o|`):** some employees have a company parking spot and some don't. Each spot belongs to exactly one employee.
+
+````
+```mermaid
+erDiagram
+    EMPLOYEES ||--o| PARKING_SPOTS : "is assigned"
+    EMPLOYEES {
+        int employee_id PK
+        string name
+    }
+    PARKING_SPOTS {
+        int spot_id PK
+        string lot
+        int employee_id FK
+    }
+```
+````
+
+Read it out loud: "one employee, zero or one parking spot."
+
+---
+
+## Using AI to write your ER diagram
+
+For your diagram, **you design it and AI types the Mermaid code.** The design is the part that counts. AI will make mistakes, and finding them is your job.
+
+**Step 1: Plan it.** Before you open an AI tool, decide:
+- What are the entities (tables)?
+- What attributes does each one have?
+- What is each table's primary key?
+- Where are the foreign keys?
+- For each relationship, which side is the "many" side?
+
+You can sketch it in PowerPoint (boxes and lines) and take a screenshot, or write it out as a list.
+
+**Step 2: Give the AI your plan.** Upload your picture or type out your plan. Be specific. Here's an example for a library (not your assignment):
+
+> Write a Mermaid erDiagram. Entities: AUTHORS (author_id PK, name, birth_year) and BOOKS (book_id PK, title, year, author_id FK). One author writes many books. Each book has one author. Use `type name` order for attributes.
+
+A vague prompt like "make an ER diagram for a library" gets you whatever the AI guesses.
+
+**Step 3: Proof it.** Check every line:
+- [ ] Every entity has a primary key marked `PK`.
+- [ ] Foreign keys are in the "many" table and marked `FK`.
+- [ ] Read each relationship line out loud ("one author, many books"). The crow's foot (`{`) is on the "many" side.
+- [ ] A many-to-many has a junction table with both foreign keys.
+- [ ] Attributes are `type name`, not `name type`.
+- [ ] The AI didn't add tables or columns you didn't ask for, or leave any out.
+
+**Step 4: Test it.** Paste the code into **mermaid.live**. If it shows an error or the picture looks wrong, fix it and test again. Then put it in your file, push, and check that it shows as a diagram on GitHub.
+
 ---
 
 ## Now do the work
 
-Open `unit3b_lastname.md`. Classify four primary keys, answer two foreign-key questions, sort six relationships, then write a Mermaid ERD for a school schedule — four entities, one of them a junction table. A working example is in the file to copy from. Check that your diagram renders on GitHub before you call it done.
+Open `unit3b_lastname.md`. Classify four primary keys, answer two foreign-key questions, sort six relationships, then plan a school schedule ERD — four entities, one of them a junction table — and use AI to write the Mermaid code. Paste your prompt into the file, proof the AI's diagram with the checklist above, and check that it renders on GitHub before you call it done.
