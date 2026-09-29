@@ -254,6 +254,8 @@ The relationship line is the important part. `TEAMS ||--o{ GAMES` reads left to 
 | `o{` | zero or many |
 
 
+The text in quotes after the colon is a **label**. It's written on the line so the relationship reads like a sentence: first table, then the label, then the second table. `TEAMS ||--o{ GAMES : "plays in"` reads "a team plays in games." Mermaid doesn't check the label, so write whatever makes the sentence clear.
+
 The end with the `{` is the "many" end — it's drawn as a crow's foot. You cannot type the line without deciding which side is the many side, which is the whole skill.
 
 Inside the braces, each attribute is `type name`, in that order, with an optional `PK` or `FK` after it. Types are just labels — `int`, `string`, `date` — nothing checks them.
@@ -272,7 +274,7 @@ erDiagram
     COUNTRIES ||--|| CAPITALS : "has"
     COUNTRIES {
         int country_id PK
-        string name
+        string country_name
     }
     CAPITALS {
         int capital_id PK
@@ -287,8 +289,8 @@ erDiagram
 ````
 ```mermaid
 erDiagram
-    MOVIES ||--o{ ROLES : "has"
-    PEOPLE ||--o{ ROLES : "works as"
+    MOVIES ||--o{ ROLES : "has many roles"
+    PEOPLE ||--o{ ROLES : "plays many roles"
     MOVIES {
         int movie_id PK
         string title
