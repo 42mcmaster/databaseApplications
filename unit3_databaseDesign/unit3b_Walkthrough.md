@@ -44,7 +44,8 @@ The foreign key **promises** that the value exists in the other table. When the 
 
 - Insert a game with `home_team_id = 99` when there is no team 99? The database refuses.
 - Delete team 6 while games still point at it? The designer chooses what happens. **Restrict** — refuse the delete. **Cascade** — delete the games too. Or set the foreign key to NULL. All three are legitimate options.
-- An important note: the foreign key column name, in this case `games.home_team_id` which is referencing the `home_team_id` column or field, does not have to be the same name as the primary key it is referencing, which in this case is the `team_id` column in the `teams` table.  The schema is what you use to set the relationship up, and the column names don't have to match. 
+
+**An important note:** the foreign key column name, in this case `games.home_team_id` which is referencing the `home_team_id` column or field, does not have to be the same name as the primary key it is referencing, which in this case is the `team_id` column in the `teams` table.  The schema is what you use to set the relationship up, and the column names don't have to match. 
 
 ---
 
@@ -357,7 +358,7 @@ A vague prompt like "make an ER diagram for a library" gets you whatever the AI 
 - [ ] Attributes are `type name`, not `name type`.
 - [ ] The AI didn't add tables or columns you didn't ask for, or leave any out.
 
-**Step 4: Test it.** Paste the code into **mermaid.live**. If it shows an error or the picture looks wrong, fix it and test again. Then put it in your file, push, and check that it shows as a diagram on GitHub.
+**Step 4: Test it.** Paste the code into **mermaid.live** (if it's not blocked). If it shows an error or the picture looks wrong, fix it and test again. You can also just put it in your file in VS Code and preview it, and if it looks good, push it. 
 
 ---
 
