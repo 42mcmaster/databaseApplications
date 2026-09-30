@@ -59,7 +59,7 @@ For each table, decide: is the primary key **natural** (a real-world value that 
 
 ## 4. Your first ER diagram
 
-Here is the `denormalized_demo.db` fixed version as a Mermaid diagram. It already renders — push and look at it on GitHub.
+Here is the `denormalized_demo.db` fixed version as a Mermaid diagram. It already renders — push and look at it on GitHub or preview it in VS Code.
 
 ```mermaid
 erDiagram
@@ -81,7 +81,7 @@ erDiagram
     }
 ```
 
-**Now write your own.** A school schedule has these entities: **STUDENTS**, **COURSES**, **TEACHERS**, and an **ENROLLMENTS** junction table. Rules:
+**Now make your own, using AI.** Follow the four steps in the walkthrough: plan it, prompt the AI, proof it, test it. A school schedule has these entities: **STUDENTS**, **COURSES**, **TEACHERS**, and an **ENROLLMENTS** junction table. Rules:
 
 - One teacher teaches many courses; each course has one teacher.
 - Students take many courses; courses have many students. (That's what ENROLLMENTS is for.)
@@ -94,7 +94,18 @@ erDiagram
 
 ```
 
+**Paste the prompt you gave the AI.** If you used a PowerPoint picture, add the picture to your repo too.
+
+```text
+
+```
+
 **f.** Which entity has two foreign keys? What should its primary key be?
+
+**Answer:**
+
+
+**g.** What did you have to fix in the AI's diagram? If you didn't change anything, what did you check to make sure it was right?
 
 **Answer:**
 
