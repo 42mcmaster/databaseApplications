@@ -59,7 +59,7 @@ For each table, decide: is the primary key **natural** (a real-world value that 
 
 ## 4. Your first ER diagram
 
-Here is the `denormalized_demo.db` fixed version as a Mermaid diagram. It already renders — push and look at it on GitHub.
+Here is the `denormalized_demo.db` fixed version as a Mermaid diagram. It already renders — push and look at it on GitHub or preview it in VS Code.
 
 ```mermaid
 erDiagram
