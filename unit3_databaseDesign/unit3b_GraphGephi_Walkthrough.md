@@ -1,18 +1,16 @@
-# Unit 3b Extension Walkthrough — Graph Networks in Gephi Lite
+# Unit 3b Extension Walkthrough — Star Wars Character Network in Gephi Lite
 
-This extension builds on the graph database section at the end of `unit3b_Walkthrough.md`. There, you saw that a graph stores data as **nodes** (the things) and **edges** (the connections). Here, you load a real network into **Gephi Lite**, a free web tool, and use it to draw, measure, and explore that network.
+This extension builds on the graph database section at the end of `unit3b_Walkthrough.md`. A graph stores data as **nodes** (the things) and **edges** (the connections between them). Here you load a real Star Wars network into **Gephi Lite**, a free web tool, color it, and use a little math to find the most important characters.
 
 ## Contents
 
 - [What the data is](#what-the-data-is)
-- [Before you start: get the file](#before-you-start-get-the-file)
 - [Step 1: Open the file](#step-1-open-the-file)
-- [Step 2: Spread it out (Layout)](#step-2-spread-it-out-layout)
-- [Step 3: Measure the network (Metrics)](#step-3-measure-the-network-metrics)
-- [Step 4: Color and size (Appearance)](#step-4-color-and-size-appearance)
-- [Step 5: Look at the numbers (Data tab)](#step-5-look-at-the-numbers-data-tab)
-- [Step 6: Focus on one character (Filters)](#step-6-focus-on-one-character-filters)
-- [Step 7: Save a picture](#step-7-save-a-picture)
+- [Step 2: Spread it out](#step-2-spread-it-out)
+- [Step 3: Color the characters](#step-3-color-the-characters)
+- [Step 4: Run the math (Metrics)](#step-4-run-the-math-metrics)
+- [Step 5: Show the math](#step-5-show-the-math)
+- [Step 6: Save a picture](#step-6-save-a-picture)
 - [If something goes wrong](#if-something-goes-wrong)
 - [Questions to think about](#questions-to-think-about)
 
@@ -20,135 +18,113 @@ This extension builds on the graph database section at the end of `unit3b_Walkth
 
 ## What the data is
 
-The dataset is a social network of the characters in the original Star Wars trilogy (Episodes IV, V, and VI).
+The file is [`../datasets/starwars_all_movies.gexf`](../datasets/starwars_all_movies.gexf). To get it, open that link on GitHub and click the **Download raw file** button (the download arrow near the top-right).
 
-- **Node** = one character (40 total).
-- **Edge** = two characters spoke in the same scene at least once (125 total).
-- **Weight** = how many scenes those two characters shared. Luke and Leia share many. Luke and Greedo share none.
+- **Node** = one character (112 characters).
+- **Edge** = two characters spoke in the same scene (449 connections).
+- **Weight** = how many scenes those two shared, across all the movies.
 
-The data comes from Evelina Gabasova's Star Wars social network project, which was built from the movie scripts: https://github.com/evelinag/StarWars-social-network. The three movies were combined into one file for this course.
+It covers **Episodes I through VII**. Episodes VIII and IX are not included because the dataset was made in 2016.
 
-The file is a **.gexf** file, a standard format for graph data. It lists the nodes and the edges, much like a table of records and a table of relationships.
+Every character also has these **attributes** (extra columns of information). You can color the network by any of them.
 
-**How this connects to 3b:** in a relational database, "Luke appeared with Leia" would need a junction table (a many-to-many). In a graph, that connection is stored directly as an edge.
+| Attribute | What it means | Example values |
+|---|---|---|
+| `species` | What kind of being the character is | Human, Alien, Droid |
+| `side` | Which side of the Force they are on | Light side, Dark side, Neither |
+| `group` | Who they fight for or belong to | Jedi, Sith, Rebel Alliance, Galactic Empire, First Order... |
+| `gender` | Male, female, or none (droids) | Male, Female, None |
+| `trilogy` | Which trilogies they appear in | Prequel, Original, Sequel, Prequel + Original... |
+| `firstMovie` | The first movie they appear in | Episode I, Episode IV... |
+| `movies` | Every movie they appear in | I, II, III |
+| `movieCount` | How many movies they appear in | 1 to 7 |
 
----
+The connections and the movie columns come from the movie scripts, using Evelina Gabasova's Star Wars social network project ([GitHub repository](https://github.com/evelinag/StarWars-social-network)). The `species`, `side`, `group`, and `gender` columns were added by hand for this course. Some are judgment calls. Is a bounty hunter on the dark side? We called that "Neither."
 
-## Before you start: get the file
-
-The file is in this repository at [`../datasets/starwars_original_trilogy.gexf`](../datasets/starwars_original_trilogy.gexf).
-
-1. Open that link on GitHub.
-2. Click the **Download raw file** button (the download arrow near the top-right of the file view).
-3. Save it somewhere you can find it, like your Downloads folder.
-
-If you have the repository cloned on your computer, the file is already in the `datasets` folder.
+**One thing to notice:** Anakin and Darth Vader are separate nodes, because the scripts use different names for them.
 
 ---
 
 ## Step 1: Open the file
 
-1. Go to **https://lite.gephi.org** in your browser. No account is needed.
-2. A welcome box appears. Click **Open a local file**.
-    - If no welcome box appears (someone used Gephi Lite on this computer before), click **Workspace** in the top-left corner, then **Open...**.
-3. Click **Select a local file**, choose `starwars_original_trilogy.gexf`, then click **Open**.
-4. Check the top-left panel. It should say **Nodes 40** and **Edges 125**.
+1. Go to **https://lite.gephi.org**. No account is needed.
+2. Click **Open a local file**. (If you don't see that, click **Workspace** in the top-left, then **Open...**.)
+3. Click **Select a local file**, choose `starwars_all_movies.gexf`, then click **Open**.
+4. The top-left should say **Nodes 112** and **Edges 449**.
 
-The graph will look like a messy pile. That is normal. The next step fixes it.
+It will look like a messy pile. That's normal.
 
-**Moving around:** scroll to zoom in and out, and drag the background to move. The buttons in the bottom-right corner also zoom. The last button, **See the whole graph**, brings everything back into view. You will use it a lot.
-
-Gephi Lite opens **.gexf**, **.graphml**, and Graphology **.json** files. It does not open CSV files.
+**Moving around:** scroll to zoom, and drag the background to move. If you lose the graph, click **See the whole graph**, the bottom button in the lower-right corner.
 
 ---
 
-## Step 2: Spread it out (Layout)
+## Step 2: Spread it out
 
-A layout moves the nodes so connected characters pull together and unconnected ones push apart. **ForceAtlas2** is the most common layout for social networks.
+A **layout** moves the dots so connected characters pull together and unconnected ones push apart.
 
 1. In the left panel, click **Layout**, then **ForceAtlas2**.
-2. Click **Reset** at the bottom of the settings so you start from the default values.
-3. Check the box **Strong gravity mode?** This keeps loosely connected characters from flying off the screen.
-4. Change **Scaling ratio** to **50**. This spreads the nodes apart so they do not pile up.
-5. Click **Start**. Watch the nodes move for about 5 seconds, then click **Stop**.
-6. Click the **X** to close the settings, then click **See the whole graph** (bottom-right).
-
-Do not click the magic-wand button next to Reset ("Generates settings that fit the current graph"). On this graph it can send the nodes off the screen.
+2. Check **Strong gravity mode?** (This keeps loose characters from flying off the screen.)
+3. Change **Scaling ratio** to **50**. (This spreads the dots apart.)
+4. Click **Start**. Wait about 5 seconds, then click **Stop**.
+5. Close the panel with the **X**, then click **See the whole graph**.
 
 ---
 
-## Step 3: Measure the network (Metrics)
-
-Gephi Lite can calculate numbers for every character. Run these three. For each one: click **Metrics**, click the metric name, then click **Compute metric** at the bottom. Nothing changes on the screen yet. The numbers are saved for Steps 4 and 5.
-
-| Metric | What it measures | Question it answers |
-|---|---|---|
-| **Degree** | How many other characters this one is connected to | Who talks to the most people? |
-| **Betweenness centrality** | How often this character sits on the shortest path between two others | Who connects groups that would otherwise be apart? |
-| **Louvain community detection** | Splits the network into groups that are tightly connected inside | Which characters form a "crowd"? |
-
-Louvain saves its result as a column called **modularityClass**. Each group gets a number (0, 1, 2, and so on). The numbers are only names for the groups. A higher number does not mean anything.
-
----
-
-## Step 4: Color and size (Appearance)
-
-Now use the numbers from Step 3 to make the picture tell the story.
-
-**Color the groups**
+## Step 3: Color the characters
 
 1. Click **Appearance**, then **Nodes**.
-2. Under **Color**, open the **Set color from...** list and pick **modularityClass**. Each Louvain group gets its own color.
+2. Under **Color**, click the **Set color from...** box and pick **side**.
+3. Light side, Dark side, and Neither each get their own color. A key in the bottom-left shows which is which.
 
-**Size by connections**
+Now try the other options in the same box: **species**, **group**, **trilogy**, **firstMovie**. Each one tells a different story about the same network.
 
-3. Under **Size**, open **Set size from...** and pick **degree**. The most connected characters become the biggest circles.
-4. Close the panel with the **X**.
+**Tip:** click a color square next to a value to change that color. For example, make Dark side red and Light side blue.
+
+---
+
+## Step 4: Run the math (Metrics)
+
+Gephi Lite can calculate a number for every character. **The Metrics list is hidden until you click the word "Metrics"** in the left panel.
+
+For each one below: click its name, then click **Compute metric** at the bottom of the panel. Nothing on screen changes yet. The answer is saved as a new column, which you use in Step 5.
+
+| Metric | What it means in plain words | Saved as |
+|---|---|---|
+| **Degree** | How many different characters this one talks to. More connections = higher number. | `degree` |
+| **Betweenness centrality** | How often this character is the "bridge" in the shortest path between two other characters. A high number means they connect groups that would otherwise be apart. | `betweennessCentrality` |
+| **Louvain community detection** | The computer looks only at who talks to whom and splits the characters into groups (called communities) that talk mostly to each other. It knows nothing about the movies or sides. | `modularityClass` |
+
+**About `modularityClass`:** it only appears in the color menu **after** you run Louvain. Each group gets a number (0, 1, 2...). The numbers are just names for the groups. A higher number doesn't mean anything.
+
+**To see the actual numbers:** click **Data** at the top center. Click a column heading to sort it, and click again for highest first. Click **Graph** to go back.
+
+---
+
+## Step 5: Show the math
+
+**Make important characters bigger**
+
+1. **Appearance** > **Nodes**. Under **Size**, click **Set size from...** and pick **degree**.
+2. Check **Interpolate between custom min and max values**. Set **Min** to **3** and **Max** to **25**.
+
+The biggest dots are the characters with the most connections. Now switch the size to **betweennessCentrality** and watch who grows. Characters who connect different groups get bigger, even if they don't talk to many people.
+
+**Color by the computer's groups**
+
+3. Under **Color**, pick **modularityClass**. Compare it to coloring by **trilogy** or **side**. Did the computer find the same groups we labeled by hand?
 
 **Thin out the lines**
 
-The lines are drawn thicker for pairs who share more scenes. Some are so thick they cover everything.
-
-5. Click **Appearance**, then **Edges**.
-6. Check **Interpolate between custom min and max values**.
-7. Set **Min** to **1** and **Max** to **8**. Close the panel.
-
-A key (legend) in the bottom-left corner now shows what the colors and sizes mean.
+4. **Appearance** > **Edges**. Check **Interpolate between custom min and max values**. Set **Min** to **0.5** and **Max** to **5**. Close the panel.
 
 ---
 
-## Step 5: Look at the numbers (Data tab)
+## Step 6: Save a picture
 
-The picture shows the pattern. The table shows the exact numbers.
-
-1. Click **Data** at the top center of the screen. A table lists every character, one row each.
-2. The columns you computed are on the right: **degree**, **betweennessCentrality**, and **modularityClass**.
-3. Click a column heading to sort by it. Click it again to flip the order (highest first).
-4. Click **Graph** at the top to go back to the picture.
-
-The **Edges** button at the top-left of the table switches to a list of every connection and its weight.
-
----
-
-## Step 6: Focus on one character (Filters)
-
-An **ego network** is one person plus everyone they are directly connected to. It answers the question "who is in this character's world?"
-
-1. Click **Filters**, then **Add filter**.
-2. Under **Topology**, click **Ego network**.
-3. In the **Ego node** box, type a character's name (for example, Han) and press Enter.
-4. The graph now shows only that character's network. The top-left panel shows how many are left, for example **17 of 40** nodes.
-5. To see everyone again, click **Delete filter**.
-
----
-
-## Step 7: Save a picture
-
-1. Arrange the view the way you want it (zoom, filter, colors).
-2. Click **Workspace** (top-left), then **Export image**.
-3. Type a file name, for example `lastname_starwars.png`.
-4. To save exactly what is on your screen, check **Preserve current camera position**. Leave it unchecked to save the whole graph.
-5. Click **Save**. The picture goes to your Downloads folder.
+1. Click **Workspace** (top-left), then **Export image**.
+2. Name it `lastname_starwars.png`.
+3. Check **Preserve current camera position** to save exactly what is on your screen.
+4. Click **Save**. It goes to your Downloads folder.
 
 ---
 
@@ -156,20 +132,18 @@ An **ego network** is one person plus everyone they are directly connected to. I
 
 | Problem | Fix |
 |---|---|
-| The graph is gone or the screen is empty | Click **See the whole graph** (bottom-right). |
-| Still empty, or the screen went blank after using the Data tab | Refresh the browser page. Gephi Lite remembers your graph and settings. |
-| Nodes are piled into one big blob | Run ForceAtlas2 again with a higher **Scaling ratio**. |
-| Nodes flew far apart or off the screen | **Layout** > **Random** > **Apply**, then redo Step 2. |
-| The old graph shows up instead of the new file | **Workspace** > **Open...** and open the file again. |
+| I can't find Louvain or Degree | Click the word **Metrics** in the left panel to open the list. Scroll down if needed. |
+| `modularityClass` isn't in the color list | Run **Louvain community detection** first (Step 4). |
+| The graph is gone or the screen is empty | Click **See the whole graph** (bottom-right). If that doesn't work, refresh the page. Gephi Lite remembers your work. |
+| Everything is piled into one blob | Run ForceAtlas2 again with a bigger **Scaling ratio**. |
+| The dots are all huge | In Step 5, check **Interpolate between custom min and max values** and set Min and Max. |
 
 ---
 
 ## Questions to think about
 
-Use the graph and the Data tab.
-
-1. Which character has the highest **degree**? Is that who you expected? Why or why not?
-2. Sort by **betweennessCentrality**. Find a character whose betweenness rank is much higher than their degree rank. What role does that character play between groups in the story?
-3. How many groups did Louvain find? Pick two groups. Who is in each, and why might they be grouped together?
-4. Use an **ego network** on a character of your choice. How many characters are in their network? Who surprised you by being in it, or by being missing?
-5. Find a character with **0** or **1** connections. Why might the data show them as so isolated?
+1. Size by **degree**. Who are the three biggest characters? Are they who you expected?
+2. Size by **betweennessCentrality**. Poe is only 17th in connections but 8th in betweenness, and Darth Vader is 15th in connections but 6th in betweenness. Why might they act as "bridges" in the story?
+3. Color by **trilogy**. Which characters connect the prequels to the original movies?
+4. Color by **modularityClass**, then by **trilogy**. Do the computer's groups match the trilogies, or something else?
+5. Color by **side**. Do Light side and Dark side characters stay in separate areas, or are they mixed together? Why might that be?
