@@ -22,18 +22,30 @@
 
 A network of nonstop US airline routes in the lower 48 states (Alaska and Hawaii are left out).
 
-- **Node** = one airport (407 total). Each node is labeled with its 3-letter airport code, like `CLE` for Cleveland.
-- **Edge** = at least one airline flew nonstop between those two airports (2,500 total).
+- **Node** = one airport (413 total). Each node is labeled with its 3-letter airport code, like `CLE` for Cleveland.
+- **Edge** = at least one airline flew nonstop between those two airports (2,505 total).
 - **Weight** = how many airlines sold tickets on that nonstop route. This includes partner airlines that sell seats on another airline's flight.
 
-Each airport also has these attributes: `name`, `city`, `state`, `region` (Northeast, Midwest, South, or West), `latitude`, and `longitude`.
+Each airport also has these attributes:
+
+| Attribute | What it holds | Example (CLE) |
+|---|---|---|
+| `name`, `city`, `state` | Where the airport is | Cleveland Hopkins International Airport, Cleveland, OH |
+| `region` | US Census region: Northeast, Midwest, South, or West | Midwest |
+| `airportSize` | Large, Medium, or Small, as listed by OurAirports | Large |
+| `international` | `Yes` if the airport had at least one nonstop route to another country | Yes |
+| `intlDestinations` | How many foreign airports it flew to nonstop | 3 |
+| `mainAirline` | The US airline that sold tickets on the most routes at that airport | United Airlines |
+| `latitude`, `longitude` | Location on the map | 41.41, -81.85 |
+
+`region`, `airportSize`, `international`, and `mainAirline` are **grouping attributes**. Each one sorts the airports into a few groups, so you can color by it and see a pattern. This is where Gephi is most useful.
 
 **Two limits to keep in mind:**
 
-1. **The data is from 2014.** That is when the route data stopped being updated. The big hubs have not changed much, but some smaller routes have.
+1. **The data is from 2014.** That is when the route data stopped being updated. The big hubs have not changed much, but some smaller routes have, and some airlines in the data no longer exist. In 2014 US Airways was merging into American, so many of its routes are listed under American.
 2. **It counts routes, not passengers.** It tells you a flight exists, not how many people are on it.
 
-Sources: route data from [OpenFlights](https://openflights.org/data.php) (Open Database License). Airport states and locations from [OurAirports](https://github.com/davidmegginson/ourairports-data) (public domain).
+Sources: route and airline data from [OpenFlights](https://openflights.org/data.php) (Open Database License). Airport states, sizes, and locations from [OurAirports](https://github.com/davidmegginson/ourairports-data) (public domain).
 
 ---
 
@@ -53,7 +65,7 @@ In network terms, you can measure "hub" three ways:
 
 ## Before you start: get the file
 
-The file is in this repository at [`../datasets/us_flight_routes_2014.gexf`](../datasets/us_flight_routes_2014.gexf).
+The file is in this repository at [`us_flight_routes_2014.gexf`](us_flight_routes_2014.gexf), in this same folder.
 
 1. Open that link on GitHub.
 2. Click the **Download raw file** button (the download arrow near the top-right of the file view).
@@ -66,7 +78,7 @@ The file is in this repository at [`../datasets/us_flight_routes_2014.gexf`](../
 1. Go to **https://lite.gephi.org**.
 2. Click **Open a local file** (or **Workspace** > **Open...** if the welcome box does not appear).
 3. Click **Select a local file**, choose `us_flight_routes_2014.gexf`, then click **Open**.
-4. Check the top-left panel: **Nodes 407** and **Edges 2,500**.
+4. Check the top-left panel: **Nodes 413** and **Edges 2,505**.
 
 ---
 
@@ -115,7 +127,7 @@ You will run Degree twice: once normally, and once using the edge weights.
 
 **Betweenness centrality**
 
-5. Click **Betweenness centrality**, then **Compute metric**. This one takes a few seconds on 407 airports.
+5. Click **Betweenness centrality**, then **Compute metric**. This one takes a few seconds on 413 airports.
 
 ---
 
@@ -138,6 +150,12 @@ You will run Degree twice: once normally, and once using the edge weights.
 7. Check **Interpolate between custom min and max values**. Set **Min** to **0.3** and **Max** to **3**. Close the panel.
 
 The biggest circles are the hubs. Try sizing by **weightedDegree** or **betweennessCentrality** instead, and watch which circles grow or shrink.
+
+**Try the other groups**
+
+8. Go back to **Appearance** > **Nodes** > **Color**, and set the color from **mainAirline**. Each airline gets its own color. Look for areas of the map where one color takes over, and find each big airline's hub (its biggest circle).
+9. Set the color from **international**. Are the `Yes` airports mostly big circles or small ones?
+10. Set the color from **airportSize**. Compare it with the circle sizes: does "Large" always mean a high degree?
 
 ---
 

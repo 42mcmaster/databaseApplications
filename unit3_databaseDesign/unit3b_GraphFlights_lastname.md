@@ -75,14 +75,28 @@ Sort by **betweennessCentrality** (highest first).
 **Answer:**
 
 
-## 6. What this data can't tell you
+## 6. Grouping by airline
 
-**j.** This data is from 2014 and counts routes, not passengers. Name one question about airports that this network **cannot** answer, and what data you would need to answer it.
+Color the nodes by **mainAirline** (Appearance > Nodes > Color).
+
+**j.** Pick two of these airlines: Delta, United, American, Southwest. For each one, name the airport that looks like its biggest hub (largest circle in that color) and the part of the country where its color shows up most.
 
 **Answer:**
 
 
-## 7. Your map
+**k.** Now color by **international**. About how many airports are `Yes`? Name one large hub that is `Yes` and explain why a hub airport is more likely to have international flights.
+
+**Answer:**
+
+
+## 7. What this data can't tell you
+
+**l.** This data is from 2014 and counts routes, not passengers. Name one question about airports that this network **cannot** answer, and what data you would need to answer it.
+
+**Answer:**
+
+
+## 8. Your map
 
 Export your finished map from Gephi Lite (Workspace > Export image) as `lastname_flights.png`. Put the picture in the same folder as this file, then replace `lastname_flights.png` below with your file's name so it shows on GitHub.
 
