@@ -13,7 +13,7 @@ For each table, decide: is the primary key **natural** (a real-world value that 
 | Table | Primary key | Natural or surrogate? | Composite? |
 |---|---|:-:|:-:|
 | `teams` in `nba_5seasons.db` | `team_id` | | |
-| `player_season_stats` in `nba_5seasons.db` | | | |
+| `player_season_stats` in `nba_5seasons.db` |`team_id`, `player_id`, and `season` | | |
 | A US state table | `state_abbrev` (OH, MI, PA…) | | |
 | The school's student records | `student_id` | | |
 
@@ -26,7 +26,7 @@ For each table, decide: is the primary key **natural** (a real-world value that 
 
 **b.** In `denormalized_demo.db`, `games.home_team_id` is a foreign key to `teams.team_id`. If someone tries to insert a game with `home_team_id = 99` and there is no team 99, what should the database do? What is that rule called?
 
-**Answer:**
+**Answer:**  A database will refuse or reject the entry.  This is called `Referential Integrity`.
 
 
 **c.** If team 6 were deleted from `teams`, what should happen to its rows in `games`? Name two different choices a designer could make.
