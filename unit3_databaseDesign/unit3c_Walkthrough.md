@@ -77,10 +77,10 @@ Now ask, for each non-key column: **does it need both parts of the key, or just 
 **Fix:** move the columns that depend on only `Character` into their own table keyed by `Character`.
 
 ```
-CHARACTERS                                    CHARACTER_ABILITIES
-Character (PK)   Experience_Level   Rating    Character (PK, FK)   Ability (PK)   Power
-Arnold           9                  Blockbuster   Arnold           one-liners     8
-Agent 86         5                  Rising Star   Arnold           explosions     10
+CHARACTERS                                               CHARACTER_ABILITIES
+Character (PK)   Experience_Level       Rating           Character (PK, FK)   Ability (PK)     Power
+Arnold           9                      Blockbuster      Arnold               one-liners       8
+Agent 86         5                      Rising Star      Arnold               explosions       10
 ```
 
 Arnold's level is now stored once. `CHARACTER_ABILITIES.Character` is a foreign key back to `CHARACTERS`.
@@ -125,4 +125,4 @@ The difference between a badly designed table and a denormalized one is whether 
 
 Open `unit3_Normalization.xlsx` in Google Sheets (File → Import). Four sheets, in order: **Flat_Table → 1NF → 2NF → 3NF**. Arnold is filled in on each sheet so you can see the shape; do the other three characters.
 
-Then open `unit3c_lastname.md`, paste your final three 3NF tables as markdown tables, and answer the questions. Include a link to your Sheet (or export it as `.xlsx` and commit it next to your turn-in).
+Then open `unit3c_lastname.md`, paste your final three 3NF tables as markdown tables, and answer the questions. Include a link to your Sheet (or export it as `.xlsx` and commit it next to your turn-in).  You can use AI to help you create your final 3NF tables by pasting the xlsx content and asking it for the same table in a markdown form. 
