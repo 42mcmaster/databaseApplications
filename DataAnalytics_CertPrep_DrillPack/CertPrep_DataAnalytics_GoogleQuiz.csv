@@ -1,0 +1,26 @@
+Question,Option A,Option B,Option C,Option D,Correct Answer,Points
+Data Science combines which two fields?,Art and History,Computer Science and Statistics,Biology and Law,Music and Math,Option B,1
+Quantitative data is...,categories,measured numbers,opinions,images,Option B,1
+A table ROW usually represents a...,field,record/entity,chart,formula,Option B,1
+A table COLUMN usually represents a...,record,field/attribute,total,join,Option B,1
+The data pipeline phases are...,Read/Write/Delete,Sort/Filter/Group,Extract/Transform/Load,Plan/Build/Ship,Option C,1
+Which join keeps only matching rows in both tables?,Inner Join,Left Join,Full Outer Join,Cross Join,Option A,1
+Selecting rows that meet a condition is...,sorting,filtering,aggregating,joining,Option B,1
+Summarizing daily rows into monthly totals is...,filtering,sorting,aggregation,cleaning,Option C,1
+A valid outlier rule removes values more than...,the median,3 standard deviations from the mean,10% of rows,1 record,Option B,1
+NaN / None / 'Unknown' all indicate...,duplicates,outliers,missing data,good data,Option C,1
+Best chart for the DISTRIBUTION of one variable?,pie,histogram,line,map,Option B,1
+Best chart for a TREND over time?,pie,histogram,line chart,scatter,Option C,1
+Best chart for the RELATIONSHIP of two numeric variables?,pie,bar,histogram,scatter plot,Option D,1
+Best chart for each part's SHARE of a whole?,pie chart,line,scatter,histogram,Option A,1
+A well-designed chart should...,truncate the y-axis,use identical colors,hide units,have a caption and labeled axes,Option D,1
+Not starting a bar chart's y-axis at zero is...,required,best practice,misleading,impossible,Option C,1
+Hypothesis testing means...,testing a claim against data,deleting outliers,making a chart,storing files,Option A,1
+Seeing finer detail behind a summary is called...,encoding,data drilling,loading,filtering,Option B,1
+A phone number alone is an example of...,public data,a chart type,sensitive PII,an outlier,Option C,1
+Protecting stored data from breaches is...,data drilling,data security,sorting,aggregation,Option B,1
+Slanting a report for personal gain is which bias?,no bias,sampling bias,motivational bias,rounding,Option C,1
+Which is a TRUE XML rule?,tags optional,tags case-sensitive & must close,many roots allowed,no closing tags,Option B,1
+'What happened?' is answered by which analysis?,predictive,descriptive,prescriptive,manual,Option B,1
+Predicting future values is which analysis?,descriptive,diagnostic,predictive,manual,Option C,1
+Qualitative data is...,always numeric,categories/descriptions,only dates,only totals,Option B,1

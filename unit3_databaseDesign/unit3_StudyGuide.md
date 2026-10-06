@@ -112,7 +112,7 @@ game_date   home                   away
 2025-10-21  Oklahoma City Thunder  Washington Wizards
 ```
 
-`h` and `a` are the *same* table. The first join follows `home_team_id`, the second follows `away_team_id`. Any time one table has two foreign keys into the same other table, this is the pattern — you'll see it again in the sports-league scenario in 3e.
+`h` and `a` are the *same* table. The first join follows `home_team_id`, the second follows `away_team_id`. Any time one table has two foreign keys into the same other table, this is the pattern — you'll see it in any database that tracks games between two teams.
 
 ---
 
@@ -415,7 +415,7 @@ How to answer a "pick the model" question: find the **one phrase** in the client
 | Document | What it shows | Who reads it | You make it in… |
 |---|---|---|---|
 | **ER diagram** | Entities, keys, relationships | The database designer | 3b, 3e |
-| **Data dictionary** | Every table and column: type, key, required or not, what it means | Everyone who writes queries | 3e |
+| **Data dictionary** | Every table and column: type, key, required or not, what it means | Everyone who writes queries | Unit 4 |
 | **Workflow diagram** | The steps a process goes through, start to finish (a flowchart) | The people running the process | recognize only |
 | **UML class diagram** | The program's classes, their fields and methods | The programmers | recognize only |
 
@@ -477,31 +477,29 @@ A useful habit: for each wrong option, name the *thing it actually is*. "C is a 
 
 ---
 
-## Segment 3e — Design Your Own
+## Segment 3e — Design a Database for a Client
 
-This segment is 3a through 3d applied once, with a partner. There's nothing new to learn — this section is a checklist of what the turn-in needs and the traps in each scenario.
+This segment is 3a through 3d applied once, with a partner. There's nothing new to learn. A client hands you a messy spreadsheet, and you turn it into a relational database. This section is a checklist of the steps and the traps in each client's data.
 
-### The seven steps, and what each one produces
+### The steps, and what each one produces
 
 | Step | Ask yourself | You write down |
 |---|---|---|
-| 1. Entities | What are the *things*? (The nouns in the scenario.) | One table per thing, and what one row is: "one row = one checkout" |
-| 2. Attributes | What do I need to know about each thing? | 3–6 columns per table. Only what the scenario needs. |
-| 3. Primary keys | How is each row identified? | A surrogate ID for every table; a composite key for junction tables |
-| 4. Relationships | For each pair that connects: which kind? | One-to-many → FK on the many side. Many-to-many → junction table. |
-| 5. ER diagram | Does every entity, key, and line appear? | Mermaid, crow's foot on the many side, previewed on mermaid.live |
-| 6. Data dictionary | Could someone build this without asking me anything? | One row per column: type, key, required?, description |
-| 7. Constraints | What can *never* be true in this data? | At least three beyond primary keys, each stated in English and named |
+| 1. Read the export | Which cell holds more than one value? Which facts are typed over and over? | The 1NF problem and the redundancy |
+| 2. 1NF | What makes each row unique? | The 1NF table's primary key (usually two columns) |
+| 3. 2NF | Does each column need the *whole* key, or just part of it? | Partial dependencies, moved into their own tables |
+| 4. 3NF | Does any column really depend on another non-key column? | Transitive dependencies, moved into their own tables |
+| 5. Build it in Sheets | Copy columns, then Data → Data cleanup → Remove duplicates | One tab per table, with keys marked in the header |
+| 6. Fix the mistakes | Did Remove duplicates leave extra rows? | The two planted typos, and which version you kept |
+| 7. ER diagram | Does every table, key, and relationship line appear? | Mermaid written by AI from your finished tables, then proofed and previewed |
 
-### The trap in each scenario
+### The trap in each client's data
 
-Every scenario has one thing that's easy to get wrong.
-
-| Scenario | The trap | What to do |
+| Client | The trap | What to do |
 |---|---|---|
-| **School club tracker** | Students ↔ clubs is many-to-many. | Junction table (`MEMBERSHIPS`), keyed by `(student_id, club_id)`. Advisors are teachers — decide whether that's its own table or a column, and be able to say why. |
-| **Small library** | Books ↔ authors is many-to-many. "Smith, Jones" in one author cell fails 1NF. | Junction table (`BOOK_AUTHORS`). A checkout is its own entity — it has dates that belong to neither the book nor the member alone. |
-| **Youth sports league** | A game points at `teams` **twice** — home and away. | Two foreign keys into the same table (`home_team_id`, `away_team_id`), like `denormalized_demo.db`. Add `CHECK (home_team_id <> away_team_id)`. |
+| **Game studio** | Two characters are named Shadow. A character carries many items, and an item is carried by many characters. | Key characters by `character_id`, not name. INVENTORY is the junction table, keyed by `(character_id, item_name)`, and it holds `quantity`. Class role and base health depend on the class, not the character (3NF). |
+| **Music streaming app** | Song names repeat (singles and album versions have different track IDs). Album names repeat too (two *Scorpion* albums). A song is on many playlists. | Key songs by `track_id` and albums by `album_id`. PLAYLIST_SONGS is the junction table, keyed by `(playlist_id, track_id)`. Release date depends on the album, and country depends on the artist (3NF). |
+| **Baseball stats website** | `bats_throws` holds two values. There are two different players named Max Muncy. Traded players played for more than one team. | Split the column. Key players by `player_id`. Players ↔ teams is many-to-many, so BATTING is the junction table, keyed by `(player_id, team_id)`, and it holds the stats. League depends on the division, not the team (3NF). |
 
 ### Before you commit
 
@@ -510,7 +508,7 @@ Run the design through this. Every box checked means it's almost certainly 3NF.
 - [ ] Every table has a primary key
 - [ ] Every many-to-many goes through a junction table
 - [ ] No cell holds a list
-- [ ] No fact is stored in two places — the coach's name is in `coaches`, not typed into `teams`
+- [ ] No fact is stored in two places — a team's ballpark is in `teams`, not typed on every player's row
 - [ ] Every foreign key points at a primary key that exists in your diagram
 
 Then say which normal form you reached and **why**, in one sentence. "No lists, single-column keys except the junction table, and nothing depends on a non-key column — 3NF."

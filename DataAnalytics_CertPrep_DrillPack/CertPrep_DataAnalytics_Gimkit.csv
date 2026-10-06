@@ -1,0 +1,26 @@
+Question,Correct Answer,Incorrect Answer 1,Incorrect Answer 2,Incorrect Answer 3
+Data Science typically combines which two fields?,Computer Science and Statistics,Art and History,Biology and Law,Music and Math
+Quantitative data is best described as...,Measured numbers,Categories/labels,Opinions only,Images only
+Qualitative data is best described as...,Categories or descriptions,Always numeric,Only dates,Only totals
+"In a data table, a row typically represents...",A single record/entity,A single field,A chart,A formula
+"In a data table, a column typically represents...",A field/attribute,A single record,A total,A join
+The three phases of a data pipeline are...,"Extract, Transform, Load","Read, Write, Delete","Sort, Filter, Group","Plan, Build, Ship"
+Which join keeps only rows that match in both datasets?,Inner Join,Left Join,Full Outer Join,Cross Join
+Selecting only the rows that meet a condition is called...,Filtering,Sorting,Aggregating,Joining
+Summarizing daily data into monthly totals is called...,Aggregation,Filtering,Sorting,Cleaning
+A statistically valid outlier rule removes values more than...,3 standard deviations from the mean,1 record from the top,the median,10% of rows
+"NaN, None, and 'Unknown' all represent which problem?",Missing data,Duplicates,Outliers,Good data
+Which chart best shows the DISTRIBUTION of one numeric variable?,Histogram,Pie chart,Line chart,Map
+Which chart best shows a TREND over time?,Line chart,Pie chart,Histogram,Scatter plot
+Which chart best shows the RELATIONSHIP between two numeric variables?,Scatter plot,Pie chart,Bar chart,Histogram
+Which chart best shows each part's SHARE of a whole?,Pie chart,Line chart,Scatter plot,Histogram
+A good data visualization should...,Include a clear caption and labeled axes,Truncate the y-axis to exaggerate,Use identical colors,Hide the units
+Truncating a bar chart's y-axis (not starting at 0) is...,Misleading/bad practice,Required,Best practice,Impossible
+Hypothesis testing is best described as...,Testing a claim against data,Deleting outliers,Building a chart,Storing files
+'Drilling down' into a summary to see finer detail is called...,Data drilling,Filtering,Loading,Encoding
+A phone number by itself is an example of...,Sensitive Personally Identifiable Information (PII),Public data,A chart type,An outlier
+Protecting stored user data from breaches is called...,Data security,Data drilling,Aggregation,Sorting
+A researcher slanting a report to get a raise shows which bias?,Motivational bias,No bias,Sampling bias,Round-off error
+XML rules include which of the following?,Tags are case-sensitive and must be closed,Tags are optional,Multiple root elements allowed,No closing tags needed
+Descriptive analysis answers which question?,What happened?,Why will it happen?,What should we do?,Who wrote it?
+Predicting future values from past data is which analysis type?,Predictive analysis,Descriptive analysis,Diagnostic analysis,Manual entry

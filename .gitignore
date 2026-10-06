@@ -9,19 +9,11 @@ venv/
 __pycache__/
 *.pyc
 
-# Datasets and data files
-datasets/
-data/
-
-# Excel and CSV files
-*.xlsx
-*.xls
-*.csv
-
 # SQLite databases (common in DB classes)
-*.db
-*.sqlite
-*.sqlite3
+# Large IMDb databases in archive/ (one is over GitHub's 100 MB limit)
+archive/**/*.db
+archive/**/*.sqlite
+archive/**/*.sqlite3
 
 # Mac system files
 .DS_Store
@@ -32,3 +24,6 @@ teacher/
 # CLAUDE DESKTOP APP OUTPUT FOLDER
 # ======================================
 Claude outputs/
+
+# Word/Excel lock files
+~$*

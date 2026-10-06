@@ -1,0 +1,1815 @@
+<?xml version='1.0' encoding='utf-8'?>
+<gexf xmlns="http://www.gexf.net/1.2draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.gexf.net/1.2draft http://www.gexf.net/1.2draft/gexf.xsd" version="1.2">
+  <meta lastmodifieddate="2026-10-02">
+    <creator>NetworkX 3.6.1</creator>
+  </meta>
+  <graph defaultedgetype="undirected" mode="static" name="">
+    <attributes mode="static" class="node">
+      <attribute id="0" title="species" type="string" />
+      <attribute id="1" title="gender" type="string" />
+      <attribute id="2" title="side" type="string" />
+      <attribute id="3" title="group" type="string" />
+      <attribute id="4" title="trilogy" type="string" />
+      <attribute id="5" title="firstMovie" type="string" />
+      <attribute id="6" title="movies" type="string" />
+      <attribute id="7" title="movieCount" type="long" />
+    </attributes>
+    <nodes>
+      <node id="Admiral Ackbar" label="Admiral Ackbar">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original + Sequel" />
+          <attvalue for="5" value="Episode VI" />
+          <attvalue for="6" value="VI, VII" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Admiral Statura" label="Admiral Statura">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Anakin" label="Anakin">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III, VI" />
+          <attvalue for="7" value="4" />
+        </attvalues>
+      </node>
+      <node id="BB-8" label="BB-8">
+        <attvalues>
+          <attvalue for="0" value="Droid" />
+          <attvalue for="1" value="None" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Bail Organa" label="Bail Organa">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III" />
+          <attvalue for="7" value="3" />
+        </attvalues>
+      </node>
+      <node id="Bala-Tik" label="Bala-Tik">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Criminals and bounty hunters" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Beru" label="Beru">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II, IV" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Bib Fortuna" label="Bib Fortuna">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Criminals and bounty hunters" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode VI" />
+          <attvalue for="6" value="VI" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Biggs" label="Biggs">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Boba Fett" label="Boba Fett">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Criminals and bounty hunters" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II, V" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Boss Nass" label="Boss Nass">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Boushh" label="Boushh">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode VI" />
+          <attvalue for="6" value="VI" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Bravo Three" label="Bravo Three">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Bravo Two" label="Bravo Two">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="C-3PO" label="C-3PO">
+        <attvalues>
+          <attvalue for="0" value="Droid" />
+          <attvalue for="1" value="None" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="All three trilogies" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III, IV, V, VI, VII" />
+          <attvalue for="7" value="7" />
+        </attvalues>
+      </node>
+      <node id="Camie" label="Camie">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Captain Antilles" label="Captain Antilles">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Captain Panaka" label="Captain Panaka">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Captain Phasma" label="Captain Phasma">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="First Order" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Captain Typho" label="Captain Typho">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II, III" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Chewbacca" label="Chewbacca">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original + Sequel" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV, V, VI, VII" />
+          <attvalue for="7" value="4" />
+        </attvalues>
+      </node>
+      <node id="Cliegg" label="Cliegg">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Clone Commander Cody" label="Clone Commander Cody">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Clone Commander Gree" label="Clone Commander Gree">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Colonel Datoo" label="Colonel Datoo">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="First Order" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Count Dooku" label="Count Dooku">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Sith" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II, III" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Dack" label="Dack">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Darth Maul" label="Darth Maul">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Sith" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Darth Vader" label="Darth Vader">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Sith" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III, IV, V, VI" />
+          <attvalue for="7" value="4" />
+        </attvalues>
+      </node>
+      <node id="Derlin" label="Derlin">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Dodonna" label="Dodonna">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Dofine" label="Dofine">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Separatists" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Ello Asty" label="Ello Asty">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Emperor" label="Emperor">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Sith" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III, V, VI" />
+          <attvalue for="7" value="5" />
+        </attvalues>
+      </node>
+      <node id="Fang Zar" label="Fang Zar">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Finn" label="Finn">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Fode/Beed" label="Fode/Beed">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="General Ceel" label="General Ceel">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="General Grievous" label="General Grievous">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Separatists" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="General Hux" label="General Hux">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="First Order" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Giddean Danu" label="Giddean Danu">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Gold Five" label="Gold Five">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Gold Leader" label="Gold Leader">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Greedo" label="Greedo">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Criminals and bounty hunters" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, IV" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Han" label="Han">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original + Sequel" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV, V, VI, VII" />
+          <attvalue for="7" value="4" />
+        </attvalues>
+      </node>
+      <node id="Jabba" label="Jabba">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Criminals and bounty hunters" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, IV, VI" />
+          <attvalue for="7" value="3" />
+        </attvalues>
+      </node>
+      <node id="Jango Fett" label="Jango Fett">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Criminals and bounty hunters" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Janson" label="Janson">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Jar Jar" label="Jar Jar">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III" />
+          <attvalue for="7" value="3" />
+        </attvalues>
+      </node>
+      <node id="Jerjerrod" label="Jerjerrod">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Galactic Empire" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode VI" />
+          <attvalue for="6" value="VI" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Jess" label="Jess">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Jira" label="Jira">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Jobal" label="Jobal">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Ki-Adi-Mundi" label="Ki-Adi-Mundi">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Kitster" label="Kitster">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Kylo Ren" label="Kylo Ren">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="First Order" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Lama Su" label="Lama Su">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Lando" label="Lando">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V, VI" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Leia" label="Leia">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original + Sequel" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV, V, VI, VII" />
+          <attvalue for="7" value="4" />
+        </attvalues>
+      </node>
+      <node id="Lieutenant Mitaka" label="Lieutenant Mitaka">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="First Order" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Lor San Tekka" label="Lor San Tekka">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Luke" label="Luke">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Original + Sequel" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV, V, VI, VII" />
+          <attvalue for="7" value="4" />
+        </attvalues>
+      </node>
+      <node id="Mace Windu" label="Mace Windu">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III" />
+          <attvalue for="7" value="3" />
+        </attvalues>
+      </node>
+      <node id="Maz" label="Maz">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Mon Mothma" label="Mon Mothma">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III, VI" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Motti" label="Motti">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Galactic Empire" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Needa" label="Needa">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Galactic Empire" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Niv Lek" label="Niv Lek">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Nute Gunray" label="Nute Gunray">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Separatists" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III" />
+          <attvalue for="7" value="3" />
+        </attvalues>
+      </node>
+      <node id="Obi-Wan" label="Obi-Wan">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III, IV, V, VI" />
+          <attvalue for="7" value="6" />
+        </attvalues>
+      </node>
+      <node id="Odd Ball" label="Odd Ball">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Orn Free Taa" label="Orn Free Taa">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Owen" label="Owen">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II, IV" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Ozzel" label="Ozzel">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Galactic Empire" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="PK-4" label="PK-4">
+        <attvalues>
+          <attvalue for="0" value="Droid" />
+          <attvalue for="1" value="None" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Padme" label="Padme">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III" />
+          <attvalue for="7" value="3" />
+        </attvalues>
+      </node>
+      <node id="Piett" label="Piett">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Galactic Empire" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V, VI" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Plo Koon" label="Plo Koon">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II, III" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Poe" label="Poe">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Poggle" label="Poggle">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Separatists" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Qui-Gon" label="Qui-Gon">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, III" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="R2-D2" label="R2-D2">
+        <attvalues>
+          <attvalue for="0" value="Droid" />
+          <attvalue for="1" value="None" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="All three trilogies" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III, IV, V, VI, VII" />
+          <attvalue for="7" value="7" />
+        </attvalues>
+      </node>
+      <node id="Rabe" label="Rabe">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Red Leader" label="Red Leader">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Red Ten" label="Red Ten">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Rey" label="Rey">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Ric Olie" label="Ric Olie">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Rieekan" label="Rieekan">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Rune" label="Rune">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Separatists" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Ruwee" label="Ruwee">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Sebulba" label="Sebulba">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Senator Ask Aak" label="Senator Ask Aak">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Shmi" label="Shmi">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Sio Bibble" label="Sio Bibble">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Snap" label="Snap">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Snoke" label="Snoke">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="First Order" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Sola" label="Sola">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Sun Rit" label="Sun Rit">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="TC-14" label="TC-14">
+        <attvalues>
+          <attvalue for="0" value="Droid" />
+          <attvalue for="1" value="None" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Separatists" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Tarkin" label="Tarkin">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Galactic Empire" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Tarpals" label="Tarpals">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Naboo and Gungans" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Taun We" label="Taun We">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode II" />
+          <attvalue for="6" value="II" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Tey How" label="Tey How">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Female" />
+          <attvalue for="2" value="Dark side" />
+          <attvalue for="3" value="Separatists" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Tion Medon" label="Tion Medon">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode III" />
+          <attvalue for="6" value="III" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Unkar Plutt" label="Unkar Plutt">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Criminals and bounty hunters" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Valorum" label="Valorum">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Galactic Republic" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Wald" label="Wald">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Watto" label="Watto">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Neither" />
+          <attvalue for="3" value="Civilians" />
+          <attvalue for="4" value="Prequel" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II" />
+          <attvalue for="7" value="2" />
+        </attvalues>
+      </node>
+      <node id="Wedge" label="Wedge">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode IV" />
+          <attvalue for="6" value="IV, V, VI" />
+          <attvalue for="7" value="3" />
+        </attvalues>
+      </node>
+      <node id="Yoda" label="Yoda">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Jedi" />
+          <attvalue for="4" value="Prequel + Original" />
+          <attvalue for="5" value="Episode I" />
+          <attvalue for="6" value="I, II, III, V, VI" />
+          <attvalue for="7" value="5" />
+        </attvalues>
+      </node>
+      <node id="Yolo Ziff" label="Yolo Ziff">
+        <attvalues>
+          <attvalue for="0" value="Alien" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Resistance" />
+          <attvalue for="4" value="Sequel" />
+          <attvalue for="5" value="Episode VII" />
+          <attvalue for="6" value="VII" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+      <node id="Zev" label="Zev">
+        <attvalues>
+          <attvalue for="0" value="Human" />
+          <attvalue for="1" value="Male" />
+          <attvalue for="2" value="Light side" />
+          <attvalue for="3" value="Rebel Alliance" />
+          <attvalue for="4" value="Original" />
+          <attvalue for="5" value="Episode V" />
+          <attvalue for="6" value="V" />
+          <attvalue for="7" value="1" />
+        </attvalues>
+      </node>
+    </nodes>
+    <edges>
+      <edge source="Admiral Ackbar" target="Han" id="0" weight="2" />
+      <edge source="Admiral Ackbar" target="Lando" id="1" weight="5" />
+      <edge source="Admiral Ackbar" target="Mon Mothma" id="2" weight="1" />
+      <edge source="Admiral Ackbar" target="C-3PO" id="3" weight="2" />
+      <edge source="Admiral Ackbar" target="Leia" id="4" weight="2" />
+      <edge source="Admiral Ackbar" target="Luke" id="5" weight="1" />
+      <edge source="Admiral Ackbar" target="Wedge" id="6" weight="1" />
+      <edge source="Admiral Ackbar" target="Poe" id="7" weight="1" />
+      <edge source="Admiral Ackbar" target="Snap" id="8" weight="1" />
+      <edge source="Admiral Ackbar" target="Finn" id="9" weight="1" />
+      <edge source="Admiral Ackbar" target="Admiral Statura" id="10" weight="1" />
+      <edge source="Admiral Statura" target="Poe" id="11" weight="1" />
+      <edge source="Admiral Statura" target="Snap" id="12" weight="1" />
+      <edge source="Admiral Statura" target="Han" id="13" weight="1" />
+      <edge source="Admiral Statura" target="Finn" id="14" weight="1" />
+      <edge source="Admiral Statura" target="Leia" id="15" weight="2" />
+      <edge source="Admiral Statura" target="C-3PO" id="16" weight="2" />
+      <edge source="Anakin" target="R2-D2" id="17" weight="32" />
+      <edge source="Anakin" target="Watto" id="18" weight="5" />
+      <edge source="Anakin" target="Qui-Gon" id="19" weight="22" />
+      <edge source="Anakin" target="Padme" id="20" weight="41" />
+      <edge source="Anakin" target="Sebulba" id="21" weight="2" />
+      <edge source="Anakin" target="Jar Jar" id="22" weight="12" />
+      <edge source="Anakin" target="Jira" id="23" weight="2" />
+      <edge source="Anakin" target="Shmi" id="24" weight="8" />
+      <edge source="Anakin" target="C-3PO" id="25" weight="10" />
+      <edge source="Anakin" target="Kitster" id="26" weight="3" />
+      <edge source="Anakin" target="Wald" id="27" weight="2" />
+      <edge source="Anakin" target="Obi-Wan" id="28" weight="46" />
+      <edge source="Anakin" target="Jabba" id="29" weight="1" />
+      <edge source="Anakin" target="Greedo" id="30" weight="1" />
+      <edge source="Anakin" target="Captain Panaka" id="31" weight="2" />
+      <edge source="Anakin" target="Ric Olie" id="32" weight="4" />
+      <edge source="Anakin" target="Mace Windu" id="33" weight="9" />
+      <edge source="Anakin" target="Ki-Adi-Mundi" id="34" weight="2" />
+      <edge source="Anakin" target="Yoda" id="35" weight="9" />
+      <edge source="Anakin" target="Rabe" id="36" weight="1" />
+      <edge source="Anakin" target="Boss Nass" id="37" weight="1" />
+      <edge source="Anakin" target="Bravo Two" id="38" weight="2" />
+      <edge source="Anakin" target="Bravo Three" id="39" weight="1" />
+      <edge source="Anakin" target="Captain Typho" id="40" weight="3" />
+      <edge source="Anakin" target="Sio Bibble" id="41" weight="1" />
+      <edge source="Anakin" target="Sola" id="42" weight="1" />
+      <edge source="Anakin" target="Jobal" id="43" weight="1" />
+      <edge source="Anakin" target="Ruwee" id="44" weight="3" />
+      <edge source="Anakin" target="Owen" id="45" weight="3" />
+      <edge source="Anakin" target="Beru" id="46" weight="1" />
+      <edge source="Anakin" target="Cliegg" id="47" weight="2" />
+      <edge source="Anakin" target="Sun Rit" id="48" weight="1" />
+      <edge source="Anakin" target="Poggle" id="49" weight="1" />
+      <edge source="Anakin" target="Nute Gunray" id="50" weight="1" />
+      <edge source="Anakin" target="Count Dooku" id="51" weight="3" />
+      <edge source="Anakin" target="Odd Ball" id="52" weight="2" />
+      <edge source="Anakin" target="Emperor" id="53" weight="14" />
+      <edge source="Anakin" target="General Grievous" id="54" weight="1" />
+      <edge source="Anakin" target="Bail Organa" id="55" weight="2" />
+      <edge source="Anakin" target="Clone Commander Cody" id="56" weight="1" />
+      <edge source="Anakin" target="Darth Vader" id="57" weight="1" />
+      <edge source="Anakin" target="Luke" id="58" weight="1" />
+      <edge source="BB-8" target="R2-D2" id="59" weight="2" />
+      <edge source="BB-8" target="Chewbacca" id="60" weight="9" />
+      <edge source="BB-8" target="Poe" id="61" weight="8" />
+      <edge source="BB-8" target="Lor San Tekka" id="62" weight="2" />
+      <edge source="BB-8" target="Rey" id="63" weight="17" />
+      <edge source="BB-8" target="Unkar Plutt" id="64" weight="1" />
+      <edge source="BB-8" target="Finn" id="65" weight="15" />
+      <edge source="BB-8" target="Han" id="66" weight="10" />
+      <edge source="BB-8" target="Bala-Tik" id="67" weight="1" />
+      <edge source="BB-8" target="Maz" id="68" weight="3" />
+      <edge source="BB-8" target="Leia" id="69" weight="3" />
+      <edge source="BB-8" target="C-3PO" id="70" weight="5" />
+      <edge source="Bail Organa" target="Emperor" id="71" weight="6" />
+      <edge source="Bail Organa" target="Valorum" id="72" weight="1" />
+      <edge source="Bail Organa" target="Mace Windu" id="73" weight="2" />
+      <edge source="Bail Organa" target="Yoda" id="74" weight="8" />
+      <edge source="Bail Organa" target="Ki-Adi-Mundi" id="75" weight="1" />
+      <edge source="Bail Organa" target="Obi-Wan" id="76" weight="8" />
+      <edge source="Bail Organa" target="Senator Ask Aak" id="77" weight="1" />
+      <edge source="Bail Organa" target="Jar Jar" id="78" weight="1" />
+      <edge source="Bail Organa" target="R2-D2" id="79" weight="4" />
+      <edge source="Bail Organa" target="C-3PO" id="80" weight="3" />
+      <edge source="Bail Organa" target="Padme" id="81" weight="5" />
+      <edge source="Bail Organa" target="Fang Zar" id="82" weight="2" />
+      <edge source="Bail Organa" target="Mon Mothma" id="83" weight="2" />
+      <edge source="Bail Organa" target="Giddean Danu" id="84" weight="1" />
+      <edge source="Bail Organa" target="Captain Antilles" id="85" weight="2" />
+      <edge source="Bail Organa" target="Qui-Gon" id="86" weight="1" />
+      <edge source="Bala-Tik" target="Chewbacca" id="87" weight="1" />
+      <edge source="Bala-Tik" target="Han" id="88" weight="2" />
+      <edge source="Bala-Tik" target="Rey" id="89" weight="1" />
+      <edge source="Bala-Tik" target="Finn" id="90" weight="1" />
+      <edge source="Beru" target="C-3PO" id="91" weight="3" />
+      <edge source="Beru" target="Owen" id="92" weight="4" />
+      <edge source="Beru" target="Padme" id="93" weight="1" />
+      <edge source="Beru" target="Cliegg" id="94" weight="1" />
+      <edge source="Beru" target="R2-D2" id="95" weight="1" />
+      <edge source="Beru" target="Luke" id="96" weight="3" />
+      <edge source="Beru" target="Leia" id="97" weight="1" />
+      <edge source="Bib Fortuna" target="C-3PO" id="98" weight="2" />
+      <edge source="Bib Fortuna" target="Luke" id="99" weight="1" />
+      <edge source="Bib Fortuna" target="Jabba" id="100" weight="1" />
+      <edge source="Biggs" target="R2-D2" id="101" weight="1" />
+      <edge source="Biggs" target="Camie" id="102" weight="2" />
+      <edge source="Biggs" target="Luke" id="103" weight="4" />
+      <edge source="Biggs" target="Leia" id="104" weight="1" />
+      <edge source="Biggs" target="Red Leader" id="105" weight="3" />
+      <edge source="Biggs" target="C-3PO" id="106" weight="1" />
+      <edge source="Biggs" target="Wedge" id="107" weight="2" />
+      <edge source="Biggs" target="Gold Leader" id="108" weight="1" />
+      <edge source="Boba Fett" target="Taun We" id="109" weight="2" />
+      <edge source="Boba Fett" target="Jango Fett" id="110" weight="3" />
+      <edge source="Boba Fett" target="Obi-Wan" id="111" weight="1" />
+      <edge source="Boba Fett" target="Chewbacca" id="112" weight="1" />
+      <edge source="Boba Fett" target="Piett" id="113" weight="1" />
+      <edge source="Boba Fett" target="Darth Vader" id="114" weight="3" />
+      <edge source="Boba Fett" target="Lando" id="115" weight="2" />
+      <edge source="Boba Fett" target="C-3PO" id="116" weight="1" />
+      <edge source="Boba Fett" target="Han" id="117" weight="1" />
+      <edge source="Boba Fett" target="Leia" id="118" weight="1" />
+      <edge source="Boss Nass" target="Qui-Gon" id="119" weight="2" />
+      <edge source="Boss Nass" target="Obi-Wan" id="120" weight="2" />
+      <edge source="Boss Nass" target="Jar Jar" id="121" weight="2" />
+      <edge source="Boss Nass" target="Padme" id="122" weight="2" />
+      <edge source="Boss Nass" target="Captain Panaka" id="123" weight="1" />
+      <edge source="Boushh" target="Jabba" id="124" weight="1" />
+      <edge source="Boushh" target="C-3PO" id="125" weight="2" />
+      <edge source="Boushh" target="Han" id="126" weight="1" />
+      <edge source="Boushh" target="Leia" id="127" weight="1" />
+      <edge source="Bravo Three" target="Bravo Two" id="128" weight="2" />
+      <edge source="Bravo Three" target="Ric Olie" id="129" weight="2" />
+      <edge source="Bravo Two" target="Ric Olie" id="130" weight="4" />
+      <edge source="C-3PO" target="R2-D2" id="131" weight="53" />
+      <edge source="C-3PO" target="Padme" id="132" weight="12" />
+      <edge source="C-3PO" target="Watto" id="133" weight="1" />
+      <edge source="C-3PO" target="Qui-Gon" id="134" weight="1" />
+      <edge source="C-3PO" target="Kitster" id="135" weight="1" />
+      <edge source="C-3PO" target="Owen" id="136" weight="4" />
+      <edge source="C-3PO" target="Cliegg" id="137" weight="1" />
+      <edge source="C-3PO" target="Obi-Wan" id="138" weight="9" />
+      <edge source="C-3PO" target="Emperor" id="139" weight="2" />
+      <edge source="C-3PO" target="Captain Typho" id="140" weight="2" />
+      <edge source="C-3PO" target="Yoda" id="141" weight="1" />
+      <edge source="C-3PO" target="Captain Antilles" id="142" weight="1" />
+      <edge source="C-3PO" target="Chewbacca" id="143" weight="40" />
+      <edge source="C-3PO" target="Luke" id="144" weight="29" />
+      <edge source="C-3PO" target="Leia" id="145" weight="49" />
+      <edge source="C-3PO" target="Han" id="146" weight="54" />
+      <edge source="C-3PO" target="Red Leader" id="147" weight="1" />
+      <edge source="C-3PO" target="Derlin" id="148" weight="1" />
+      <edge source="C-3PO" target="Rieekan" id="149" weight="1" />
+      <edge source="C-3PO" target="Lando" id="150" weight="8" />
+      <edge source="C-3PO" target="Darth Vader" id="151" weight="1" />
+      <edge source="C-3PO" target="Jabba" id="152" weight="3" />
+      <edge source="C-3PO" target="Mon Mothma" id="153" weight="1" />
+      <edge source="C-3PO" target="Poe" id="154" weight="2" />
+      <edge source="C-3PO" target="Snap" id="155" weight="1" />
+      <edge source="C-3PO" target="Finn" id="156" weight="1" />
+      <edge source="Camie" target="Luke" id="157" weight="2" />
+      <edge source="Captain Antilles" target="R2-D2" id="158" weight="1" />
+      <edge source="Captain Panaka" target="Emperor" id="159" weight="3" />
+      <edge source="Captain Panaka" target="Sio Bibble" id="160" weight="3" />
+      <edge source="Captain Panaka" target="Jar Jar" id="161" weight="7" />
+      <edge source="Captain Panaka" target="Qui-Gon" id="162" weight="9" />
+      <edge source="Captain Panaka" target="Padme" id="163" weight="7" />
+      <edge source="Captain Panaka" target="Obi-Wan" id="164" weight="7" />
+      <edge source="Captain Panaka" target="Ric Olie" id="165" weight="2" />
+      <edge source="Captain Phasma" target="Chewbacca" id="166" weight="1" />
+      <edge source="Captain Phasma" target="Kylo Ren" id="167" weight="1" />
+      <edge source="Captain Phasma" target="Lor San Tekka" id="168" weight="1" />
+      <edge source="Captain Phasma" target="Poe" id="169" weight="1" />
+      <edge source="Captain Phasma" target="Finn" id="170" weight="3" />
+      <edge source="Captain Phasma" target="General Hux" id="171" weight="1" />
+      <edge source="Captain Phasma" target="Han" id="172" weight="2" />
+      <edge source="Captain Typho" target="Jar Jar" id="173" weight="1" />
+      <edge source="Captain Typho" target="Obi-Wan" id="174" weight="2" />
+      <edge source="Captain Typho" target="Padme" id="175" weight="2" />
+      <edge source="Chewbacca" target="R2-D2" id="176" weight="17" />
+      <edge source="Chewbacca" target="Obi-Wan" id="177" weight="4" />
+      <edge source="Chewbacca" target="Luke" id="178" weight="29" />
+      <edge source="Chewbacca" target="Han" id="179" weight="82" />
+      <edge source="Chewbacca" target="Leia" id="180" weight="44" />
+      <edge source="Chewbacca" target="Rieekan" id="181" weight="1" />
+      <edge source="Chewbacca" target="Lando" id="182" weight="15" />
+      <edge source="Chewbacca" target="Darth Vader" id="183" weight="1" />
+      <edge source="Chewbacca" target="Mon Mothma" id="184" weight="1" />
+      <edge source="Chewbacca" target="Finn" id="185" weight="20" />
+      <edge source="Chewbacca" target="Rey" id="186" weight="13" />
+      <edge source="Chewbacca" target="Maz" id="187" weight="2" />
+      <edge source="Chewbacca" target="Poe" id="188" weight="2" />
+      <edge source="Chewbacca" target="Kylo Ren" id="189" weight="3" />
+      <edge source="Cliegg" target="Owen" id="190" weight="2" />
+      <edge source="Cliegg" target="Padme" id="191" weight="2" />
+      <edge source="Clone Commander Cody" target="Obi-Wan" id="192" weight="2" />
+      <edge source="Clone Commander Cody" target="Mace Windu" id="193" weight="1" />
+      <edge source="Clone Commander Cody" target="Yoda" id="194" weight="1" />
+      <edge source="Clone Commander Gree" target="Yoda" id="195" weight="1" />
+      <edge source="Colonel Datoo" target="General Hux" id="196" weight="1" />
+      <edge source="Count Dooku" target="Padme" id="197" weight="3" />
+      <edge source="Count Dooku" target="Jango Fett" id="198" weight="1" />
+      <edge source="Count Dooku" target="Obi-Wan" id="199" weight="3" />
+      <edge source="Count Dooku" target="Sun Rit" id="200" weight="1" />
+      <edge source="Count Dooku" target="Poggle" id="201" weight="1" />
+      <edge source="Count Dooku" target="Nute Gunray" id="202" weight="1" />
+      <edge source="Count Dooku" target="Mace Windu" id="203" weight="2" />
+      <edge source="Count Dooku" target="Yoda" id="204" weight="2" />
+      <edge source="Count Dooku" target="Emperor" id="205" weight="2" />
+      <edge source="Dack" target="Luke" id="206" weight="3" />
+      <edge source="Darth Maul" target="Emperor" id="207" weight="3" />
+      <edge source="Darth Maul" target="Nute Gunray" id="208" weight="3" />
+      <edge source="Darth Maul" target="General Ceel" id="209" weight="1" />
+      <edge source="Darth Maul" target="Rune" id="210" weight="1" />
+      <edge source="Darth Vader" target="Emperor" id="211" weight="7" />
+      <edge source="Darth Vader" target="Leia" id="212" weight="2" />
+      <edge source="Darth Vader" target="Motti" id="213" weight="1" />
+      <edge source="Darth Vader" target="Tarkin" id="214" weight="7" />
+      <edge source="Darth Vader" target="Obi-Wan" id="215" weight="1" />
+      <edge source="Darth Vader" target="Piett" id="216" weight="8" />
+      <edge source="Darth Vader" target="Ozzel" id="217" weight="2" />
+      <edge source="Darth Vader" target="Needa" id="218" weight="1" />
+      <edge source="Darth Vader" target="Lando" id="219" weight="4" />
+      <edge source="Darth Vader" target="Han" id="220" weight="2" />
+      <edge source="Darth Vader" target="Luke" id="221" weight="7" />
+      <edge source="Darth Vader" target="Jerjerrod" id="222" weight="1" />
+      <edge source="Derlin" target="Leia" id="223" weight="1" />
+      <edge source="Dodonna" target="Gold Leader" id="224" weight="1" />
+      <edge source="Dodonna" target="Wedge" id="225" weight="1" />
+      <edge source="Dodonna" target="Luke" id="226" weight="1" />
+      <edge source="Dofine" target="Nute Gunray" id="227" weight="1" />
+      <edge source="Dofine" target="TC-14" id="228" weight="1" />
+      <edge source="Dofine" target="Tey How" id="229" weight="1" />
+      <edge source="Ello Asty" target="Poe" id="230" weight="3" />
+      <edge source="Ello Asty" target="Niv Lek" id="231" weight="2" />
+      <edge source="Ello Asty" target="Jess" id="232" weight="2" />
+      <edge source="Ello Asty" target="Yolo Ziff" id="233" weight="1" />
+      <edge source="Emperor" target="Sio Bibble" id="234" weight="1" />
+      <edge source="Emperor" target="Nute Gunray" id="235" weight="6" />
+      <edge source="Emperor" target="Rune" id="236" weight="3" />
+      <edge source="Emperor" target="Valorum" id="237" weight="2" />
+      <edge source="Emperor" target="Jar Jar" id="238" weight="5" />
+      <edge source="Emperor" target="Qui-Gon" id="239" weight="1" />
+      <edge source="Emperor" target="General Ceel" id="240" weight="1" />
+      <edge source="Emperor" target="Padme" id="241" weight="5" />
+      <edge source="Emperor" target="Senator Ask Aak" id="242" weight="2" />
+      <edge source="Emperor" target="Orn Free Taa" id="243" weight="2" />
+      <edge source="Emperor" target="Mace Windu" id="244" weight="3" />
+      <edge source="Emperor" target="Yoda" id="245" weight="2" />
+      <edge source="Emperor" target="Ki-Adi-Mundi" id="246" weight="1" />
+      <edge source="Emperor" target="Obi-Wan" id="247" weight="5" />
+      <edge source="Emperor" target="R2-D2" id="248" weight="2" />
+      <edge source="Emperor" target="Luke" id="249" weight="3" />
+      <edge source="Fang Zar" target="Padme" id="250" weight="2" />
+      <edge source="Fang Zar" target="Mon Mothma" id="251" weight="2" />
+      <edge source="Fang Zar" target="Giddean Danu" id="252" weight="1" />
+      <edge source="Finn" target="Poe" id="253" weight="11" />
+      <edge source="Finn" target="Rey" id="254" weight="29" />
+      <edge source="Finn" target="Han" id="255" weight="23" />
+      <edge source="Finn" target="Maz" id="256" weight="2" />
+      <edge source="Finn" target="Leia" id="257" weight="3" />
+      <edge source="Finn" target="Snap" id="258" weight="1" />
+      <edge source="Finn" target="Kylo Ren" id="259" weight="2" />
+      <edge source="Fode/Beed" target="Jabba" id="260" weight="1" />
+      <edge source="Fode/Beed" target="Jar Jar" id="261" weight="2" />
+      <edge source="Fode/Beed" target="Padme" id="262" weight="1" />
+      <edge source="General Ceel" target="Nute Gunray" id="263" weight="1" />
+      <edge source="General Ceel" target="Jar Jar" id="264" weight="1" />
+      <edge source="General Grievous" target="Obi-Wan" id="265" weight="2" />
+      <edge source="General Grievous" target="Nute Gunray" id="266" weight="1" />
+      <edge source="General Hux" target="Kylo Ren" id="267" weight="5" />
+      <edge source="General Hux" target="Lieutenant Mitaka" id="268" weight="1" />
+      <edge source="General Hux" target="Snoke" id="269" weight="3" />
+      <edge source="Giddean Danu" target="Padme" id="270" weight="1" />
+      <edge source="Giddean Danu" target="Mon Mothma" id="271" weight="1" />
+      <edge source="Gold Leader" target="Wedge" id="272" weight="1" />
+      <edge source="Gold Leader" target="Luke" id="273" weight="1" />
+      <edge source="Gold Leader" target="Red Leader" id="274" weight="1" />
+      <edge source="Greedo" target="Qui-Gon" id="275" weight="1" />
+      <edge source="Greedo" target="Wald" id="276" weight="1" />
+      <edge source="Greedo" target="Han" id="277" weight="1" />
+      <edge source="Han" target="R2-D2" id="278" weight="19" />
+      <edge source="Han" target="Obi-Wan" id="279" weight="10" />
+      <edge source="Han" target="Luke" id="280" weight="43" />
+      <edge source="Han" target="Jabba" id="281" weight="1" />
+      <edge source="Han" target="Leia" id="282" weight="69" />
+      <edge source="Han" target="Rieekan" id="283" weight="3" />
+      <edge source="Han" target="Zev" id="284" weight="1" />
+      <edge source="Han" target="Lando" id="285" weight="12" />
+      <edge source="Han" target="Mon Mothma" id="286" weight="1" />
+      <edge source="Han" target="Rey" id="287" weight="17" />
+      <edge source="Han" target="Maz" id="288" weight="4" />
+      <edge source="Han" target="Poe" id="289" weight="2" />
+      <edge source="Han" target="Snap" id="290" weight="1" />
+      <edge source="Han" target="Kylo Ren" id="291" weight="3" />
+      <edge source="Jabba" target="Shmi" id="292" weight="1" />
+      <edge source="Jabba" target="Jar Jar" id="293" weight="1" />
+      <edge source="Jabba" target="Padme" id="294" weight="1" />
+      <edge source="Jabba" target="Sebulba" id="295" weight="1" />
+      <edge source="Jabba" target="Qui-Gon" id="296" weight="1" />
+      <edge source="Jabba" target="R2-D2" id="297" weight="2" />
+      <edge source="Jabba" target="Luke" id="298" weight="2" />
+      <edge source="Jango Fett" target="Taun We" id="299" weight="1" />
+      <edge source="Jango Fett" target="Obi-Wan" id="300" weight="1" />
+      <edge source="Janson" target="Wedge" id="301" weight="2" />
+      <edge source="Jar Jar" target="Qui-Gon" id="302" weight="22" />
+      <edge source="Jar Jar" target="Obi-Wan" id="303" weight="15" />
+      <edge source="Jar Jar" target="Tarpals" id="304" weight="2" />
+      <edge source="Jar Jar" target="Sio Bibble" id="305" weight="1" />
+      <edge source="Jar Jar" target="Ric Olie" id="306" weight="1" />
+      <edge source="Jar Jar" target="Padme" id="307" weight="10" />
+      <edge source="Jar Jar" target="Sebulba" id="308" weight="2" />
+      <edge source="Jar Jar" target="Shmi" id="309" weight="3" />
+      <edge source="Jar Jar" target="Kitster" id="310" weight="1" />
+      <edge source="Jar Jar" target="Wald" id="311" weight="1" />
+      <edge source="Jar Jar" target="Valorum" id="312" weight="1" />
+      <edge source="Jar Jar" target="Yoda" id="313" weight="1" />
+      <edge source="Jar Jar" target="Mace Windu" id="314" weight="1" />
+      <edge source="Jar Jar" target="Senator Ask Aak" id="315" weight="1" />
+      <edge source="Jar Jar" target="Orn Free Taa" id="316" weight="1" />
+      <edge source="Jess" target="Snap" id="317" weight="1" />
+      <edge source="Jess" target="Niv Lek" id="318" weight="2" />
+      <edge source="Jess" target="Yolo Ziff" id="319" weight="1" />
+      <edge source="Jess" target="Poe" id="320" weight="2" />
+      <edge source="Jira" target="Qui-Gon" id="321" weight="2" />
+      <edge source="Jira" target="Padme" id="322" weight="1" />
+      <edge source="Jobal" target="Sola" id="323" weight="2" />
+      <edge source="Jobal" target="Padme" id="324" weight="1" />
+      <edge source="Jobal" target="Ruwee" id="325" weight="1" />
+      <edge source="Ki-Adi-Mundi" target="Qui-Gon" id="326" weight="2" />
+      <edge source="Ki-Adi-Mundi" target="Mace Windu" id="327" weight="4" />
+      <edge source="Ki-Adi-Mundi" target="Yoda" id="328" weight="4" />
+      <edge source="Ki-Adi-Mundi" target="Rabe" id="329" weight="1" />
+      <edge source="Ki-Adi-Mundi" target="Obi-Wan" id="330" weight="1" />
+      <edge source="Ki-Adi-Mundi" target="Plo Koon" id="331" weight="1" />
+      <edge source="Kitster" target="R2-D2" id="332" weight="2" />
+      <edge source="Kitster" target="Wald" id="333" weight="1" />
+      <edge source="Kitster" target="Qui-Gon" id="334" weight="2" />
+      <edge source="Kitster" target="Watto" id="335" weight="1" />
+      <edge source="Kitster" target="Padme" id="336" weight="1" />
+      <edge source="Kitster" target="Shmi" id="337" weight="1" />
+      <edge source="Kylo Ren" target="Lor San Tekka" id="338" weight="1" />
+      <edge source="Kylo Ren" target="Poe" id="339" weight="2" />
+      <edge source="Kylo Ren" target="Lieutenant Mitaka" id="340" weight="2" />
+      <edge source="Kylo Ren" target="Snoke" id="341" weight="2" />
+      <edge source="Kylo Ren" target="Rey" id="342" weight="4" />
+      <edge source="Lama Su" target="Taun We" id="343" weight="2" />
+      <edge source="Lama Su" target="Obi-Wan" id="344" weight="6" />
+      <edge source="Lando" target="R2-D2" id="345" weight="3" />
+      <edge source="Lando" target="Leia" id="346" weight="12" />
+      <edge source="Lando" target="Luke" id="347" weight="6" />
+      <edge source="Lando" target="Mon Mothma" id="348" weight="1" />
+      <edge source="Lando" target="Wedge" id="349" weight="6" />
+      <edge source="Leia" target="R2-D2" id="350" weight="22" />
+      <edge source="Leia" target="Luke" id="351" weight="26" />
+      <edge source="Leia" target="Obi-Wan" id="352" weight="1" />
+      <edge source="Leia" target="Motti" id="353" weight="1" />
+      <edge source="Leia" target="Tarkin" id="354" weight="1" />
+      <edge source="Leia" target="Red Leader" id="355" weight="1" />
+      <edge source="Leia" target="Rieekan" id="356" weight="4" />
+      <edge source="Leia" target="Mon Mothma" id="357" weight="1" />
+      <edge source="Leia" target="Poe" id="358" weight="3" />
+      <edge source="Leia" target="Snap" id="359" weight="1" />
+      <edge source="Leia" target="Rey" id="360" weight="1" />
+      <edge source="Lor San Tekka" target="Poe" id="361" weight="3" />
+      <edge source="Luke" target="R2-D2" id="362" weight="29" />
+      <edge source="Luke" target="Owen" id="363" weight="3" />
+      <edge source="Luke" target="Obi-Wan" id="364" weight="22" />
+      <edge source="Luke" target="Wedge" id="365" weight="4" />
+      <edge source="Luke" target="Red Leader" id="366" weight="3" />
+      <edge source="Luke" target="Red Ten" id="367" weight="1" />
+      <edge source="Luke" target="Zev" id="368" weight="1" />
+      <edge source="Luke" target="Yoda" id="369" weight="6" />
+      <edge source="Luke" target="Mon Mothma" id="370" weight="1" />
+      <edge source="Luke" target="Rey" id="371" weight="1" />
+      <edge source="Mace Windu" target="Qui-Gon" id="372" weight="2" />
+      <edge source="Mace Windu" target="Yoda" id="373" weight="16" />
+      <edge source="Mace Windu" target="Rabe" id="374" weight="1" />
+      <edge source="Mace Windu" target="Obi-Wan" id="375" weight="9" />
+      <edge source="Mace Windu" target="Senator Ask Aak" id="376" weight="1" />
+      <edge source="Mace Windu" target="Padme" id="377" weight="2" />
+      <edge source="Maz" target="Rey" id="378" weight="2" />
+      <edge source="Mon Mothma" target="Padme" id="379" weight="2" />
+      <edge source="Mon Mothma" target="R2-D2" id="380" weight="1" />
+      <edge source="Motti" target="Tarkin" id="381" weight="2" />
+      <edge source="Needa" target="Piett" id="382" weight="1" />
+      <edge source="Niv Lek" target="Yolo Ziff" id="383" weight="1" />
+      <edge source="Niv Lek" target="Poe" id="384" weight="2" />
+      <edge source="Nute Gunray" target="Qui-Gon" id="385" weight="1" />
+      <edge source="Nute Gunray" target="TC-14" id="386" weight="1" />
+      <edge source="Nute Gunray" target="Rune" id="387" weight="8" />
+      <edge source="Nute Gunray" target="Tey How" id="388" weight="1" />
+      <edge source="Nute Gunray" target="Sio Bibble" id="389" weight="2" />
+      <edge source="Nute Gunray" target="Padme" id="390" weight="2" />
+      <edge source="Nute Gunray" target="Sun Rit" id="391" weight="2" />
+      <edge source="Nute Gunray" target="Poggle" id="392" weight="2" />
+      <edge source="Nute Gunray" target="Obi-Wan" id="393" weight="1" />
+      <edge source="Obi-Wan" target="TC-14" id="394" weight="1" />
+      <edge source="Obi-Wan" target="Qui-Gon" id="395" weight="26" />
+      <edge source="Obi-Wan" target="Ric Olie" id="396" weight="3" />
+      <edge source="Obi-Wan" target="Sio Bibble" id="397" weight="1" />
+      <edge source="Obi-Wan" target="Shmi" id="398" weight="1" />
+      <edge source="Obi-Wan" target="Yoda" id="399" weight="20" />
+      <edge source="Obi-Wan" target="Padme" id="400" weight="9" />
+      <edge source="Obi-Wan" target="PK-4" id="401" weight="1" />
+      <edge source="Obi-Wan" target="Taun We" id="402" weight="5" />
+      <edge source="Obi-Wan" target="Senator Ask Aak" id="403" weight="1" />
+      <edge source="Obi-Wan" target="Sun Rit" id="404" weight="1" />
+      <edge source="Obi-Wan" target="Poggle" id="405" weight="1" />
+      <edge source="Obi-Wan" target="R2-D2" id="406" weight="16" />
+      <edge source="Obi-Wan" target="Odd Ball" id="407" weight="2" />
+      <edge source="Obi-Wan" target="Tion Medon" id="408" weight="1" />
+      <edge source="Orn Free Taa" target="Senator Ask Aak" id="409" weight="1" />
+      <edge source="Owen" target="Padme" id="410" weight="4" />
+      <edge source="Owen" target="R2-D2" id="411" weight="1" />
+      <edge source="Ozzel" target="Piett" id="412" weight="2" />
+      <edge source="PK-4" target="TC-14" id="413" weight="1" />
+      <edge source="Padme" target="R2-D2" id="414" weight="22" />
+      <edge source="Padme" target="Qui-Gon" id="415" weight="16" />
+      <edge source="Padme" target="Sio Bibble" id="416" weight="1" />
+      <edge source="Padme" target="Watto" id="417" weight="3" />
+      <edge source="Padme" target="Sebulba" id="418" weight="2" />
+      <edge source="Padme" target="Shmi" id="419" weight="5" />
+      <edge source="Padme" target="Sola" id="420" weight="1" />
+      <edge source="Padme" target="Ruwee" id="421" weight="1" />
+      <edge source="Padme" target="Sun Rit" id="422" weight="1" />
+      <edge source="Padme" target="Poggle" id="423" weight="1" />
+      <edge source="Padme" target="Yoda" id="424" weight="1" />
+      <edge source="Poe" target="Snap" id="425" weight="2" />
+      <edge source="Poe" target="Yolo Ziff" id="426" weight="1" />
+      <edge source="Poggle" target="Sun Rit" id="427" weight="2" />
+      <edge source="Qui-Gon" target="R2-D2" id="428" weight="14" />
+      <edge source="Qui-Gon" target="TC-14" id="429" weight="1" />
+      <edge source="Qui-Gon" target="Sio Bibble" id="430" weight="2" />
+      <edge source="Qui-Gon" target="Ric Olie" id="431" weight="2" />
+      <edge source="Qui-Gon" target="Watto" id="432" weight="6" />
+      <edge source="Qui-Gon" target="Sebulba" id="433" weight="2" />
+      <edge source="Qui-Gon" target="Shmi" id="434" weight="8" />
+      <edge source="Qui-Gon" target="Wald" id="435" weight="2" />
+      <edge source="Qui-Gon" target="Valorum" id="436" weight="1" />
+      <edge source="Qui-Gon" target="Yoda" id="437" weight="3" />
+      <edge source="Qui-Gon" target="Rabe" id="438" weight="1" />
+      <edge source="R2-D2" target="Watto" id="439" weight="3" />
+      <edge source="R2-D2" target="Yoda" id="440" weight="1" />
+      <edge source="Rabe" target="Yoda" id="441" weight="1" />
+      <edge source="Red Leader" target="Wedge" id="442" weight="3" />
+      <edge source="Red Leader" target="Red Ten" id="443" weight="1" />
+      <edge source="Rey" target="Unkar Plutt" id="444" weight="2" />
+      <edge source="Rune" target="Tey How" id="445" weight="2" />
+      <edge source="Ruwee" target="Sola" id="446" weight="1" />
+      <edge source="Sebulba" target="Shmi" id="447" weight="1" />
+      <edge source="Senator Ask Aak" target="Yoda" id="448" weight="1" />
+    </edges>
+  </graph>
+</gexf>
