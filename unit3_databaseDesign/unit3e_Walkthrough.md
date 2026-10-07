@@ -13,7 +13,7 @@ You'll use everything from 3a through 3d:
 - **3a** — find the repeated data and the mistakes it causes
 - **3b** — pick primary keys and foreign keys, and find the one-to-many and many-to-many relationships
 - **3c** — take the data through 1NF, 2NF, and 3NF in Google Sheets
-- **3b again** — have AI turn your finished tables into a Mermaid ER diagram
+- **3d** — have AI turn your finished tables into a Mermaid ER diagram
 
 **This is the database you will build in Unit 4.** You'll write `CREATE TABLE` statements for the tables you design here.
 
