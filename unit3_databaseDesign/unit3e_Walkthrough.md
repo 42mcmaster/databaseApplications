@@ -17,17 +17,13 @@ You'll use everything from 3a through 3d:
 
 **This is the database you will build in Unit 4.** You'll write `CREATE TABLE` statements for the tables you design here.
 
-This assignment takes about two class periods.
-
 ---
 
 ## Work in pairs
 
-Groups of two, or three if the numbers don't work. You turn in **one design**, and both partners commit the same turn-in file.
+Groups of two. You turn in **one design**, and both partners commit the same turn-in file.
 
-You will disagree about something. Write it down. The turn-in file has a box for "something we disagreed on and how we settled it," and it's part of the grade. Common ones: whether a column belongs in one table or another, whether to use a name or an ID number as the key.
-
-How to settle it: say what each choice costs. "If the class's base health stays in the characters table, changing it means editing every Warrior row instead of one row." That's an update anomaly, and now you both know which way to go.
+You might disagree about something. Write it down. The turn-in file has a box for "something we disagreed on and how we settled it." Common ones: whether a column belongs in one table or another, whether to use a name or an ID number as the key.
 
 ---
 
@@ -84,7 +80,7 @@ Import the xlsx into Google Sheets (File → Import → Upload) and share it wit
 
 For each table:
 
-1. On the 1NF tab, select the columns that belong in that table. Hold **Ctrl** (or **Cmd** on a Mac) and click the column letters to select more than one.
+1. On the 1NF tab, select the columns that belong in that table. Hold **Ctrl** and click the column letters to select more than one.
 2. Copy them and paste them onto the table's tab, under the header row.
 3. Select the data and use **Data → Data cleanup → Remove duplicates**. Check "Data has header row."
 4. Put the column names in the blue header row, and mark the keys, like `item_name (PK)` or `character_id (FK)`.
