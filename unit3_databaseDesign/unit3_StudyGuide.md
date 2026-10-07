@@ -489,7 +489,7 @@ This segment is 3a through 3d applied once, with a partner. There's nothing new 
 | 2. 1NF | What makes each row unique? | The 1NF table's primary key (usually two columns) |
 | 3. 2NF | Does each column need the *whole* key, or just part of it? | Partial dependencies, moved into their own tables |
 | 4. 3NF | Does any column really depend on another non-key column? | Transitive dependencies, moved into their own tables |
-| 5. Build it in Sheets | Copy columns, then Data → Data cleanup → Remove duplicates | One tab per table, with keys marked in the header |
+| 5. Build it in Excel | Copy columns, then Data → Remove Duplicates | One tab per table, with keys marked in the header. Commit the .xlsx. |
 | 6. Fix the mistakes | Did Remove duplicates leave extra rows? | The two planted typos, and which version you kept |
 | 7. ER diagram | Does every table, key, and relationship line appear? | Mermaid written by AI from your finished tables, then proofed and previewed |
 

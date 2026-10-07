@@ -1,4 +1,4 @@
-**Before you start:** rename this file to `unit3e_Baseball_lastname.md`, using your own last name. Read `unit3e_Walkthrough.md` and `unit3e_Baseball_Client.md` first. Commit and push when you're done.
+**Before you start:** rename this file to `unit3e_Baseball_lastname.md`, using your own last name. Read `unit3e_Walkthrough.md` and `unit3e_Baseball_Client.md` first. Commit and push this file **and** your Excel file when you're done.
 
 **Name:**
 
@@ -13,7 +13,7 @@ Both partners turn in the same design.
 **Something we disagreed on, and how we settled it:**
 
 
-**Link to our Google Sheet (or the file name if you committed the xlsx):**
+**Our Excel file name (commit it to your repo next to this file, like `unit3e_Baseball_garcia.xlsx`):**
 
 
 ## 1. The client's spreadsheet
@@ -37,7 +37,7 @@ Look at the `Client_Export` tab.
 
 ## 2. First normal form
 
-On the `1NF` tab, split `bats_throws` into `bats` and `throws` (Data → Split text to columns, separator `/`).
+On the `1NF` tab, split `bats_throws` into `bats` and `throws` (Data → Text to Columns → Delimited → Other: `/`).
 
 **d.** Why is one value per cell better here? Name a question you couldn't easily answer before the split.
 

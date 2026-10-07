@@ -1,4 +1,4 @@
-**Before you start:** rename this file to `unit3e_Music_lastname.md`, using your own last name. Read `unit3e_Walkthrough.md` and `unit3e_Music_Client.md` first. Commit and push when you're done.
+**Before you start:** rename this file to `unit3e_Music_lastname.md`, using your own last name. Read `unit3e_Walkthrough.md` and `unit3e_Music_Client.md` first. Commit and push this file **and** your Excel file when you're done.
 
 **Name:**
 
@@ -13,7 +13,7 @@ Both partners turn in the same design.
 **Something we disagreed on, and how we settled it:**
 
 
-**Link to our Google Sheet (or the file name if you committed the xlsx):**
+**Our Excel file name (commit it to your repo next to this file, like `unit3e_Music_garcia.xlsx`):**
 
 
 ## 1. The client's spreadsheet

@@ -1,0 +1,31 @@
+team_id,team_name,ballpark,division
+ARI,Arizona Diamondbacks,Chase Field,NL West
+ATH,Athletics,Sutter Health Park,AL West
+ATL,Atlanta Braves,Truist Park,NL East
+BAL,Baltimore Orioles,Oriole Park at Camden Yards,AL East
+BOS,Boston Red Sox,Fenway Park,AL East
+CHA,Chicago White Sox,Rate Field,AL Central
+CHN,Chicago Cubs,Wrigley Field,NL Central
+CIN,Cincinnati Reds,Great American Ballpark,NL Central
+CLE,Cleveland Guardians,Progressive Field,AL Central
+COL,Colorado Rockies,Coors Field,NL West
+DET,Detroit Tigers,Comerica Park,AL Central
+HOU,Houston Astros,Daikin Park,AL West
+KCA,Kansas City Royals,Kauffman Stadium,AL Central
+LAA,Los Angeles Angels of Anaheim,Angel Stadium of Anaheim,AL West
+LAN,Los Angeles Dodgers,Dodger Stadium,NL West
+MIA,Miami Marlins,loanDepot park,NL East
+MIL,Milwaukee Brewers,American Family Field,NL Central
+MIN,Minnesota Twins,Target Field,AL Central
+NYA,New York Yankees,Yankee Stadium,AL East
+NYN,New York Mets,Citi Field,NL East
+PHI,Philadelphia Phillies,Citizens Bank Park,NL East
+PIT,Pittsburgh Pirates,PNC Park,NL Central
+SDN,San Diego Padres,Petco Park,NL West
+SEA,Seattle Mariners,T-Mobile Park,AL West
+SFN,San Francisco Giants,Oracle Park,NL West
+SLN,St. Louis Cardinals,Busch Stadium,NL Central
+TBA,Tampa Bay Rays,Steinbrenner Field,AL East
+TEX,Texas Rangers,Globe Life Field,AL West
+TOR,Toronto Blue Jays,Rogers Centre,AL East
+WAS,Washington Nationals,Nationals Park,NL East

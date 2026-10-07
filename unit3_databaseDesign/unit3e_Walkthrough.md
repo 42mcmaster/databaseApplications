@@ -12,7 +12,7 @@ You'll use everything from 3a through 3d:
 
 - **3a** — find the repeated data and the mistakes it causes
 - **3b** — pick primary keys and foreign keys, and find the one-to-many and many-to-many relationships
-- **3c** — take the data through 1NF, 2NF, and 3NF in Google Sheets
+- **3c** — take the data through 1NF, 2NF, and 3NF in a spreadsheet (this time in Excel)
 - **3b again** — have AI turn your finished tables into a Mermaid ER diagram
 
 **This is the database you will build in Unit 4.** You'll write `CREATE TABLE` statements for the tables you design here.
@@ -78,15 +78,15 @@ For each non-key column, ask: **does it depend on the whole key, or just part of
 
 Look at what's left. Is any column really about **another non-key column** instead of the key? (In 3c, the rating came from the experience level, not from the character.) Those move to their own table too.
 
-### Step 5 — Build your tables in Google Sheets
+### Step 5 — Build your tables in Excel
 
-Import the xlsx into Google Sheets (File → Import → Upload) and share it with your partner. There's a tab for each table you should end up with.
+Copy your client's spreadsheet from the class repo (`unit3_databaseDesign/datasets/`) into your own repo and rename it with your last name, for example `unit3e_Game_garcia.xlsx`. Open it in **Excel**. Work on one copy with your partner. There's a tab for each table you should end up with.
 
 For each table:
 
 1. On the 1NF tab, select the columns that belong in that table. Hold **Ctrl** (or **Cmd** on a Mac) and click the column letters to select more than one.
 2. Copy them and paste them onto the table's tab, under the header row.
-3. Select the data and use **Data → Data cleanup → Remove duplicates**. Check "Data has header row."
+3. Select the data and use **Data → Remove Duplicates** (in the Data Tools group). Check "My data has headers."
 4. Put the column names in the blue header row, and mark the keys, like `item_name (PK)` or `character_id (FK)`.
 
 The 1NF tab has hundreds of rows, but some of your tables end up with only a handful (5 classes, 9 playlists, 6 divisions). That's normalization: each fact is stored once.
@@ -131,4 +131,6 @@ When you're done, trade with a **different** pair. If you can, pick a pair with 
 
 ## Now do the work
 
-Open your client's brief first, then the spreadsheet, then the turn-in file. Both names go at the top. Commit and push when you're done.
+Open your client's brief first, then the spreadsheet, then the turn-in file. Both names go at the top.
+
+**Turn in, both partners:** commit and push your turn-in file (`unit3e_Client_lastname.md`) **and** your Excel file (`unit3e_Client_lastname.xlsx`) to your repo. Nothing goes in Classroom.

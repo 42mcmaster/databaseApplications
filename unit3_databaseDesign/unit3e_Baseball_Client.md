@@ -50,7 +50,7 @@ Your design should end up with these **four tables**:
 
 **You decide:** which columns go in each table, what each table's primary key is, where the foreign keys go, and which relationships are one-to-many or many-to-many.
 
-**One difference from the other clients:** you fix the 1NF problem yourself. On the `1NF` tab, split the `bats_throws` column into two columns using **Data → Split text to columns**. The Read_Me tab in the spreadsheet shows how.
+**One difference from the other clients:** you fix the 1NF problem yourself. On the `1NF` tab, split the `bats_throws` column into two columns using Excel's **Data → Text to Columns**. The Read_Me tab in the spreadsheet shows how.
 
 ---
 

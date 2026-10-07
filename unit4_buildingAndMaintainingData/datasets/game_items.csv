@@ -1,0 +1,16 @@
+item_name,item_type,item_rarity,item_gold_value
+Iron Sword,Weapon,Common,25
+Steel Longsword,Weapon,Uncommon,80
+Flamebrand Blade,Weapon,Rare,450
+Oak Longbow,Weapon,Common,30
+Elven Bow,Weapon,Rare,380
+Apprentice Staff,Weapon,Common,20
+Staff of Embers,Weapon,Epic,1200
+Twin Daggers,Weapon,Uncommon,90
+Leather Armor,Armor,Common,40
+Chainmail,Armor,Uncommon,150
+Dragonscale Shield,Armor,Epic,1500
+Health Potion,Potion,Common,10
+Mana Potion,Potion,Common,12
+Phoenix Feather,Material,Rare,600
+Iron Ore,Material,Common,3

@@ -1,0 +1,6 @@
+class_name,class_role,class_base_health
+Warrior,Tank,150
+Ranger,Damage,100
+Mage,Damage,80
+Rogue,Damage,90
+Cleric,Healer,110

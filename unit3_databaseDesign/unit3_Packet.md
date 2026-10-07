@@ -44,7 +44,7 @@ Everything you turn in is typed. Diagrams are typed too — you'll write them in
 | **3b** | ≈1 period | Keys · relationships · junction tables · ER diagrams | Classify relationships, then write your first Mermaid ERD | `unit3b_lastname.md` |
 | **3c** | ≈1 period | 1NF → 2NF → 3NF · when to denormalize | Normalize the action-movie table in Google Sheets, paste the final tables into markdown | `unit3c_lastname.md`, plus your copy of the spreadsheet |
 | **3d** | ≈1 period | Abstraction levels · choosing a data model · documentation types · storage types · constraints | Sort and match tasks, then six practice items | `unit3d_lastname.md` |
-| **3e** | ≈1 period | Design a database with a partner | Entities, Mermaid ERD, data dictionary, constraints — the schema you build in Unit 4 | `unit3e_lastname.md` (one per pair) |
+| **3e** | ≈2 periods | Design a database for a client, with a partner | Normalize the client's spreadsheet in Excel, mark the keys, have AI write the Mermaid ERD | `unit3e_Client_lastname.md` and `unit3e_Client_lastname.xlsx` |
 
 **Every segment ends the same way:** a short vocabulary block, then a partner check.
 
@@ -62,7 +62,7 @@ Everything you turn in is typed. Diagrams are typed too — you'll write them in
 
 **3d** — The describe-it segment. Short sort-and-match tasks covering everything the state outline names that we haven't hit yet: the four levels a design goes through, which kind of database fits which client, the four kinds of documentation, which storage type fits which column, and which constraint fixes which problem. Then six practice questions where you explain why the wrong answers are wrong.
 
-**3e** — With a partner, pick one of three scenarios and design it: entities, an ER diagram, a data dictionary, and constraints. You have to agree on one design and turn in the same one. **This is the database you build in Unit 4** — so make it small and make it right.
+**3e** — With a partner, pick one of three clients (a game studio, a music streaming app, or a baseball stats website). The client hands you a messy spreadsheet. You take it through 1NF, 2NF, and 3NF in Excel, mark the keys, and have AI turn your finished tables into a Mermaid ER diagram. You turn in one design per pair. **Unit 4 builds this database.**
 
 ---
 
