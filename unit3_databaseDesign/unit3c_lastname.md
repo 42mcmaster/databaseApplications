@@ -51,25 +51,19 @@ When you're done, paste your **final 3NF tables** here as markdown tables, and a
 
 ## 4. Your final 3NF tables
 
-Paste them here. Mark the PK and FK columns in the header, like `character_id (PK)`.
+List each table from your 3NF sheet on its own line: the table name, then its columns in parentheses. Mark the key columns with **PK** (primary key) and **FK** (foreign key). A column can be both.
 
-**Table 1:**
+Example format (this is not the answer):
 
-| | | |
-|---|---|---|
-| | | |
+    Students (student_id PK, first_name, last_name)
+    Enrollments (student_id PK FK, class_id PK FK)
+    Classes (class_id PK, class_name, room)
 
-**Table 2:**
+**Your 3NF tables:**
 
-| | | |
-|---|---|---|
-| | | |
-
-**Table 3:**
-
-| | | |
-|---|---|---|
-| | | |
+    Table 1:
+    Table 2:
+    Table 3:
 
 ## 5. When to break the rules
 
