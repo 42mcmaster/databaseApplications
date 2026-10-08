@@ -6,7 +6,7 @@
 
 # Unit 3c — Normalization
 
-Open **`unit3_Normalization.xlsx`** in Google Sheets. Work through the four sheets in order: **Flat_Table → 1NF → 2NF → 3NF**. The first character (Arnold) is filled in on each sheet so you can see the shape. Do the rest.
+Open **`unit3_Normalization.xlsx`** in Google Sheets or in Excel. Work through the four sheets in order: **Flat_Table → 1NF → 2NF → 3NF**. The first character (Arnold) is filled in on each sheet so you can see the shape. Do the rest.
 
 When you're done, paste your **final 3NF tables** here as markdown tables, and answer the questions.
 
