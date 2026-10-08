@@ -12,22 +12,18 @@ You'll use everything from 3a through 3d:
 
 - **3a** — find the repeated data and the mistakes it causes
 - **3b** — pick primary keys and foreign keys, and find the one-to-many and many-to-many relationships
-- **3c** — take the data through 1NF, 2NF, and 3NF in a spreadsheet (this time in Excel)
-- **3b again** — have AI turn your finished tables into a Mermaid ER diagram
+- **3c** — take the data through 1NF, 2NF, and 3NF in a spreadsheet (in Excel or Google Sheets)
+- **3d** — have AI turn your finished tables into a Mermaid ER diagram
 
 **This is the database you will build in Unit 4.** You'll write `CREATE TABLE` statements for the tables you design here.
-
-This assignment takes about two class periods.
 
 ---
 
 ## Work in pairs
 
-Groups of two, or three if the numbers don't work. You turn in **one design**, and both partners commit the same turn-in file.
+Groups of two. You turn in **one design**, and both partners commit the same turn-in file.
 
-You will disagree about something. Write it down. The turn-in file has a box for "something we disagreed on and how we settled it," and it's part of the grade. Common ones: whether a column belongs in one table or another, whether to use a name or an ID number as the key.
-
-How to settle it: say what each choice costs. "If the class's base health stays in the characters table, changing it means editing every Warrior row instead of one row." That's an update anomaly, and now you both know which way to go.
+You might disagree about something. Write it down. The turn-in file has a box for "something we disagreed on and how we settled it." Common ones: whether a column belongs in one table or another, whether to use a name or an ID number as the key.
 
 ---
 
@@ -84,12 +80,14 @@ Copy your client's spreadsheet from the class repo (`unit3_databaseDesign/datase
 
 For each table, copy just the columns it needs from the 1NF tab, then let Excel remove the repeats. Here's CLASSES in the game as an example: it needs `class`, `class_role`, and `class_base_health`.
 
-1. **Select the first column.** On the `1NF` tab, click the blue header cell `class`. Press **Ctrl+Shift+↓** (**Cmd+Shift+↓** on a Mac). That selects from the header down to the last row.
-2. **Add the other columns.** Hold **Ctrl** (**Cmd**) and click the header `class_role`. Let go of Ctrl, then press **Ctrl+Shift+↓** again. Do the same for `class_base_health`. All three columns are now selected, even though they aren't next to each other.
-3. **Copy and paste.** Press **Ctrl+C**. Go to the `CLASSES` tab, click the first blue header cell (**A6**), and press **Ctrl+V**. The three columns paste side by side, headers included, with 80 rows.
-4. **Remove the repeats.** Click any cell in the pasted data, then **Data → Remove Duplicates**. Make sure **My data has headers** is checked and every column is checked. Click OK.
-5. **Read Excel's message.** It tells you how many duplicate rows it removed and how many unique rows are left. For CLASSES you should end up with **5**. If you get more, see Step 6.
-6. **Mark the keys** in the header row, like `class (PK)`.
+For each table, copy the columns it needs from the `1NF` tab, then remove the repeats. On the `1NF` tab, select the columns that belong in that table. Hold **Ctrl** (**Cmd**) and click the column headers (or column letters) to choose more than one.
+
+1. **Select the columns.** On the `1NF` tab, choose the columns for that table by holding **Ctrl** (**Cmd**) and clicking the relevant headers or column letters.
+2. **Copy and paste.** Copy the selected columns and paste them onto the table's tab under the header row.
+3. **Remove the repeats.** Select the pasted data and use **Data → Remove Duplicates** (or **Data → Data cleanup → Remove duplicates** in Google Sheets). Make sure the header row is recognized.
+4. **Mark the keys.** Put the column names in the blue header row and mark the keys, like `item_name (PK)` or `character_id (FK)`.
+
+This applies to each table. For a junction table, copy the key columns from both sides plus any column that belongs to the pair (like `quantity` in the game).
 
 Do the same for each table. For a junction table, copy the key columns from both sides plus any column that belongs to the pair (like `quantity` in the game).
 
