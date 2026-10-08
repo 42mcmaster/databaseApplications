@@ -82,14 +82,18 @@ Look at what's left. Is any column really about **another non-key column** inste
 
 Copy your client's spreadsheet from the class repo (`unit3_databaseDesign/datasets/`) into your own repo and rename it with your last name, for example `unit3e_Game_garcia.xlsx`. Open it in **Excel**. Work on one copy with your partner. There's a tab for each table you should end up with.
 
-For each table:
+For each table, copy just the columns it needs from the 1NF tab, then let Excel remove the repeats. Here's CLASSES in the game as an example: it needs `class`, `class_role`, and `class_base_health`.
 
-1. On the 1NF tab, select the columns that belong in that table. Hold **Ctrl** (or **Cmd** on a Mac) and click the column letters to select more than one.
-2. Copy them and paste them onto the table's tab, under the header row.
-3. Select the data and use **Data → Remove Duplicates** (in the Data Tools group). Check "My data has headers."
-4. Put the column names in the blue header row, and mark the keys, like `item_name (PK)` or `character_id (FK)`.
+1. **Select the first column.** On the `1NF` tab, click the blue header cell `class`. Press **Ctrl+Shift+↓** (**Cmd+Shift+↓** on a Mac). That selects from the header down to the last row.
+2. **Add the other columns.** Hold **Ctrl** (**Cmd**) and click the header `class_role`. Let go of Ctrl, then press **Ctrl+Shift+↓** again. Do the same for `class_base_health`. All three columns are now selected, even though they aren't next to each other.
+3. **Copy and paste.** Press **Ctrl+C**. Go to the `CLASSES` tab, click the first blue header cell (**A6**), and press **Ctrl+V**. The three columns paste side by side, headers included, with 80 rows.
+4. **Remove the repeats.** Click any cell in the pasted data, then **Data → Remove Duplicates**. Make sure **My data has headers** is checked and every column is checked. Click OK.
+5. **Read Excel's message.** It tells you how many duplicate rows it removed and how many unique rows are left. For CLASSES you should end up with **5**. If you get more, see Step 6.
+6. **Mark the keys** in the header row, like `class (PK)`.
 
-The 1NF tab has hundreds of rows, but some of your tables end up with only a handful (5 classes, 9 playlists, 6 divisions). That's normalization: each fact is stored once.
+Do the same for each table. For a junction table, copy the key columns from both sides plus any column that belongs to the pair (like `quantity` in the game).
+
+**Don't click the gray column letters** (A, B, C…) to select. That grabs the title rows at the top of the 1NF tab too, and Excel won't paste it under your header.
 
 ### Step 6 — Fix the client's mistakes
 
