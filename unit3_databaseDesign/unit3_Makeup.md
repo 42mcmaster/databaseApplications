@@ -2,7 +2,6 @@
 
 Read each part, then answer the [Unit 3 Makeup Google Form](https://docs.google.com/forms/d/e/1FAIpQLSeurHa5VANt8bSZ-ljRs_CM9eoruAmzaWQngVnTryIVjUQ-6Q/viewform). Every answer is on this page. You can keep this page open while you take the form.
 
-**Name:** ____________________
 
 ## Contents
 
