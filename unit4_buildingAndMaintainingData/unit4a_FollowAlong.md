@@ -2,8 +2,6 @@
 
 **We do this one together, as a class, before you build your client's database.** Follow along on your own computer. Type the code yourself instead of copying and pasting it. That's how you'll learn where the commas and parentheses go.
 
-This takes about 40 minutes. It isn't graded, but finish it, because your client's database works exactly the same way.
-
 By the end you'll have a small school database with four tables, and you'll have watched the database refuse bad data.
 
 ---
@@ -76,7 +74,7 @@ The schema rows were pasted into AI with this prompt:
 
 > Write a Mermaid erDiagram for these tables. Write attributes as `type name`. Mark keys PK, FK, or UK (unique). Put each CHECK rule as a comment in quotes after the column. [schema rows pasted here]
 
-This is what came back, after proofing it:
+This is what came back, after proofing it (if it doesn't render, just take this diagram syntax and paste it into `https://mermaid.live/`):
 
 ```mermaid
 erDiagram
