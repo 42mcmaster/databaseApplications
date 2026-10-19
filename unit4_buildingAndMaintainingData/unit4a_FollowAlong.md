@@ -45,18 +45,18 @@ A design says what the tables are. A **schema** adds the details the database ne
 |---|---|---|---|:-:|:-:|---|---|
 | teachers | teacher_id | INTEGER | PK | Y | | | |
 | teachers | teacher_name | TEXT | | Y | | | |
-| teachers | email | TEXT | | Y | Y | email LIKE '%_@_%._%' | |
-| teachers | room | TEXT | | | | length(room) = 3 | |
+| teachers | email | TEXT | | Y | Y | `email LIKE '%_@_%._%'` | |
+| teachers | room | TEXT | | | | `length(room) = 3` | |
 | students | student_id | INTEGER | PK | Y | | | |
 | students | student_name | TEXT | | Y | | | |
-| students | grade_level | INTEGER | | Y | | grade_level BETWEEN 9 AND 12 | |
+| students | grade_level | INTEGER | | Y | | `grade_level BETWEEN 9 AND 12` | |
 | courses | course_id | INTEGER | PK | Y | | | |
 | courses | title | TEXT | | Y | | | |
-| courses | credits | REAL | | Y | | credits BETWEEN 0.5 AND 2 | 1.0 |
+| courses | credits | REAL | | Y | | `credits BETWEEN 0.5 AND 2` | `1.0` |
 | courses | teacher_id | INTEGER | FK → teachers | Y | | | |
 | enrollments | student_id | INTEGER | PK, FK → students | Y | | | |
 | enrollments | course_id | INTEGER | PK, FK → courses | Y | | | |
-| enrollments | final_grade | TEXT | | | | final_grade IN ('A','B','C','D','F') | |
+| enrollments | final_grade | TEXT | | | | `final_grade IN ('A','B','C','D','F')` | |
 
 Talk through a few rows:
 
