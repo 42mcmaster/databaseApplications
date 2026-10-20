@@ -219,7 +219,7 @@ Copy `unit4a_lastname.sql` from this folder into your repo. Write the script **f
 3. **Turn foreign keys on.** Go to the **Edit Pragmas** tab and make sure **Foreign Keys** is checked. Click Save. If this is off, foreign key rules silently do nothing.
 4. Go to the **Execute SQL** tab. Paste in your script.
 5. **Run all of it**: click ▶ (Execute all), or press **Ctrl+Return** (**Cmd+Return** on a Mac).
-6. **Write Changes** (Ctrl+S / Cmd+S). DB Browser doesn't save until you do this.
+6. **Save your work:** click **Write Changes** at the top of DB Browser, or press Ctrl+S (Cmd+S on a Mac). DB Browser doesn't save anything to your `.db` file until you do this. If you close without it, your work is lost.
 7. Open the **Database Structure** tab. Every table should be there. Click the arrow next to a table to see its columns.
 8. **Run the script a second time.** It should work again with no errors. That proves your `DROP TABLE` lines are right.
 

@@ -142,7 +142,11 @@ Run it: click ▶, or press **Ctrl+Return** (**Cmd+Return** on a Mac). The botto
 
 Compare each line to the schema in Part 2. **Each row of the schema became one line of SQL**: name, then type, then rules.
 
-Now click the **Database Structure** tab. The `teachers` table is there. Click the arrow next to it to see the columns. Go back to **Execute SQL**.
+Now click the **Database Structure** tab. The `teachers` table is there.
+
+> **Don't see it?** The tab doesn't always update on its own. Press **F5** (or **Cmd+R** on a Mac), or go to **View → Refresh**.
+
+Click the arrow next to `teachers` to see the columns. Go back to **Execute SQL**.
 
 ### Making an error on purpose
 
@@ -208,21 +212,42 @@ CREATE TABLE enrollments (
 
 Run it. The new piece is the **composite primary key**: `PRIMARY KEY (student_id, course_id)` on its own line. Neither column is the key alone. A student is in many courses, and a course has many students. The **pair** is what can't repeat.
 
-Check the **Database Structure** tab. All four tables should be there.
+Check the **Database Structure** tab (refresh it if needed). All four tables should be there.
 
 ---
 
 ## Part 6 — Turn it into one script
 
-Typing tables one at a time is fine for learning, but the real deliverable is a **script**: one file that builds the whole database from nothing, every time you run it.
+So far you've typed each table separately. Now you'll put all four tables into **one script**. A script is a single file of SQL that builds the whole database when you run it. Your `unit4a_lastname.sql` file is a script.
 
-Try running the `teachers` code from Part 5 again. You get:
+### Why you need to rebuild
+
+While you're building a database, you'll find mistakes. Maybe you forgot a `CHECK` rule or misspelled a column. To fix it, you change the script and run it again.
+
+But try running the `teachers` code from Part 5 a second time. You get:
 
 ```
 table teachers already exists
 ```
 
-The fix is to put `DROP TABLE IF EXISTS` lines at the top. `DROP TABLE` deletes a table, and `IF EXISTS` means "only if it's there," so it works the first time too. **Drop in the opposite order you created**: children first, because you can't remove a parent while a child still points at it.
+SQLite won't create a table that's already there. It also can't change the rules on a column that already exists. So the simplest fix is to **delete the old tables and build them again** from your corrected script.
+
+### DROP TABLE IF EXISTS
+
+That's what these lines do. Put them at the top of the script:
+
+```sql
+DROP TABLE IF EXISTS enrollments;
+```
+
+- `DROP TABLE` deletes a table.
+- `IF EXISTS` means "only if it's there." The first time you run the script there's nothing to delete, and this keeps it from giving an error.
+
+Now your routine is simple: **fix the script, run it, check it. Repeat until it's right.** Every run starts clean.
+
+**Drop in the opposite order you created.** Delete the child tables first, then the parents. You can't delete `teachers` while `courses` still points at it.
+
+> **Warning:** `DROP TABLE` deletes the table **and every row in it.** That's fine today, because your tables are empty. Once your tables have data in them (in 4b), running this script again erases the data.
 
 Here's the whole script. Clear the box, paste this one in (you've already typed each piece), and run it:
 
@@ -276,7 +301,9 @@ CREATE TABLE enrollments (
 
 Run it. Then **run it again**. No errors the second time means your `DROP` lines work.
 
-**Write Changes** (Ctrl+S / Cmd+S). DB Browser doesn't save anything until you do this.
+**Save your work.** Click the **Write Changes** button at the top of DB Browser, or press **Ctrl+S** (**Cmd+S** on a Mac).
+
+> **Why:** DB Browser holds your changes in memory until you click Write Changes. Only then does it save them to the `.db` file. If you close DB Browser without it, your tables are gone.
 
 ---
 
@@ -328,7 +355,7 @@ SELECT * FROM courses;
 
 This is the whole point of today. **You decide the rules once, in the `CREATE TABLE`, and the database enforces them on every row forever.** That's what **data validation** means.
 
-**Write Changes** when you're done.
+**Save your work** with **Write Changes** (Ctrl+S / Cmd+S). This saves the good rows into `school_demo.db`. The bad rows were refused, so there's nothing to clean up.
 
 ---
 
@@ -341,7 +368,7 @@ You just did all four steps of 4a. Now do them for your client, using your clien
 | 1 | Schema rows on the Example tab | Fill in the **Schema** tab of `unit4a_lastname.xlsx` |
 | 2 | Mermaid diagram from AI | Paste your schema into AI, proof it, put it in `unit4a_lastname.md` |
 | 3 | The script in Part 6 | Write `unit4a_lastname.sql` the same way: DROPs, then CREATEs |
-| 4 | Ran it twice, Write Changes | Make `unit4_client_lastname.db` and run your script twice |
+| 4 | Ran it twice, clicked Write Changes to save | Make `unit4_client_lastname.db` and run your script twice |
 
 Keep this page open. When you get stuck on your own script, find the matching piece of the school script and compare.
 
