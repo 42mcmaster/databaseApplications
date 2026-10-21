@@ -1,6 +1,6 @@
 # Unit 4a Walkthrough — Create Your Tables
 
-**Your teacher will lead `unit4a_FollowAlong.md` first. There, the class builds a small school database together in DB Browser. Then use this page as your reference while you build your client's database.**
+**We should have gone through `unit4a_FollowAlong.md` first (before you get to this project). In that previous walkthrough/follow along, we built a small school database together in DB Browser. Now you'll use this page as your reference while you build your client's database.**
 
 ---
 
@@ -59,9 +59,23 @@ CREATE TABLE courses (
 Read it top to bottom:
 
 - `CREATE TABLE teachers ( … );` — make a table. Columns go inside the parentheses, separated by commas. **No comma after the last line** before the `)`.
-- Each column is **name, then type, then rules**: `email TEXT NOT NULL UNIQUE`.
-- `FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)` — this column must hold a `teacher_id` that exists in `teachers`. That's referential integrity from 3b, enforced.
+- Each column is **name, then type, then rules**. The type is always one word. Everything after the type is a rule. A column can have several rules or none.
 
+| Name | Type | Rules |
+|---|---|---|
+| `teacher_id` | `INTEGER` | `PRIMARY KEY` |
+| `teacher_name` | `TEXT` | `NOT NULL` |
+| `email` | `TEXT` | `NOT NULL UNIQUE CHECK (...)` |
+| `room` | `TEXT` | `CHECK (...)` |
+| `credits` | `REAL` | `NOT NULL DEFAULT 1.0 CHECK (...)` |
+
+- `PRIMARY KEY` is a rule, not part of the type. It means this column identifies each row, so no two rows can have the same value. In SQLite, `INTEGER PRIMARY KEY` also numbers new rows for you (1, 2, 3...) if you leave it out of the insert.
+- The other rules:
+  - `NOT NULL` — this column can't be left empty.
+  - `UNIQUE` — no two rows can have the same value in this column.
+  - `DEFAULT 1.0` — if an insert leaves this column out, use 1.0.
+  - `CHECK (...)` — the value must pass this test, or the insert is rejected.
+- `FOREIGN KEY (teacher_id) REFERENCES teachers (teacher_id)` — **this line is not a column.** It's a rule about the `teacher_id` column above it, and it goes after all the columns. It means `teacher_id` must hold a value that already exists in `teachers`. That's referential integrity from 3b, enforced.
 ---
 
 ## Data types
