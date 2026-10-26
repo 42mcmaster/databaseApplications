@@ -77,7 +77,7 @@ SELECT * FROM teachers;
 SELECT * FROM courses;
 ```
 
-4. **VERY IMPORTANT!**  Click **Write Changes**.  This saves your database changes to the actual database file>
+4. **VERY IMPORTANT!  Click **Write Changes**.  This saves your database changes to the actual database file>
 
 ### Import a CSV file
 
@@ -148,9 +148,11 @@ Click **Revert Changes**. Run the `SELECT` again. The rooms are back. That worke
 
 ## Transactions
 
-A **transaction** is a group of changes that either all happen or all get undone. It's never half done.
+A **transaction** is a group of database changes that are treated as one unit. Either all the changes happen, or none of them do.
 
-The classic example is moving $100 from savings to checking. That takes two steps:
+### Example: Transferring $100
+
+Moving $100 from savings to checking requires two updates:
 
 ```sql
 BEGIN TRANSACTION;
@@ -161,17 +163,30 @@ UPDATE accounts SET balance = balance + 100 WHERE account_id = 'checking';
 COMMIT;
 ```
 
-If the power goes out after the first step, $100 is gone from savings and never reached checking. A transaction prevents that: the database either keeps both steps or neither.
+If something goes wrong after the first update, the transaction prevents the transfer from being left halfway complete. The database can undo both updates instead of leaving the accounts with incorrect balances.
 
-| SQL command | What it does | DB Browser button |
+### Transactions in DB Browser
+
+There are two ways to manage transactions, depending on how you make your changes.
+
+| SQL command | What it does | DB Browser equivalent |
 |---|---|---|
-| `BEGIN TRANSACTION` | Starts a group of changes | DB Browser starts one for you as soon as you change anything |
-| `COMMIT` | Saves the whole group for good | **Write Changes** |
-| `ROLLBACK` | Undoes the whole group | **Revert Changes** |
+| `BEGIN TRANSACTION` | Starts a transaction | DB Browser manages transactions automatically when editing data through the interface |
+| `COMMIT` | Permanently saves the transaction | **Write Changes** when using the interface |
+| `ROLLBACK` | Undoes uncommitted changes | **Revert Changes** when using the interface |
 
-> **In DB Browser, use the buttons. Don't type `BEGIN`, `COMMIT`, or `ROLLBACK` into Execute SQL.** DB Browser already has a transaction open, so typing your own causes errors. On a real database server you type them; in DB Browser the buttons do it.
+**Important:** When editing data through DB Browser's interface, use **Write Changes** to save or **Revert Changes** to discard uncommitted edits.
 
-**The habit:** click **Write Changes** after every step you're happy with. Then if you make a mistake, **Revert Changes** only undoes the mistake.
+When writing a transaction in the **Execute SQL** tab, use the SQL commands `BEGIN TRANSACTION`, `COMMIT`, and `ROLLBACK` as appropriate. You do not need a separate button to start a transaction.
+
+### The habit
+
+- **Write Changes:** Save edits you are happy with.
+- **Revert Changes:** Discard edits that have not been saved.
+- **COMMIT:** Finish a transaction written in SQL.
+- **ROLLBACK:** Undo a transaction written in SQL before it is committed.
+
+Once changes have been committed, **Revert Changes cannot undo them**. You would need another SQL statement to reverse those changes.
 
 ---
 
