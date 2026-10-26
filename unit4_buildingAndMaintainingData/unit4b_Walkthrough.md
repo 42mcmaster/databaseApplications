@@ -146,50 +146,6 @@ Click **Revert Changes**. Run the `SELECT` again. The rooms are back. That worke
 
 ---
 
-## Transactions
-
-A **transaction** is a group of database changes that are treated as one unit. Either all the changes happen, or none of them do.
-
-### Example: Transferring $100
-
-Moving $100 from savings to checking requires two updates:
-
-```sql
-BEGIN TRANSACTION;
-
-UPDATE accounts SET balance = balance - 100 WHERE account_id = 'savings';
-UPDATE accounts SET balance = balance + 100 WHERE account_id = 'checking';
-
-COMMIT;
-```
-
-If something goes wrong after the first update, the transaction prevents the transfer from being left halfway complete. The database can undo both updates instead of leaving the accounts with incorrect balances.
-
-### Transactions in DB Browser
-
-There are two ways to manage transactions, depending on how you make your changes.
-
-| SQL command | What it does | DB Browser equivalent |
-|---|---|---|
-| `BEGIN TRANSACTION` | Starts a transaction | DB Browser manages transactions automatically when editing data through the interface |
-| `COMMIT` | Permanently saves the transaction | **Write Changes** when using the interface |
-| `ROLLBACK` | Undoes uncommitted changes | **Revert Changes** when using the interface |
-
-**Important:** When editing data through DB Browser's interface, use **Write Changes** to save or **Revert Changes** to discard uncommitted edits.
-
-When writing a transaction in the **Execute SQL** tab, use the SQL commands `BEGIN TRANSACTION`, `COMMIT`, and `ROLLBACK` as appropriate. You do not need a separate button to start a transaction.
-
-### The habit
-
-- **Write Changes:** Save edits you are happy with.
-- **Revert Changes:** Discard edits that have not been saved.
-- **COMMIT:** Finish a transaction written in SQL.
-- **ROLLBACK:** Undo a transaction written in SQL before it is committed.
-
-Once changes have been committed, **Revert Changes cannot undo them**. You would need another SQL statement to reverse those changes.
-
----
-
 ## Part 2 — Do it in your database
 
 1. Copy `unit4b_lastname.sql` from your client's folder into your repo and rename it with your last name.
