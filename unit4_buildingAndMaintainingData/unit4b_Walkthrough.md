@@ -77,7 +77,7 @@ SELECT * FROM teachers;
 SELECT * FROM courses;
 ```
 
-4. Click **Write Changes**.
+4. **VERY IMPORTANT!**  Click **Write Changes**.  This saves your database changes to the actual database file>
 
 ### Import a CSV file
 
