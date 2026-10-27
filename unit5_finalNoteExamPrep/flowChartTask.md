@@ -2,7 +2,7 @@
 
 **Work with a partner.** You'll turn a short pirate story into a flowchart, using the correct shape for every step. Flowcharts are on the WebXam, and the exam questions are mostly about **which shape means what**.
 
-Turn in: `pirateFlowchart_lastname.md` (both partners push the same file to their own repo, with both names at the top).
+Turn in this document and add your mermaid code at the end part 7.  Both partners push the same file to their own repo, with both names at the top.
 
 ---
 
@@ -64,18 +64,7 @@ You used Mermaid for ER diagrams in Unit 3. Flowcharts work the same way: write 
 
 Story: *Before school, check the weather. If it's raining, grab an umbrella. Then walk to the bus and say "Made it!"*
 
-```mermaid
-flowchart TD
-    A([Start]) --> B[/Check the weather app/]
-    B --> C{Is it raining?}
-    C -->|Yes| D[Grab an umbrella]
-    C -->|No| E[Walk to the bus]
-    D --> E
-    E --> F[/Say Made it/]
-    F --> G([End])
-```
-
-Here's the code that drew it:
+Go to mermaid.live and plug this in: 
 
 ````
 ```mermaid
@@ -102,7 +91,7 @@ Notice:
 
 Read the whole story with your partner before you draw anything.
 
-> You've just joined Captain Redbeard's crew as a brand-new pirate. The first thing the captain does is make you **tell him your pirate name**.
+> You've just joined Captain Redbeard's crew as a brand-new pirate. The first thing the captain does is make you **tell him your pirate name**.  Include your name(s) on the flowchart.
 >
 > Then you're handed a mop and told to **swab the deck**. When you're done, the captain inspects it. **Is the deck clean?** If it isn't, you have to swab it again, and keep swabbing until it passes.
 >
@@ -152,7 +141,15 @@ Write one or two sentences in the turn-in file explaining your twist.
 
 ---
 
-## 7. Checklist before you push
+## 7. Insert your mermaid code here: 
+```mermaid
+
+
+
+```
+
+
+## 8. Checklist before you push
 
 - [ ] Exactly one Start oval
 - [ ] Every path reaches an End
